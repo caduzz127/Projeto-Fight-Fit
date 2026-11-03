@@ -1,0 +1,41 @@
+
+# ==============================
+# SPRING BOOT / MAVEN
+# ==============================
+
+**/target/
+**/build/
+**/HELP.md
+
+# Permitir target e build dentro de src
+!**/src/main/**/target/
+!**/src/test/**/target/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# Maven Wrapper
+**/.mvn/wrapper/maven-wrapper.jar
+
+# ==============================
+# VARIAVEIS DE AMBIENTE
+# ==============================
+
+**/.env
+**/.env.*
+!**/.env.example
+
+# ==============================
+# INTELLIJ IDEA
+# ==============================
+
+**/.idea/
+*.iws
+*.iml
+*.ipr
+
+
+# ==============================
+# VS CODE
+# ==============================
+
+**/.vscode/
