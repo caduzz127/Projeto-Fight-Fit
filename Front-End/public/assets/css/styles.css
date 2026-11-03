@@ -150,6 +150,7 @@ h1 em {
 
 .features {
     display: flex;
+    flex-wrap: wrap;
     gap: 20px;
     font-size: 11px;
     color: #c3c9ba;
@@ -172,6 +173,7 @@ h1 em {
 
 .auth {
     width: 100%;
+    min-width: 0;
     max-width: 456px;
     justify-self: end
 }
@@ -346,6 +348,14 @@ input:focus {
     color: var(--lime)
 }
 
+#status[data-kind=info] {
+    color: var(--muted)
+}
+
+input[aria-invalid=true] {
+    border-color: #ffc0aa
+}
+
 footer {
     height: 72px;
     color: #6e7864;
@@ -379,7 +389,7 @@ a:focus-visible {
     }
 
     .intro h1 {
-        font-size: 64px
+        font-size: clamp(44px, 12vw, 64px)
     }
 
     .intro>p {
