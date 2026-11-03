@@ -27,7 +27,8 @@ public/
             ├── mostrar-senha.js
             ├── validar-senhas.js
             ├── formulario.js
-            └── atualizar-ano.js
+            ├── atualizar-ano.js
+            └── digitar-titulo.js
 ```
 
 O HTML carrega apenas `app.js`, que inicia os módulos:
@@ -39,6 +40,9 @@ O HTML carrega apenas `app.js`, que inicia os módulos:
 - `validar-senhas.js`: valida a confirmação no cadastro com a API nativa do navegador.
 - `formulario.js`: exibe os erros e bloqueia o envio com uma mensagem de demonstração.
 - `atualizar-ano.js`: preenche o ano do rodapé.
+- `digitar-titulo.js`: revela o título letra por letra uma vez ao abrir a página,
+  com cursor durante a digitação. Preserva o espaço do texto e respeita a
+  preferência de movimento reduzido; sem JavaScript, a frase aparece completa.
 
 Ao trocar de modo, o módulo de abas dispara `modoalterado` no formulário para os
 outros módulos limparem mensagens, validação e visibilidade. O nome de usuário e
