@@ -141,6 +141,39 @@ h1 em {
     color: var(--lime)
 }
 
+.digitacao-ativa .digitacao-letra:not(.digitacao-visivel) {
+    visibility: hidden
+}
+
+.digitacao-cursor {
+    position: relative
+}
+
+.digitacao-ativa .digitacao-cursor::after {
+    content: '';
+    position: absolute;
+    right: -.06em;
+    top: .1em;
+    width: .035em;
+    height: .8em;
+    background: currentColor;
+    animation: piscar-cursor .7s step-end infinite
+}
+
+@keyframes piscar-cursor {
+    50% { opacity: 0 }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    .digitacao-ativa .digitacao-letra:not(.digitacao-visivel) {
+        visibility: visible
+    }
+
+    .digitacao-ativa .digitacao-cursor::after {
+        display: none
+    }
+}
+
 .intro>p {
     color: #adb3a5;
     font-size: 15px;
