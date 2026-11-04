@@ -65,7 +65,9 @@ header {
     letter-spacing: -1px;
     gap: 4px
 }
-
+.brand img{
+    width: 40px;
+}
 .accent {
     color: var(--lime)
 }
