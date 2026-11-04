@@ -1,7 +1,14 @@
-// Apenas interação local: não envia dados nem simula autenticação.
+import { login } from '../api/index/login.js';
+import { cadastrar } from '../api/index/cadastro.js';
+import { definirSessao } from '../api/sessao.js';
+
 export function iniciarFormulario() {
   const formulario = document.querySelector('#auth-form');
   const status = document.querySelector('#status');
+  const botao = formulario.querySelector('.submit');
+  const senha = document.querySelector('#password');
+  const confirmacao = document.querySelector('#confirm-password');
+  let requisicao = null;
 
   function limparMensagens() {
     status.textContent = '';
@@ -11,8 +18,16 @@ export function iniciarFormulario() {
     });
   }
 
-  formulario.addEventListener('input', limparMensagens);
-  formulario.addEventListener('modoalterado', limparMensagens);
+  formulario.addEventListener('input', () => {
+    if (!requisicao) limparMensagens();
+  });
+  formulario.addEventListener('modoalterado', () => {
+    requisicao?.abort();
+    requisicao = null;
+    botao.disabled = false;
+    formulario.removeAttribute('aria-busy');
+    limparMensagens();
+  });
   formulario.addEventListener('invalid', evento => {
     evento.target.setAttribute('aria-invalid', 'true');
     // Mantém a mensagem do primeiro campo inválido, que recebe o foco nativo.
@@ -22,10 +37,47 @@ export function iniciarFormulario() {
     }
   }, true);
 
-  formulario.addEventListener('submit', evento => {
+  formulario.addEventListener('submit', async evento => {
     evento.preventDefault();
+    if (requisicao) return;
     limparMensagens();
+    const cadastro = formulario.dataset.modo === 'cadastro';
+    const username = document.querySelector('#username').value;
+    const senhaEnviada = senha.value;
+    const controle = new AbortController();
+    requisicao = controle;
+    definirSessao(null);
+    botao.disabled = true;
+    formulario.setAttribute('aria-busy', 'true');
     status.dataset.kind = 'info';
-    status.textContent = 'Esta tela está em demonstração. O envio de dados ainda não está disponível.';
+    status.textContent = cadastro ? 'Criando sua conta…' : 'Entrando…';
+
+    try {
+      if (cadastro) {
+        await cadastrar({ nome: username, senha: senhaEnviada }, { signal: controle.signal });
+      } else {
+        const usuario = await login({ username, senha: senhaEnviada }, { signal: controle.signal });
+        if (requisicao !== controle) return;
+        definirSessao(usuario);
+      }
+      if (requisicao !== controle) return;
+      senha.value = '';
+      confirmacao.value = '';
+      confirmacao.setCustomValidity('');
+      status.dataset.kind = 'success';
+      status.textContent = cadastro
+        ? 'Conta criada com sucesso! Entre na aba Entrar para acessar sua conta.'
+        : 'Login realizado com sucesso!';
+    } catch (erro) {
+      if (requisicao !== controle) return;
+      status.dataset.kind = 'error';
+      status.textContent = erro.message;
+    } finally {
+      if (requisicao === controle) {
+        requisicao = null;
+        botao.disabled = false;
+        formulario.removeAttribute('aria-busy');
+      }
+    }
   });
 }
