@@ -46,6 +46,7 @@ public class UsuariosService {
 
         Usuarios usuario = Usuarios.builder()
                 .nome(create.nome())
+                .token_version(1)
                 .roles(user)
                 .senha(encoder.encode(create.senha()))
                 .build();

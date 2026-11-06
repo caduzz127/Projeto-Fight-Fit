@@ -4,5 +4,5 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.UUID;
 
-public record GrupoEnter(@NotNull UUID id_grupo, @NotNull String senha) {
+public record GrupoEnter(@NotNull UUID id_grupo, @NotNull String senha, @NotNull String tag_grupo) {
 }

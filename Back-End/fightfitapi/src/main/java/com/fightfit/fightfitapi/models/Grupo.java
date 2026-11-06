@@ -22,6 +22,9 @@ public class Grupo {
     @Column(name = "nome_grupo")
     public String nome;
 
+    @Column(name = "tag_grupo", length = 9, unique = true)
+    public String tag;
+
     @Column(name = "senha_grupo")
     public String senha;
 

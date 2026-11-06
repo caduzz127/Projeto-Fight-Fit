@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 @Service
@@ -39,18 +40,20 @@ public class GrupoService {
 
     private final Roles USER = Roles.SYSTEM_GROUP_USER;
 
+    private final String CARACTERES = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
     public GrupoResponse criarGrupo(GrupoCreate create, UUID id_usuario) {
-        if (grupoRepository.findByName(create.nome()).isPresent()) {
-            throw new GrupoAlreadyExists("Grupo já existe");
-        }
         if (create.senha().isEmpty() || create.senha().isBlank()) {
             throw new RuntimeException("digite uma senha para criar o grupo");
         }
+
         Usuarios usuario = usuariosRepository.findById(id_usuario).orElseThrow(() -> new UsuarioNotExists(""));
         Grupo grupo = Grupo.builder()
                 .nome(create.nome())
+                .tag(verificarCodigo())
                 .senha(enconder.encode(create.senha().trim()))
                 .build();
+        System.out.println("tag: "+grupo.getTag());
         Grupo grupoSave = grupoRepository.save(grupo);
 
         GrupoMembros administrador = GrupoMembros.builder()
@@ -63,9 +66,11 @@ public class GrupoService {
                 grupoMembrosSave.getUsuario().getNome(),
                 grupoMembrosSave.getCargos().name()
         );
+
         GrupoResponse response = new GrupoResponse(
                 grupoSave.getId(),
                 grupoSave.getNome(),
+                grupoSave.getTag(),
                 responseUsuario
         );
 
@@ -104,6 +109,7 @@ public class GrupoService {
         GrupoAllResponse response = new GrupoAllResponse(
                 grupo.getId(),
                 grupo.getNome(),
+                grupo.getTag(),
                 usuarioResponseList
         );
         return response;
@@ -116,16 +122,13 @@ public class GrupoService {
         if (!grupoMembros.getCargos().equals(ADMIN) || !grupoMembros.getCargos().equals(ADMIN_ROOT)) {
             throw new NotPermission("Usuario não tem permissão para alterar nada do Grupo");
         }
-        if (grupoRepository.findByName(update.nomeNovo()).isPresent()) {
-            throw new GrupoAlreadyExists("já existe um grupo com esse nome");
-        }
         if (!enconder.matches(update.senhaAntiga(), grupo.getSenha())) {
             throw new RuntimeException("senha antiga incorreta");
         }
-
         Grupo grupoParaAtualizar = Grupo.builder()
                 .id(grupo.getId())
-                .nome(update.nomeNovo())
+                .nome(update.nome())
+                .tag(grupo.getTag())
                 .senha(enconder.encode(update.senhaNova().trim()))
                 .build();
         Grupo grupoAtualizado = grupoRepository.save(grupoParaAtualizar);
@@ -142,6 +145,7 @@ public class GrupoService {
         GrupoAllResponse response = new GrupoAllResponse(
                 grupoAtualizado.getId(),
                 grupoAtualizado.getNome(),
+                grupoAtualizado.getTag(),
                 usuariosResponse
         );
 
@@ -188,6 +192,7 @@ public class GrupoService {
             GrupoResponse grupoResponse = new GrupoResponse(
                     grupo.getId(),
                     grupo.getNome(),
+                    grupo.getTag(),
                     usuarioResponse
             );
             response.add(grupoResponse);
@@ -210,6 +215,7 @@ public class GrupoService {
             GrupoResponse grupoesponse = new GrupoResponse(
                     gruposMembros.getGrupo().getId(),
                     gruposMembros.getGrupo().getNome(),
+                    gruposMembros.getGrupo().getTag(),
                     usuarioResponse
             );
             response.add(grupoesponse);
@@ -233,6 +239,7 @@ public class GrupoService {
         GrupoAllResponse response = new GrupoAllResponse(
                 grupo.getId(),
                 grupo.getNome(),
+                grupo.getTag(),
                 usuariosResponse
         );
 
@@ -240,4 +247,23 @@ public class GrupoService {
     }
 
 
+    private String gerarCodigo(){
+        Random random = new Random();
+        StringBuilder tag = new StringBuilder();
+        tag.append("FF-");
+        for(int i = 0; i<6; i++){
+            int indice = random.nextInt(CARACTERES.length());
+            tag.append(CARACTERES.charAt(indice));
+        }
+        return tag.toString();
+    }
+
+
+    private String verificarCodigo(){
+        String tag = gerarCodigo();
+        while(grupoRepository.findByTag(tag).isPresent()){
+            tag = gerarCodigo();
+        }
+        return tag;
+    }
 }

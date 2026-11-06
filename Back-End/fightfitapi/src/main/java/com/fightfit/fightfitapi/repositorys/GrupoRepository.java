@@ -18,4 +18,6 @@ public interface GrupoRepository  extends JpaRepository<Grupo, UUID> {
     @Query(value = "SELECT * FROM grupos WHERE nome_grupo ILIKE :nome", nativeQuery = true)
     public List<Grupo> findByNameLike(@Param("nome") String nome);
 
+    @Query(value = "SELECT * FROM grupos WHERE tag_grupo = :tag", nativeQuery = true)
+    public Optional<Grupo> findByTag(@Param("tag") String nome);
 }
