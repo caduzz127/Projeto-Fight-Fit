@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101210">
+    <title>Seu espaço — Fight Fit</title>
+    <link rel="icon" href="assets/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="assets/css/principal.css">
+    <script type="module" src="assets/js/principal.js"></script>
+</head>
+<body>
+    <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+    <aside class="sidebar" id="menu-principal" aria-label="Menu principal">
+        <a class="marca" href="#inicio" aria-label="Fight Fit — início">
+            <img src="assets/images/logo.png" alt=""><span>FIGHT<span>FIT</span></span>
+        </a>
+        <p class="menu-legenda">SEU ESPAÇO</p>
+        <nav aria-label="Navegação principal">
+            <a class="menu-link ativo" href="#inicio" aria-current="location"><span aria-hidden="true">◈</span> Visão geral</a>
+            <a class="menu-link" href="#grupos"><span aria-hidden="true">◎</span> Meus grupos <span class="contador" id="total-grupos">—</span></a>
+            <a class="menu-link" href="#treinos"><img class="icone-navegacao" src="assets/images/icons/forca.svg" alt=""> Meus treinos <span class="contador" id="total-treinos">—</span></a>
+        </nav>
+        <div class="sidebar-convite">
+            <span class="estrela" aria-hidden="true">✳</span>
+            <h2>Seu ritmo.<br>Nossa força.</h2>
+            <p>Encontre pessoas que também escolheram evoluir.</p>
+            <button class="link-botao" data-explorar>Explorar grupos <span aria-hidden="true">→</span></button>
+        </div>
+        <div class="sidebar-rodape"><span class="ponto"></span> UM TREINO. UMA NOVA VERSÃO.</div>
+    </aside>
+
+    <div class="pagina">
+        <header class="barra-superior">
+            <button class="botao-menu" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir menu"><span aria-hidden="true">☰</span></button>
+            <div class="caminho">Seu espaço <span aria-hidden="true">/</span> <strong>Visão geral</strong></div>
+            <div class="barra-acoes">
+                <label class="controle-previa" for="cenario-previa">Dados de demonstração
+                    <select id="cenario-previa">
+                        <option value="completo">Grupos e treinos</option>
+                        <option value="novo">Sem grupos e treinos</option>
+                        <option value="so-grupos">Somente grupos</option>
+                        <option value="so-treinos">Somente treinos</option>
+                    </select>
+                </label>
+                <span class="avatar perfil" data-avatar-nome="Atleta">AT</span>
+            </div>
+        </header>
+
+        <main id="conteudo">
+            <noscript><p class="aviso-pagina">Ative o JavaScript para carregar os grupos e treinos desta prévia.</p></noscript>
+            <section id="inicio" aria-labelledby="titulo-principal">
+                <div class="boas-vindas">
+                    <div>
+                        <p class="sobretitulo" id="etapa-boas-vindas">SEU ESPAÇO DE EVOLUÇÃO</p>
+                        <h1 id="titulo-principal">Um passo de cada vez.</h1>
+                        <p id="descricao-principal">Preparando seus grupos e treinos…</p>
+                    </div>
+                    <button class="botao secundario" data-explorar>Explorar grupos <span aria-hidden="true"><svg class="icone-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></button>
+                </div>
+                <div class="destaque">
+                    <div class="destaque-texto">
+                        <p class="sobretitulo"><span class="ponto"></span> A FORÇA ESTÁ NA COMUNIDADE</p>
+                        <h2><span id="destaque-linha-1">SEU PRÓXIMO</span><span id="destaque-linha-2">NÍVEL É</span><em id="destaque-enfase">COLETIVO.</em></h2>
+                        <p id="descricao-destaque">Quando a vontade encontra companhia, a evolução vira parte da rotina.</p>
+                        <a class="botao principal" href="#grupos">Encontre sua turma <span aria-hidden="true"><svg class="icone-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></a>
+                        <div class="destaque-rodape"><span class="linha"></span> CADA PESSOA CONTA. CADA TREINO TAMBÉM.</div>
+                    </div>
+                    <article class="proximo-treino" id="treino-em-destaque" hidden>
+                        <div class="proximo-topo"><span class="sobretitulo">TREINO EM DESTAQUE</span><span id="modalidade-destaque"></span></div>
+                        <div class="simbolo-coletivo" aria-hidden="true"><span>F</span><span>F</span></div>
+                        <div class="proximo-conteudo">
+                            <span class="texto-verde" id="contexto-destaque"></span>
+                            <h3 id="nome-treino-destaque"></h3>
+                            <div class="detalhes" id="detalhes-destaque"></div>
+                            <div class="participantes" id="participantes-destaque" hidden><div class="avatares"></div><p></p></div>
+                            <button class="botao principal" id="abrir-treino-destaque">Ver treino <span aria-hidden="true"><svg class="icone-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></button>
+                        </div>
+                    </article>
+                    <article class="convite-primeiro-grupo" id="convite-primeiro-treino" hidden>
+                        <span class="sobretitulo">TODO MUNDO COMEÇA EM ALGUM LUGAR</span>
+                        <img class="icone-convite" src="assets/images/icons/forca.svg" alt="">
+                        <h3 id="titulo-convite-treino"></h3>
+                        <p id="descricao-convite-treino"></p>
+                        <button class="botao principal" data-criar-treino>Criar meu primeiro treino <span aria-hidden="true"><svg class="icone-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></button>
+                        <button class="link-botao" data-explorar>Encontrar uma comunidade</button>
+                    </article>
+                </div>
+            </section>
+
+            <section class="secao" id="grupos" aria-labelledby="titulo-grupos">
+                <div class="cabecalho-secao">
+                    <div><p class="sobretitulo">CONEXÕES QUE MOVEM</p><h2 id="titulo-grupos">Sua turma, sua motivação.</h2></div>
+                    <button class="link-botao" data-explorar>Descobrir grupos <span aria-hidden="true"><svg class="icone-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></button>
+                </div>
+                <div class="filtro-grupos" id="filtro-grupos" hidden>
+                    <label for="buscar-grupo">Seus grupos</label><input id="buscar-grupo" type="search" placeholder="Buscar pelo nome ou tag" autocomplete="off"><span id="resultado-busca" role="status"></span>
+                </div>
+                <p class="busca-vazia" id="busca-vazia" hidden>Nenhum grupo encontrado. Tente outro nome ou tag.</p>
+                <div class="grade-grupos" hidden></div>
+                <div class="estado-sem-grupos" id="estado-sem-grupos" hidden>
+                    <span class="icone-grupo icone-comunidade" aria-hidden="true"><img src="assets/images/icons/grupo.svg" alt=""></span>
+                    <div><h3>Uma turma para chamar de sua.</h3><p>Você ainda não participa de nenhum grupo. Encontre sua comunidade ou convide seus amigos para começar.</p></div>
+                    <button class="botao secundario" data-criar-grupo>Criar um grupo</button>
+                </div>
+            </section>
+
+            <section class="secao" id="treinos" aria-labelledby="titulo-treinos">
+                <div class="cabecalho-secao">
+                    <div><p class="sobretitulo">NO SEU RITMO, COM A SUA TURMA</p><h2 id="titulo-treinos">Seu espaço de treino.</h2></div>
+                    <button class="link-botao" data-criar-treino>Criar treino <span aria-hidden="true">+</span></button>
+                </div>
+                <div class="grade-treinos" hidden></div>
+                <div class="estado-sem-grupos" id="estado-sem-treinos" hidden>
+                    <span class="icone-grupo icone-comunidade" aria-hidden="true"><img src="assets/images/icons/forca.svg" alt=""></span>
+                    <div><h3>Seu primeiro treino começa aqui.</h3><p>Você ainda não tem treinos disponíveis. Crie um treino individual ou combine um com a sua comunidade.</p></div>
+                    <button class="botao secundario" data-criar-treino>Criar um treino</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <template id="modelo-grupo">
+        <article class="cartao-grupo">
+            <div class="grupo-topo"><span class="icone-grupo icone-comunidade" aria-hidden="true"><img src="assets/images/icons/grupo.svg" alt=""></span><span class="etiqueta neutra">SEU GRUPO</span></div>
+            <h3></h3><p class="descricao-grupo"></p><span class="tag-grupo"></span>
+            <div class="grupo-meta"><div class="modalidades-grupo"></div><span class="total-integrantes"></span></div>
+            <div class="grupo-base"><div class="avatares" aria-hidden="true"></div><button class="seta-botao" data-grupo></button></div>
+        </article>
+    </template>
+    <template id="modelo-treino">
+        <article class="cartao-treino">
+            <div class="modalidade-treino"></div><h3></h3><p class="origem-treino"></p><p class="quantidade-exercicios"></p>
+            <button class="botao pequeno" data-treino>Ver treino <span aria-hidden="true"><svg class="icone-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></button>
+        </article>
+    </template>
+
+    <dialog id="dialogo-treino" aria-labelledby="titulo-dialogo-treino">
+        <div class="dialogo-topo"><span class="sobretitulo">SEU TREINO · DEMONSTRAÇÃO</span><button class="fechar-dialogo" aria-label="Fechar treino">×</button></div>
+        <h2 id="titulo-dialogo-treino"></h2><p class="descricao-dialogo" id="descricao-treino"></p>
+        <p class="progresso-texto" aria-live="polite"></p>
+        <div class="barra-progresso" role="progressbar" aria-label="Exercícios concluídos" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0"><span></span></div>
+        <div id="exercicios-treino"></div>
+        <p class="nota-dialogo">Dados ilustrativos. As marcações ficam somente nesta prévia; adapte os exercícios com orientação profissional.</p>
+    </dialog>
+    <dialog id="dialogo-grupo" aria-labelledby="titulo-dialogo-grupo">
+        <div class="dialogo-topo"><span class="sobretitulo">SUA COMUNIDADE · DEMONSTRAÇÃO</span><button class="fechar-dialogo" aria-label="Fechar grupo">×</button></div>
+        <span class="icone-grupo icone-comunidade" aria-hidden="true"><img src="assets/images/icons/grupo.svg" alt=""></span>
+        <h2 id="titulo-dialogo-grupo"></h2><p class="descricao-dialogo" id="descricao-grupo"></p>
+        <div class="resumo-grupo"><span>INTEGRANTES<strong id="membros-grupo"></strong></span><span>TREINOS DISPONÍVEIS<strong id="treinos-grupo"></strong></span></div>
+        <button class="botao principal" id="ver-treino-grupo">Conhecer o treino <span aria-hidden="true"><svg class="icone-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></button>
+        <p class="nota-dialogo" id="grupo-sem-treinos" hidden>Ainda não há treinos disponíveis neste grupo.</p>
+    </dialog>
+    <dialog id="dialogo-explorar" aria-labelledby="titulo-explorar">
+        <div class="dialogo-topo"><span class="sobretitulo">ENCONTRE SUA TURMA · DEMONSTRAÇÃO</span><button class="fechar-dialogo" aria-label="Fechar exploração de grupos">×</button></div>
+        <h2 id="titulo-explorar">Tem gente no seu ritmo.</h2><p class="descricao-dialogo">Explore duas ideias de comunidades para esta prévia.</p>
+        <article class="grupo-explorar"><span class="icone-grupo icone-comunidade" aria-hidden="true"><img src="assets/images/icons/grupo.svg" alt=""></span><div><h3>Movimento coletivo</h3><p>Para quem quer começar, junto.</p></div><button class="botao pequeno" data-participar="movimento-coletivo">Participar</button></article>
+        <article class="grupo-explorar"><span class="icone-grupo icone-comunidade" aria-hidden="true"><img src="assets/images/icons/grupo.svg" alt=""></span><div><h3>Turma da manhã</h3><p>Uma boa companhia para começar o dia.</p></div><button class="botao pequeno" data-participar="turma-manha">Participar</button></article>
+        <p class="nota-dialogo" id="status-explorar" role="status">A participação nesta prévia é apenas ilustrativa.</p>
+    </dialog>
+    <dialog id="dialogo-criar-grupo" aria-labelledby="titulo-criar-grupo">
+        <div class="dialogo-topo"><span class="sobretitulo">SUA TURMA · DEMONSTRAÇÃO</span><button class="fechar-dialogo" aria-label="Fechar criação de grupo">×</button></div>
+        <h2 id="titulo-criar-grupo">O primeiro passo é reunir.</h2><p class="descricao-dialogo">Dê um nome ao grupo que você quer criar.</p>
+        <form id="form-criar-grupo" method="post"><label for="nome-grupo">Nome do grupo</label><input id="nome-grupo" name="nome" required maxlength="60" placeholder="Ex.: Treino com os amigos"><button class="botao principal" type="submit">Criar grupo nesta prévia</button></form>
+        <p class="nota-dialogo">Esta ação é ilustrativa. O grupo não é salvo no servidor.</p>
+    </dialog>
+    <dialog id="dialogo-criar-treino" aria-labelledby="titulo-criar-treino">
+        <div class="dialogo-topo"><span class="sobretitulo">SEU RITMO · DEMONSTRAÇÃO</span><button class="fechar-dialogo" aria-label="Fechar criação de treino">×</button></div>
+        <h2 id="titulo-criar-treino">Dê o primeiro passo.</h2>
+        <form id="form-criar-treino" method="post">
+            <label for="nome-treino">Nome do treino</label><input id="nome-treino" name="nome" required maxlength="60" placeholder="Ex.: Meu treino A">
+            <label for="modalidade-treino">Modalidade</label><select id="modalidade-treino" name="modalidade"><option value="FORCA">Força</option><option value="CARDIO">Cardio</option><option value="MOBILIDADE">Mobilidade</option></select>
+            <label for="grupo-treino">Onde você quer treinar?</label><select id="grupo-treino" name="grupo"></select>
+            <button class="botao principal" type="submit">Criar treino nesta prévia</button>
+        </form>
+        <p class="nota-dialogo">Apenas demonstração. O treino começa sem exercícios e não é salvo no servidor.</p>
+    </dialog>
+</body>
+</html>
