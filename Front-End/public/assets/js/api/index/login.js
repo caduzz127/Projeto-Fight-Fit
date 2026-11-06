@@ -1,7 +1,7 @@
 import { enviarJson } from '../requisicao.js';
 
 export async function login({ username, senha }, { signal } = {}) {
-  const usuario = await enviarJson('/fight-fit/usuarios/login', { username, senha }, {
+  const usuario = await enviarJson('/usuarios/login', { username, senha }, {
     400: 'Não foi possível entrar. Confira o usuário e a senha.',
     401: 'Usuário ou senha inválidos.',
     403: 'Acesso não autorizado.',
