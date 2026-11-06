@@ -1,6 +1,6 @@
 # Fight Fit — Front-end
 
-Interface de login e cadastro em português com HTML, CSS e JavaScript nativos.
+Login, cadastro e página principal em português com HTML, CSS e JavaScript nativos.
 Não exige instalação de pacotes nem build.
 
 ## Executar
@@ -80,11 +80,11 @@ troque pela URL HTTPS pública da API; uma página HTTPS não pode chamar HTTP.
   aceita `204 No Content`. A confirmação da senha nunca é enviada.
 - `api/requisicao.js`: transporte JSON compartilhado, timeout de 15 segundos e
   mensagens de falha. Endpoints públicos não recebem cookies nem Bearer token.
-- `api/sessao.js`: mantém usuário e token apenas em memória; use `obterSessao()`
-  para futuras chamadas protegidas. Recarregar a página encerra a sessão local.
-  Senhas não são armazenadas; os campos são limpos após sucesso.
+- `api/sessao.js`: mantém usuário e token no `sessionStorage` da aba para o
+  redirecionamento e recarregamento. A expiração do JWT, uma resposta 401 e o botão
+  Sair encerram a sessão. Senhas não são armazenadas; os campos são limpos após sucesso.
 
-O cadastro não faz login automaticamente. Ainda não há dashboard nem redirecionamento.
+O cadastro não faz login automaticamente. O login redireciona para `pagina_principal.html`.
 O backend precisa estar ativo com PostgreSQL e as variáveis descritas em
 `application.properties` e `JwtConfiguration`. Configure o CORS no Spring Security
 para aceitar o preflight OPTIONS e as chamadas JSON entre portas diferentes.
@@ -96,85 +96,88 @@ Não coloque credenciais do banco ou a chave JWT no front-end.
 Com Node.js 22 ou superior, a partir de `Front-End`:
 
 ```sh
-node --test tests/autenticacao.test.mjs
+node --test tests/*.test.mjs
 ```
 
 Esses testes usam respostas simuladas para conferir o contrato, os erros, o
 cancelamento e a sessão. A verificação pelo navegador requer a API real ativa.
 
-## Página principal: um HTML, quatro estados
+## Página principal integrada à API
 
-Abra `public/pagina_principal.html` pelo mesmo servidor HTTP. O CSS, a logo e os
-módulos devem acompanhar o HTML; não copie apenas esse arquivo.
+Após o login, o token é guardado no `sessionStorage` da aba e o navegador abre
+`public/pagina_principal.html`. Acessar essa página sem sessão válida retorna ao login.
 
-A tela é única. O JavaScript lê `grupos` e `treinos` e atualiza as seções de forma
-independente. Não existe outra página para o usuário recém-cadastrado:
+São executadas duas consultas em paralelo, com `Authorization: Bearer <JWT>`:
 
-| Dados disponíveis | O que a página mostra |
+- `GET /fight-fit/grupos/buscar-pelo-usuario/{id}`: o ID vem do `sub` do JWT.
+- `GET /fight-fit/treinos/buscar-pelo-usuario`: o backend identifica o usuário pelo JWT.
+
+Os caminhos dos módulos são relativos à URL base `http://localhost:8080/fight-fit`.
+O backend continua responsável por validar a assinatura, a sessão e as permissões.
+O cliente ler o `sub` não representa uma autorização.
+
+A tela é única e os estados são determinados pelas listas retornadas:
+
+| Respostas | Conteúdo |
 | --- | --- |
-| Grupos e treinos | Cartões dos grupos e treinos, com um treino em destaque |
-| Nenhum dos dois | Boas-vindas e convites para começar |
-| Somente grupos | Grupos disponíveis e convite para criar um treino |
-| Somente treinos | Treinos disponíveis e convite para encontrar uma comunidade |
+| Grupos e treinos preenchidos | Cartões dos grupos e treinos |
+| Duas listas vazias | Boas-vindas e convites para começar |
+| Somente grupos | Grupos e convite para criar um treino |
+| Somente treinos | Treinos e convite para encontrar uma comunidade |
 
-O seletor **Dados de demonstração**, no topo, serve para conferir esses quatro
-estados durante a revisão visual. Ele recarrega o mesmo `pagina_principal.html` usando
-`?cenario=completo`, `?cenario=novo`, `?cenario=so-grupos` ou `?cenario=so-treinos`.
-A escolha altera somente os dados de exemplo, nunca permissões de acesso.
+Uma resposta com erro, JSON inválido ou formato inesperado nunca é convertida em
+lista vazia. O painel mostra o erro e oferece Tentar novamente. O conteúdo só é
+exibido depois que as duas consultas terminarem com sucesso. Uma resposta 401
+limpa a sessão e volta ao login; 403 mostra a falta de permissão sem fingir logout.
+Não existem seletor de cenário, dados de exemplo ou usuários fictícios no aplicativo.
 
-### Dados e futura integração
+### Operações conectadas
 
-Os exemplos ficam em `assets/js/dados/demonstracao-principal.js`. Cada cenário
-fornece um objeto com estas listas e o usuário:
+- Criação de grupo: `POST /grupos/cadastrar`, com `{ nome, senha }`.
+- Busca de comunidades: `GET /grupos/buscar-pelo-nome/{nome}`.
+- Entrada em grupo: `POST /grupos/entrar`, com `{ id_grupo, tag_grupo, senha }`.
+- Detalhes e integrantes: `GET /grupos/buscar-pelo-id/{id}`.
+- Criação de treino individual: `POST /treinos/cadastrar/{nome}`.
+- Exercícios do treino: `GET /exercicios-individuais/buscar-por-treino/{id}`.
 
-```json
-{
-  "usuario": { "nome": "Atleta" },
-  "grupos": [],
-  "treinos": []
-}
-```
+As operações só apresentam sucesso após a resposta da API e recarregam as
+listagens após criar ou entrar. A tag é produzida pelo backend. Campos de senha
+são limpos após sucesso. Os formulários bloqueiam envios duplicados.
 
-Um grupo usa `id`, `nome`, `tag` e, opcionalmente, `descricao`, `totalIntegrantes`
-e `membros` (lista de nomes). Um treino usa `id`, `nome`, `modalidade`, `grupoId`
-(`null` para individual) e `exercicios` (lista de `{ nome, orientacao }`).
+A API atual de listagem de treinos retorna `id_treino`, `nome_treino` e
+`exerciciosIndividuaisList`, contendo apenas nomes. A página busca os detalhes dos
+exercícios quando o treino é aberto. O cadastro de treino aceita somente nome;
+por isso não oferece seletores de modalidade ou grupo que seriam ignorados pelo
+backend. A listagem de grupos não inclui contagem de integrantes: esses dados
+são consultados nos detalhes. Não inventamos horários, integrantes, modalidade
+ou associação entre treinos individuais e grupos.
 
-Este é o modelo de apresentação da prévia, não uma exigência de mudança na API.
-Na integração, um adaptador deve mapear os DTOs reais para esse modelo e fornecer
-os grupos e treinos autorizados pelo backend. A fonte de demonstração e seu
-seletor serão retirados. Falhas de rede devem ser tratadas como erro; não devem
-ser convertidas em listas vazias que pareçam um usuário sem atividades.
+O gerenciamento completo de exercícios, atualização/exclusão de grupos e treinos
+não faz parte desta tela. Não há checkboxes que simulem salvar progresso de treino.
 
-Os detalhes não inventam datas ou horários de treinos. Modalidades disponíveis
-nos exemplos: força, cardio e mobilidade, identificadas por SVGs locais. Cada
-grupo mantém um ícone de comunidade; as etiquetas refletem os tipos dos seus treinos.
-Essas modalidades são exemplos visuais e não ativam recursos novos no backend.
+### Arquivos
 
-### Organização
+- `assets/js/principal.js`: carrega as duas listagens e trata carregamento/erro.
+- `api/grupos/`: uma função por chamada dos grupos.
+- `api/treinos/`: listagem, cadastro e exercícios dos treinos.
+- `api/requisicao.js`: transporte HTTP, JWT, timeout e erros.
+- `api/sessao.js`: sessão por aba, expiração e leitura do ID do usuário.
+- `dados/adaptar-principal.js`: mapeamento e validação dos DTOs reais.
+- `ui/estado-principal.js` e `ui/renderizar-principal.js`: estados e cartões.
+- `ui/grupos.js`: formulários e detalhes dos grupos.
+- `ui/criar-treino.js` e `ui/detalhes-treino.js`: cadastro e leitura de exercícios.
+- `ui/autenticacao-principal.js`: acesso à página, logout e sessão expirada.
+- `ui/avatar-iniciais.js`, `ui/modalidades.js` e `assets/images/icons/`: apresentação.
 
-- `assets/css/principal.css`: estilos da página e dos estados vazios.
-- `assets/js/principal.js`: carrega os dados de exemplo e inicia os módulos.
-- `dados/demonstracao-principal.js`: exemplos separados do HTML e das interações.
-- `ui/estado-principal.js`: determina quais seções têm conteúdo, sem IDs fixos.
-- `ui/renderizar-principal.js`: preenche os cartões e a saudação com os dados.
-- `ui/filtrar-grupos.js`: busca pelo nome ou tag, ignorando acentos e caixa.
-- `ui/navegacao-principal.js`: menu móvel e fechamento de diálogos.
-- `ui/previa-grupos.js`: detalhes e criação/participação ilustrativas em grupos.
-- `ui/previa-treino.js`: detalhes dos exercícios e marcação de progresso local.
-- `ui/criar-treino-previa.js`: criação ilustrativa de treino individual ou de grupo.
-- `ui/avatar-iniciais.js`: iniciais dos nomes; não há upload de fotos.
-- `ui/modalidades.js` e `assets/images/icons/`: nomes e ícones das modalidades.
+### Conferir
 
-A criação de grupos e treinos, participação e marcação de exercícios são locais
-à prévia, sem chamadas à API ou persistência. Um treino criado começa sem
-exercícios. Recarregar descarta alterações. O login em `index.html` continua
-independente desta página até definirmos o contrato dos endpoints protegidos.
+1. Inicie a API com banco configurado e CORS habilitado.
+2. Sirva a pasta `public` por HTTP, abra `index.html` e faça login.
+3. No navegador, confira os dois GETs após o redirecionamento.
+4. Crie um grupo e um treino; recarregue a página e confira a persistência real.
+5. Pare a API para conferir o erro de conexão; reinicie e use Tentar novamente.
+6. Clique Sair e confira que o acesso direto à página retorna ao login.
 
-### Conferir a prévia
-
-- Compare os quatro cenários pelo seletor no topo.
-- Confira que só grupos não cria treinos fictícios, e só treinos não cria grupos.
-- Busque um grupo por nome sem acentos ou por tag; abra os detalhes.
-- Abra um treino individual e um de grupo; marque exercícios e feche com Escape.
-- Crie um grupo e depois um treino dentro dele; confira contagens e etiquetas.
-- Teste o menu e os diálogos no celular.
+Os testes Node cobrem o contrato de autenticação, os endpoints protegidos, os
+adaptadores de JSON, sessão, expiração e erros. Os testes usam respostas simuladas;
+a validação de ponta a ponta requer a API real ativa.

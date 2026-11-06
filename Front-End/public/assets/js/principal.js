@@ -1,27 +1,66 @@
-import { carregarDemonstracao, cenariosDemonstracao } from './dados/demonstracao-principal.js';
+import { listarGrupos } from './api/grupos/listar.js';
+import { listarTreinos } from './api/treinos/listar.js';
+import { obterSessao } from './api/sessao.js';
+import { adaptarGrupos, adaptarTreinos } from './dados/adaptar-principal.js';
+import { iniciarAutenticacaoPrincipal, tratarSessaoExpirada } from './ui/autenticacao-principal.js';
 import { iniciarNavegacaoPrincipal } from './ui/navegacao-principal.js';
 import { renderizarPrincipal } from './ui/renderizar-principal.js';
-import { iniciarPreviaTreino } from './ui/previa-treino.js';
-import { iniciarPreviaGrupos } from './ui/previa-grupos.js';
-import { iniciarCriacaoTreino } from './ui/criar-treino-previa.js';
+import { iniciarDetalhesTreino } from './ui/detalhes-treino.js';
+import { iniciarGrupos } from './ui/grupos.js';
+import { iniciarCriacaoTreino } from './ui/criar-treino.js';
 import { iniciarFiltroGrupos } from './ui/filtrar-grupos.js';
 
-// O seletor existe apenas para conferir os quatro cenários com dados de exemplo.
-const parametro = new URLSearchParams(location.search).get('cenario');
-const cenario = Object.hasOwn(cenariosDemonstracao, parametro) ? parametro : 'completo';
-const seletor = document.querySelector('#cenario-previa');
-seletor.value = cenario;
-seletor.addEventListener('change', () => {
-  const url = new URL(location.href);
-  url.searchParams.set('cenario', seletor.value);
-  location.assign(url);
-});
+if (iniciarAutenticacaoPrincipal()) {
+  const dados = { usuario: { nome: obterSessao().username }, grupos: [], treinos: [] };
+  const conteudo = document.querySelector('#conteudo-principal');
+  const painel = document.querySelector('#estado-carregamento');
+  const mensagem = document.querySelector('#mensagem-carregamento');
+  const tentar = document.querySelector('#tentar-novamente');
+  const botoesAtalhos = document.querySelectorAll('.sidebar [data-explorar]');
+  let controle;
 
-const dados = carregarDemonstracao(cenario);
-const atualizar = () => renderizarPrincipal(dados);
-iniciarNavegacaoPrincipal();
-const abrirTreino = iniciarPreviaTreino(dados);
-iniciarPreviaGrupos(dados, abrirTreino, atualizar);
-iniciarCriacaoTreino(dados, atualizar);
-iniciarFiltroGrupos();
-atualizar();
+  async function carregar() {
+    controle?.abort();
+    controle = new AbortController();
+    const atual = controle;
+    conteudo.hidden = true;
+    painel.hidden = false;
+    painel.dataset.estado = 'carregando';
+    document.querySelector('main').setAttribute('aria-busy', 'true');
+    mensagem.textContent = 'Carregando seus grupos e treinos…';
+    tentar.hidden = true;
+    botoesAtalhos.forEach(botao => { botao.disabled = true; });
+    try {
+      // São as duas listagens reais do usuário autenticado, executadas em paralelo.
+      const [grupos, treinos] = await Promise.all([
+        listarGrupos({ signal: atual.signal }), listarTreinos({ signal: atual.signal }),
+      ]);
+      if (atual.signal.aborted) return;
+      dados.grupos = adaptarGrupos(grupos);
+      dados.treinos = adaptarTreinos(treinos);
+      renderizarPrincipal(dados);
+      painel.hidden = true;
+      conteudo.hidden = false;
+      botoesAtalhos.forEach(botao => { botao.disabled = false; });
+      return true;
+    } catch (erro) {
+      if (atual.signal.aborted || tratarSessaoExpirada(erro)) return false;
+      // Erros não são convertidos em [], para não simular uma conta sem atividades.
+      painel.dataset.estado = 'erro';
+      mensagem.textContent = `Não foi possível carregar seus dados. ${erro.message}`;
+      tentar.hidden = false;
+      return false;
+    } finally {
+      if (controle === atual) document.querySelector('main').removeAttribute('aria-busy');
+    }
+  }
+
+  iniciarNavegacaoPrincipal();
+  iniciarDetalhesTreino(dados);
+  iniciarGrupos(dados, carregar);
+  iniciarCriacaoTreino(carregar);
+  iniciarFiltroGrupos();
+  tentar.addEventListener('click', carregar);
+  window.addEventListener('pagehide', () => controle?.abort(), { once: true });
+  carregar();
+}

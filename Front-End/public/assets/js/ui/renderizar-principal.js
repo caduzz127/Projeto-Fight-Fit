@@ -14,7 +14,7 @@ function criarAvatares(nomes) {
 export function descreverIntegrantes(grupo) {
   return Number.isInteger(grupo.totalIntegrantes)
     ? `${grupo.totalIntegrantes} ${grupo.totalIntegrantes === 1 ? 'integrante' : 'integrantes'}`
-    : 'Integrantes não informados';
+    : 'Ver integrantes';
 }
 
 export function renderizarPrincipal(dados) {
@@ -69,7 +69,8 @@ export function renderizarPrincipal(dados) {
     const fragmento = document.querySelector('#modelo-grupo').content.cloneNode(true);
     const cartao = fragmento.querySelector('article');
     cartao.querySelector('h3').textContent = grupo.nome;
-    cartao.querySelector('.descricao-grupo').textContent = grupo.descricao || 'Seu espaço para evoluir em comunidade.';
+    cartao.querySelector('.descricao-grupo').textContent = grupo.descricao || '';
+    cartao.querySelector('.descricao-grupo').hidden = !grupo.descricao;
     const tag = cartao.querySelector('.tag-grupo');
     tag.textContent = grupo.tag ? `#${grupo.tag}` : '';
     tag.hidden = !grupo.tag;
@@ -77,7 +78,8 @@ export function renderizarPrincipal(dados) {
     const modalidades = [...new Set(treinos.filter(treino => treino.grupoId === grupo.id).map(treino => treino.modalidade))];
     const etiquetas = cartao.querySelector('.modalidades-grupo');
     etiquetas.replaceChildren(...modalidades.map(criarEtiquetaModalidade));
-    if (!modalidades.length) etiquetas.textContent = 'Ainda sem treinos';
+    // A listagem atual retorna treinos individuais, não os treinos de cada grupo.
+    if (!modalidades.length) etiquetas.hidden = true;
     cartao.querySelector('.avatares').replaceChildren(...criarAvatares(grupo.membros || []));
     const botao = cartao.querySelector('[data-grupo]');
     botao.dataset.grupo = grupo.id;

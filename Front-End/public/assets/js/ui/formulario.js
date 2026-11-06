@@ -9,6 +9,12 @@ export function iniciarFormulario() {
   const senha = document.querySelector('#password');
   const confirmacao = document.querySelector('#confirm-password');
   let requisicao = null;
+  queueMicrotask(() => {
+    if (new URLSearchParams(location.search).get('motivo') === 'sessao') {
+      status.dataset.kind = 'info';
+      status.textContent = 'Sua sessão expirou ou não está disponível. Entre novamente.';
+    }
+  });
 
   function limparMensagens() {
     status.textContent = '';
@@ -68,6 +74,7 @@ export function iniciarFormulario() {
       status.textContent = cadastro
         ? 'Conta criada com sucesso! Entre na aba Entrar para acessar sua conta.'
         : 'Login realizado com sucesso!';
+      if (!cadastro) location.assign('pagina_principal.html');
     } catch (erro) {
       if (requisicao !== controle) return;
       status.dataset.kind = 'error';

@@ -66,7 +66,7 @@ test('timeout apresenta mensagem sem depender de uma espera real', async t => {
   await assert.rejects(login({}), /O servidor demorou para responder/);
 });
 
-test('sessão é copiada e pode ser encerrada sem armazenamento persistente', () => {
+test('sessão é copiada e pode ser encerrada', () => {
   definirSessao({ username: 'teste', token: 'token-de-teste' });
   const copia = obterSessao();
   copia.token = 'alterado';
