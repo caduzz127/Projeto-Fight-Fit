@@ -30,7 +30,7 @@ export function iniciarGrupos(dados, recarregar) {
       if (atual.signal.aborted) return;
       document.querySelector('#titulo-dialogo-grupo').textContent = completo.nome;
       document.querySelector('#tag-dialogo-grupo').textContent = completo.tag ? `#${completo.tag}` : '';
-      statusDetalhes.textContent = `${completo.membros.length} integrantes`;
+      statusDetalhes.textContent = completo.membros.length === 1 ? '1 integrante' : `${completo.membros.length} integrantes`;
       resposta.usuarios.forEach(usuario => {
         const item = document.createElement('li');
         const nome = document.createElement('span');
@@ -72,7 +72,7 @@ export function iniciarGrupos(dados, recarregar) {
     try {
       const grupos = adaptarGrupos(await buscarGrupos(nome, { signal: atual.signal }));
       if (atual.signal.aborted) return;
-      statusBusca.textContent = grupos.length ? `${grupos.length} grupos encontrados.` : 'Nenhum grupo encontrado com esse nome.';
+      statusBusca.textContent = grupos.length === 1 ? '1 grupo encontrado.' : grupos.length ? `${grupos.length} grupos encontrados.` : 'Nenhum grupo encontrado com esse nome.';
       grupos.forEach(grupo => {
         const linha = document.createElement('article');
         linha.className = 'grupo-explorar';
@@ -86,10 +86,10 @@ export function iniciarGrupos(dados, recarregar) {
         botao.className = 'botao pequeno';
         botao.type = 'button';
         botao.disabled = dados.grupos.some(item => item.id === grupo.id);
-        botao.textContent = botao.disabled ? 'Participando' : 'Entrar';
+        botao.textContent = botao.disabled ? 'Você já participa' : 'Entrar';
         botao.addEventListener('click', () => {
           grupoSelecionado = grupo;
-          document.querySelector('#nome-grupo-entrada').textContent = grupo.nome;
+          document.querySelector('#nome-grupo-entrada').textContent = `Entrar em ${grupo.nome}`;
           formEntrada.reset();
           statusEntrada.textContent = '';
           explorar.close();

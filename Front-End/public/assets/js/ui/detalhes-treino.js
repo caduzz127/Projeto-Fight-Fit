@@ -23,7 +23,7 @@ export function iniciarDetalhesTreino(dados) {
     try {
       const exercicios = adaptarExercicios(await listarExerciciosTreino(treino.id, { signal: atual.signal }));
       if (atual.signal.aborted) return;
-      status.textContent = exercicios.length ? `${exercicios.length} exercícios` : 'Este treino ainda não tem exercícios cadastrados.';
+      status.textContent = exercicios.length === 1 ? '1 exercício' : exercicios.length ? `${exercicios.length} exercícios` : 'Este treino ainda não tem exercícios cadastrados.';
       exercicios.forEach(exercicio => {
         const item = document.createElement('div');
         item.className = 'exercicio detalhe-exercicio';

@@ -29,7 +29,6 @@ nav { display: grid; gap: 8px; }
 .menu-link:hover { color: var(--texto); background: #20261b; }
 .contador { margin-left: auto; font-size: 9px; padding: 4px 6px; background: #272e22; border-radius: 4px; }
 .sidebar-convite { margin-top: auto; padding: 24px 12px 32px; }
-.estrela { color: var(--verde); font-size: 36px; }
 .sidebar-convite h2 { font-size: 25px; letter-spacing: -.7px; margin: 15px 0 12px; }
 .sidebar-convite p { font-size: 11px; color: var(--muted); line-height: 1.8; }
 .sidebar-rodape { border-top: 1px solid var(--borda); padding-top: 22px; display: flex; align-items: center; gap: 8px; color: #78846a; font-size: 7px; letter-spacing: .8px; }
@@ -132,7 +131,7 @@ dialog h2 { font-size: 27px; letter-spacing: -.8px; margin-bottom: 12px; }
 .grupo-explorar>div { flex: 1; }
 .grupo-explorar h3 { font-size: 14px; margin: 0 0 8px; }
 .grupo-explorar p { font-size: 10px; color: var(--muted); margin: 0; line-height: 1.6; }
-@media(min-width: 1001px) and (max-height: 700px) { .sidebar-convite { padding-top: 16px; padding-bottom: 16px; } .sidebar-convite .estrela { display: none; } }
+@media(min-width: 1001px) and (max-height: 700px) { .sidebar-convite { padding-top: 16px; padding-bottom: 16px; } }
 @media(max-width: 1200px) { .sidebar { width: 205px; padding-inline: 16px; } .pagina { margin-left: 205px; } main { padding-inline: 28px; } .barra-superior { padding-inline: 28px; } .destaque-texto { padding: 28px 24px; } .proximo-conteudo { padding: 55px 18px 22px; } .proximo-topo { padding-inline: 18px; }  .destaque-rodape { font-size: 6px; } }
 @media(max-width: 1000px) { .sidebar { display: none; width: 240px; top: 72px; padding-top: 24px; box-shadow: 20px 0 60px #0008; } .sidebar.aberto { display: flex; } .sidebar-convite { display: none; } .sidebar-rodape { margin-top: auto; } .menu-legenda { margin-top: 32px; } .pagina { margin-left: 0; } .barra-superior { height: 72px; padding-inline: 24px; } .botao-menu { display: inline-flex; background: #28321e; color: var(--verde); font-size: 20px; padding: 7px 10px; border-radius: 5px; } .caminho { margin-right: auto; } main { padding: 28px 24px 0; } .destaque h2 { font-size: clamp(48px, 6.2vw, 68px); } }
 @media(max-width: 650px) { .barra-superior { padding-inline: 18px; gap: 12px; } .caminho { font-size: 10px; } .caminho>span { margin-inline: 8px; } .caminho { color: transparent; font-size: 0; } .caminho strong { font-size: 12px; } .caminho span { display: none; } .barra-acoes { gap: 12px; }  main { padding: 26px 18px 0; } .boas-vindas { display: block; margin-bottom: 24px; } .boas-vindas>.botao { display: none; } h1 { font-size: clamp(23px, 5.8vw, 31px); letter-spacing: -.8px; } .boas-vindas p:last-child { font-size: 11px; max-width: 300px; } .destaque { grid-template-columns: 1fr; } .destaque-texto { padding: 24px; } .destaque h2 { font-size: clamp(43px, 11vw, 65px); margin-top: 25px; } .destaque-texto>.sobretitulo { font-size: 7px; letter-spacing: 1.1px; } .destaque-rodape { margin-top: 25px; line-height: 1.8; } .proximo-treino { margin: 0 12px 12px; } .proximo-conteudo { padding: 40px 22px 22px; } .proximo-conteudo h3 { font-size: 29px; } .proximo-topo { padding-inline: 22px; } .simbolo-coletivo { right: -15px; } .grade-grupos { grid-template-columns: 1fr; gap: 14px; } .cabecalho-secao { align-items: flex-start; gap: 12px; } .cabecalho-secao h2 { font-size: 19px; } .cabecalho-secao>.link-botao { font-size: 9px; gap: 8px; padding-top: 0; max-width: 92px; } .cabecalho-secao .sobretitulo { font-size: 7px; letter-spacing: 1.1px; }  .cartao-grupo { padding: 22px; }         .secao { margin-top: 30px; } dialog { padding: 22px; } dialog h2 { font-size: 23px; } .grupo-explorar { flex-wrap: wrap; gap: 12px; } .grupo-explorar>div { min-width: 150px; } .grupo-explorar>.botao { margin-left: 55px; } .resumo-grupo { gap: 20px; } }
@@ -271,3 +270,10 @@ select:focus-visible { outline: 2px solid var(--verde); outline-offset: 4px; }
 #estado-carregamento[data-estado="erro"] { color: #ffc0aa; }
 #estado-carregamento p { line-height: 1.8; }
 #status-detalhes-treino, #status-detalhes-grupo, #status-explorar { line-height: 1.8; }
+
+/* Título dos diálogos na mesma linha do botão de fechar. */
+.dialogo-topo h2 { margin: 0; overflow-wrap: anywhere; }
+#tag-dialogo-grupo { margin: -12px 0 12px; }
+svg.icone-navegacao { flex-shrink: 0; }
+.proximo-topo .sobretitulo, .convite-primeiro-grupo>.sobretitulo { font-size: 9px; }
+.proximo-conteudo>.texto-verde { font-size: 9px; }

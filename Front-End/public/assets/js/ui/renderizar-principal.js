@@ -11,45 +11,40 @@ function criarAvatares(nomes) {
   });
 }
 
+function plural(total, singular, plural) {
+  return `${total} ${total === 1 ? singular : plural}`;
+}
+
 export function descreverIntegrantes(grupo) {
-  return Number.isInteger(grupo.totalIntegrantes)
-    ? `${grupo.totalIntegrantes} ${grupo.totalIntegrantes === 1 ? 'integrante' : 'integrantes'}`
-    : 'Ver integrantes';
+  return Number.isInteger(grupo.totalIntegrantes) ? plural(grupo.totalIntegrantes, 'integrante', 'integrantes') : '';
 }
 
 export function renderizarPrincipal(dados) {
   const { grupos, treinos } = dados;
   const estado = obterEstadoPrincipal(dados);
-  const nome = dados.usuario?.nome || 'Atleta';
-  document.querySelector('.perfil').dataset.avatarNome = nome;
-  document.querySelector('#total-grupos').textContent = String(estado.totalGrupos).padStart(2, '0');
-  document.querySelector('#total-treinos').textContent = String(estado.totalTreinos).padStart(2, '0');
-  document.querySelector('#etapa-boas-vindas').textContent = estado.semAtividades
-    ? 'SEU PRIMEIRO PASSO COMEÇA AQUI' : 'BOM TER VOCÊ POR AQUI';
-  document.querySelector('#titulo-principal').textContent = estado.semAtividades
-    ? 'Bem-vindo à sua próxima versão.' : 'Vamos mais longe, juntos.';
+  const nome = dados.usuario?.nome || '';
+  document.querySelector('.perfil').dataset.avatarNome = nome || 'Usuário';
+  document.querySelector('#total-grupos').textContent = String(estado.totalGrupos);
+  document.querySelector('#total-treinos').textContent = String(estado.totalTreinos);
+  document.querySelector('#titulo-principal').textContent = nome ? `Olá, ${nome}` : 'Olá';
   document.querySelector('#descricao-principal').textContent = estado.semAtividades
-    ? 'Encontre sua turma, crie novas conexões e comece no seu ritmo.'
-    : 'Seus grupos e treinos, em um só lugar. Um passo de cada vez.';
-  document.querySelector('#destaque-linha-1').textContent = estado.semAtividades ? 'COMECE NO' : 'SEU PRÓXIMO';
-  document.querySelector('#destaque-linha-2').textContent = estado.semAtividades ? 'SEU RITMO.' : 'NÍVEL É';
-  document.querySelector('#destaque-enfase').textContent = estado.semAtividades ? 'EVOLUA JUNTO.' : 'COLETIVO.';
+    ? 'Você ainda não tem grupos nem treinos.'
+    : `Você tem ${plural(estado.totalGrupos, 'grupo', 'grupos')} e ${plural(estado.totalTreinos, 'treino', 'treinos')}.`;
 
   document.querySelector('#treino-em-destaque').hidden = !estado.temTreinos;
   document.querySelector('#convite-primeiro-treino').hidden = estado.temTreinos;
-  document.querySelector('#titulo-convite-treino').textContent = estado.temGrupos
-    ? 'Sua turma está aqui. Vamos treinar?' : 'Seu primeiro treino. Um novo começo.';
-  document.querySelector('#descricao-convite-treino').textContent = estado.temGrupos
-    ? 'Você já tem companhia. Crie o primeiro treino ou combine os próximos passos com seu grupo.'
-    : 'Comece com um treino no seu ritmo. Você pode treinar sozinho ou encontrar uma comunidade.';
+  document.querySelector('#titulo-convite-treino').textContent = 'Crie seu primeiro treino';
+  document.querySelector('#descricao-convite-treino').textContent =
+    'Dê um nome, adicione os exercícios e ele aparece aqui.';
 
   if (estado.treinoDestaque) {
     const treino = estado.treinoDestaque;
     const grupo = grupos.find(item => item.id === treino.grupoId);
     document.querySelector('#contexto-destaque').textContent = grupo?.nome || (treino.grupoId ? 'TREINO EM GRUPO' : 'TREINO INDIVIDUAL');
     document.querySelector('#nome-treino-destaque').textContent = treino.nome;
-    document.querySelector('#modalidade-destaque').replaceChildren(criarEtiquetaModalidade(treino.modalidade));
-    document.querySelector('#detalhes-destaque').textContent = `${treino.exercicios.length} exercícios disponíveis`;
+    document.querySelector('#modalidade-destaque').replaceChildren(...(treino.modalidade ? [criarEtiquetaModalidade(treino.modalidade)] : []));
+    document.querySelector('#detalhes-destaque').textContent = treino.exercicios.length
+      ? plural(treino.exercicios.length, 'exercício', 'exercícios') : 'Sem exercícios';
     document.querySelector('#abrir-treino-destaque').dataset.treino = treino.id;
     const participantes = document.querySelector('#participantes-destaque');
     participantes.hidden = !grupo?.membros?.length;
@@ -62,8 +57,6 @@ export function renderizarPrincipal(dados) {
   document.querySelector('#filtro-grupos').hidden = !estado.temGrupos;
   document.querySelector('#estado-sem-grupos').hidden = estado.temGrupos;
   grade.hidden = !estado.temGrupos;
-  document.querySelector('#titulo-grupos').textContent = estado.temGrupos
-    ? 'Sua turma, sua motivação.' : 'Vamos encontrar sua turma?';
 
   grupos.forEach(grupo => {
     const fragmento = document.querySelector('#modelo-grupo').content.cloneNode(true);
@@ -74,7 +67,9 @@ export function renderizarPrincipal(dados) {
     const tag = cartao.querySelector('.tag-grupo');
     tag.textContent = grupo.tag ? `#${grupo.tag}` : '';
     tag.hidden = !grupo.tag;
-    cartao.querySelector('.total-integrantes').textContent = descreverIntegrantes(grupo);
+    const integrantes = cartao.querySelector('.total-integrantes');
+    integrantes.textContent = descreverIntegrantes(grupo);
+    integrantes.hidden = !integrantes.textContent;
     const modalidades = [...new Set(treinos.filter(treino => treino.grupoId === grupo.id).map(treino => treino.modalidade))];
     const etiquetas = cartao.querySelector('.modalidades-grupo');
     etiquetas.replaceChildren(...modalidades.map(criarEtiquetaModalidade));
@@ -96,11 +91,12 @@ export function renderizarPrincipal(dados) {
     const fragmento = document.querySelector('#modelo-treino').content.cloneNode(true);
     const cartao = fragmento.querySelector('article');
     cartao.querySelector('h3').textContent = treino.nome;
-    cartao.querySelector('.modalidade-treino').append(criarEtiquetaModalidade(treino.modalidade));
+    if (treino.modalidade) cartao.querySelector('.modalidade-treino').append(criarEtiquetaModalidade(treino.modalidade));
+    else cartao.querySelector('.modalidade-treino').hidden = true;
     const grupo = grupos.find(item => item.id === treino.grupoId);
     cartao.querySelector('.origem-treino').textContent = grupo?.nome || (treino.grupoId ? 'Treino em grupo' : 'Treino individual');
     cartao.querySelector('.quantidade-exercicios').textContent = treino.exercicios.length
-      ? `${treino.exercicios.length} exercícios` : 'Ainda sem exercícios';
+      ? plural(treino.exercicios.length, 'exercício', 'exercícios') : 'Sem exercícios';
     const botao = cartao.querySelector('[data-treino]');
     botao.dataset.treino = treino.id;
     botao.setAttribute('aria-label', `Ver treino ${treino.nome} — ${obterModalidade(treino.modalidade).nome}`);

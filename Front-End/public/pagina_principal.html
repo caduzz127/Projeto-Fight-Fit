@@ -17,17 +17,15 @@
         </a>
         <p class="menu-legenda">SEU ESPAÇO</p>
         <nav aria-label="Navegação principal">
-            <a class="menu-link ativo" href="#inicio" aria-current="location"><span aria-hidden="true">◈</span> Visão geral</a>
-            <a class="menu-link" href="#grupos"><span aria-hidden="true">◎</span> Meus grupos <span class="contador" id="total-grupos">—</span></a>
+            <a class="menu-link ativo" href="#inicio" aria-current="location"><svg class="icone-navegacao" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7M5 10v10h14V10"/></svg> Visão geral</a>
+            <a class="menu-link" href="#grupos"><img class="icone-navegacao" src="assets/images/icons/grupo.svg" alt=""> Meus grupos <span class="contador" id="total-grupos">—</span></a>
             <a class="menu-link" href="#treinos"><img class="icone-navegacao" src="assets/images/icons/forca.svg" alt=""> Meus treinos <span class="contador" id="total-treinos">—</span></a>
         </nav>
         <div class="sidebar-convite">
-            <span class="estrela" aria-hidden="true">✳</span>
-            <h2>Seu ritmo.<br>Nossa força.</h2>
-            <p>Encontre pessoas que também escolheram evoluir.</p>
+            <h2>Procurando<br>um grupo?</h2>
+            <p>Busque pelo nome e entre com a senha que o dono do grupo te passar.</p>
             <button class="link-botao" data-explorar>Explorar grupos <span aria-hidden="true">→</span></button>
         </div>
-        <div class="sidebar-rodape"><span class="ponto"></span> UM TREINO. UMA NOVA VERSÃO.</div>
     </aside>
 
     <div class="pagina">
@@ -49,23 +47,19 @@
             <section id="inicio" aria-labelledby="titulo-principal">
                 <div class="boas-vindas">
                     <div>
-                        <p class="sobretitulo" id="etapa-boas-vindas">SEU ESPAÇO DE EVOLUÇÃO</p>
-                        <h1 id="titulo-principal">Um passo de cada vez.</h1>
-                        <p id="descricao-principal">Preparando seus grupos e treinos…</p>
+                        <h1 id="titulo-principal">Olá</h1>
+                        <p id="descricao-principal"></p>
                     </div>
                     <button class="botao secundario" data-explorar>Explorar grupos <span aria-hidden="true"><svg class="icone-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></button>
                 </div>
                 <div class="destaque">
                     <div class="destaque-texto">
-                        <p class="sobretitulo"><span class="ponto"></span> A FORÇA ESTÁ NA COMUNIDADE</p>
-                        <h2><span id="destaque-linha-1">SEU PRÓXIMO</span><span id="destaque-linha-2">NÍVEL É</span><em id="destaque-enfase">COLETIVO.</em></h2>
-                        <p id="descricao-destaque">Quando a vontade encontra companhia, a evolução vira parte da rotina.</p>
-                        <a class="botao principal" href="#grupos">Encontre sua turma <span aria-hidden="true"><svg class="icone-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></a>
-                        <div class="destaque-rodape"><span class="linha"></span> CADA PESSOA CONTA. CADA TREINO TAMBÉM.</div>
+                        <h2><span>TREINE</span><span>COM A SUA</span><em>TURMA.</em></h2>
+                        <p id="descricao-destaque">Entre em um grupo com a senha que o dono te passar, ou crie o seu e chame quem treina com você.</p>
+                        <a class="botao principal" href="#grupos">Ver meus grupos <span aria-hidden="true"><svg class="icone-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></a>
                     </div>
                     <article class="proximo-treino" id="treino-em-destaque" hidden>
                         <div class="proximo-topo"><span class="sobretitulo">TREINO EM DESTAQUE</span><span id="modalidade-destaque"></span></div>
-                        <div class="simbolo-coletivo" aria-hidden="true"><span>F</span><span>F</span></div>
                         <div class="proximo-conteudo">
                             <span class="texto-verde" id="contexto-destaque"></span>
                             <h3 id="nome-treino-destaque"></h3>
@@ -75,42 +69,42 @@
                         </div>
                     </article>
                     <article class="convite-primeiro-grupo" id="convite-primeiro-treino" hidden>
-                        <span class="sobretitulo">TODO MUNDO COMEÇA EM ALGUM LUGAR</span>
+                        <span class="sobretitulo">NENHUM TREINO AINDA</span>
                         <img class="icone-convite" src="assets/images/icons/forca.svg" alt="">
                         <h3 id="titulo-convite-treino"></h3>
                         <p id="descricao-convite-treino"></p>
-                        <button class="botao principal" data-criar-treino>Criar meu primeiro treino <span aria-hidden="true"><svg class="icone-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></button>
-                        <button class="link-botao" data-explorar>Encontrar uma comunidade</button>
+                        <button class="botao principal" data-criar-treino>Criar treino <span aria-hidden="true"><svg class="icone-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></button>
+                        <button class="link-botao" data-explorar>Buscar um grupo</button>
                     </article>
                 </div>
             </section>
 
             <section class="secao" id="grupos" aria-labelledby="titulo-grupos">
                 <div class="cabecalho-secao">
-                    <div><p class="sobretitulo">CONEXÕES QUE MOVEM</p><h2 id="titulo-grupos">Sua turma, sua motivação.</h2></div>
-                    <button class="link-botao" data-explorar>Descobrir grupos <span aria-hidden="true"><svg class="icone-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></button>
+                    <div><h2 id="titulo-grupos">Meus grupos</h2></div>
+                    <button class="link-botao" data-explorar>Buscar grupos <span aria-hidden="true"><svg class="icone-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></button>
                 </div>
                 <div class="filtro-grupos" id="filtro-grupos" hidden>
-                    <label for="buscar-grupo">Seus grupos</label><input id="buscar-grupo" type="search" placeholder="Buscar pelo nome ou tag" autocomplete="off"><span id="resultado-busca" role="status"></span>
+                    <label for="buscar-grupo">Filtrar</label><input id="buscar-grupo" type="search" placeholder="Buscar pelo nome ou tag" autocomplete="off"><span id="resultado-busca" role="status"></span>
                 </div>
-                <p class="busca-vazia" id="busca-vazia" hidden>Nenhum grupo encontrado. Tente outro nome ou tag.</p>
+                <p class="busca-vazia" id="busca-vazia" hidden>Nenhum grupo com esse nome ou tag.</p>
                 <div class="grade-grupos" hidden></div>
                 <div class="estado-sem-grupos" id="estado-sem-grupos" hidden>
                     <span class="icone-grupo icone-comunidade" aria-hidden="true"><img src="assets/images/icons/grupo.svg" alt=""></span>
-                    <div><h3>Uma turma para chamar de sua.</h3><p>Você ainda não participa de nenhum grupo. Encontre sua comunidade ou convide seus amigos para começar.</p></div>
+                    <div><h3>Nenhum grupo ainda</h3><p>Busque um grupo pelo nome ou crie um e passe a senha para seus amigos.</p></div>
                     <button class="botao secundario" data-criar-grupo>Criar um grupo</button>
                 </div>
             </section>
 
             <section class="secao" id="treinos" aria-labelledby="titulo-treinos">
                 <div class="cabecalho-secao">
-                    <div><p class="sobretitulo">NO SEU RITMO, COM A SUA TURMA</p><h2 id="titulo-treinos">Seu espaço de treino.</h2></div>
+                    <div><h2 id="titulo-treinos">Meus treinos</h2></div>
                     <button class="link-botao" data-criar-treino>Criar treino <span aria-hidden="true">+</span></button>
                 </div>
                 <div class="grade-treinos" hidden></div>
                 <div class="estado-sem-grupos" id="estado-sem-treinos" hidden>
                     <span class="icone-grupo icone-comunidade" aria-hidden="true"><img src="assets/images/icons/forca.svg" alt=""></span>
-                    <div><h3>Seu primeiro treino começa aqui.</h3><p>Você ainda não tem treinos disponíveis. Crie um treino individual ou combine um com a sua comunidade.</p></div>
+                    <div><h3>Nenhum treino ainda</h3><p>Crie um treino e adicione os exercícios que você faz.</p></div>
                     <button class="botao secundario" data-criar-treino>Criar um treino</button>
                 </div>
             </section>
@@ -120,7 +114,7 @@
 
     <template id="modelo-grupo">
         <article class="cartao-grupo">
-            <div class="grupo-topo"><span class="icone-grupo icone-comunidade" aria-hidden="true"><img src="assets/images/icons/grupo.svg" alt=""></span><span class="etiqueta neutra">SEU GRUPO</span></div>
+            <div class="grupo-topo"><span class="icone-grupo icone-comunidade" aria-hidden="true"><img src="assets/images/icons/grupo.svg" alt=""></span></div>
             <h3></h3><p class="descricao-grupo"></p><span class="tag-grupo"></span>
             <div class="grupo-meta"><div class="modalidades-grupo"></div><span class="total-integrantes"></span></div>
             <div class="grupo-base"><div class="avatares" aria-hidden="true"></div><button class="seta-botao" data-grupo></button></div>
@@ -134,30 +128,27 @@
     </template>
 
     <dialog id="dialogo-treino" aria-labelledby="titulo-dialogo-treino">
-    <div class="dialogo-topo"><span class="sobretitulo">SEU TREINO</span><button class="fechar-dialogo" aria-label="Fechar treino">×</button></div>
-    <h2 id="titulo-dialogo-treino"></h2>
+    <div class="dialogo-topo"><h2 id="titulo-dialogo-treino"></h2><button class="fechar-dialogo" aria-label="Fechar treino">×</button></div>
     <p class="descricao-dialogo" id="status-detalhes-treino" role="status"></p>
     <div id="exercicios-treino"></div>
 </dialog>
     <dialog id="dialogo-grupo" aria-labelledby="titulo-dialogo-grupo">
-    <div class="dialogo-topo"><span class="sobretitulo">SUA COMUNIDADE</span><button class="fechar-dialogo" aria-label="Fechar grupo">×</button></div>
-    <h2 id="titulo-dialogo-grupo"></h2><p class="tag-grupo" id="tag-dialogo-grupo"></p>
+    <div class="dialogo-topo"><h2 id="titulo-dialogo-grupo"></h2><button class="fechar-dialogo" aria-label="Fechar grupo">×</button></div>
+    <p class="tag-grupo" id="tag-dialogo-grupo"></p>
     <p class="descricao-dialogo" id="status-detalhes-grupo" role="status"></p>
     <ul class="lista-integrantes" id="lista-integrantes"></ul>
 </dialog>
     <dialog id="dialogo-explorar" aria-labelledby="titulo-explorar">
-    <div class="dialogo-topo"><span class="sobretitulo">ENCONTRE SUA TURMA</span><button class="fechar-dialogo" aria-label="Fechar exploração de grupos">×</button></div>
-    <h2 id="titulo-explorar">Tem gente no seu ritmo.</h2>
+    <div class="dialogo-topo"><h2 id="titulo-explorar">Buscar grupos</h2><button class="fechar-dialogo" aria-label="Fechar busca de grupos">×</button></div>
     <form class="formulario-dialogo" id="form-buscar-grupos" method="get">
-        <label for="nome-busca-grupo">Nome do grupo</label><input id="nome-busca-grupo" name="nome" type="search" required maxlength="255" placeholder="Busque uma comunidade">
+        <label for="nome-busca-grupo">Nome do grupo</label><input id="nome-busca-grupo" name="nome" type="search" required maxlength="255" placeholder="Ex.: Muay Thai">
         <button class="botao principal" type="submit">Buscar grupos</button>
     </form>
-    <p class="descricao-dialogo" id="status-explorar" role="status">Busque pelo nome do grupo que você quer encontrar.</p>
+    <p class="descricao-dialogo" id="status-explorar" role="status">Digite o nome do grupo.</p>
     <div id="resultados-grupos"></div>
 </dialog>
     <dialog id="dialogo-criar-grupo" aria-labelledby="titulo-criar-grupo">
-    <div class="dialogo-topo"><span class="sobretitulo">SUA TURMA</span><button class="fechar-dialogo" aria-label="Fechar criação de grupo">×</button></div>
-    <h2 id="titulo-criar-grupo">O primeiro passo é reunir.</h2>
+    <div class="dialogo-topo"><h2 id="titulo-criar-grupo">Criar grupo</h2><button class="fechar-dialogo" aria-label="Fechar criação de grupo">×</button></div>
     <form class="formulario-dialogo" id="form-criar-grupo" method="post">
         <label for="nome-grupo">Nome do grupo</label><input id="nome-grupo" name="nome" required maxlength="60" placeholder="Ex.: Treino com os amigos">
         <label for="senha-grupo">Senha do grupo</label><input id="senha-grupo" name="senha" type="password" autocomplete="new-password" required>
@@ -166,8 +157,7 @@
     <p class="descricao-dialogo" id="status-criar-grupo" role="status"></p>
 </dialog>
     <dialog id="dialogo-criar-treino" aria-labelledby="titulo-criar-treino">
-    <div class="dialogo-topo"><span class="sobretitulo">SEU RITMO</span><button class="fechar-dialogo" aria-label="Fechar criação de treino">×</button></div>
-    <h2 id="titulo-criar-treino">Dê o primeiro passo.</h2>
+    <div class="dialogo-topo"><h2 id="titulo-criar-treino">Novo treino</h2><button class="fechar-dialogo" aria-label="Fechar criação de treino">×</button></div>
     <form class="formulario-dialogo" id="form-criar-treino" method="post">
         <label for="nome-treino">Nome do treino</label><input id="nome-treino" name="nome" required maxlength="60" placeholder="Ex.: Meu treino A">
         <button class="botao principal" type="submit">Criar treino</button>
@@ -175,8 +165,7 @@
     <p class="descricao-dialogo" id="status-criar-treino" role="status"></p>
 </dialog>
 <dialog id="dialogo-entrar-grupo" aria-labelledby="nome-grupo-entrada">
-    <div class="dialogo-topo"><span class="sobretitulo">ENTRAR NA COMUNIDADE</span><button class="fechar-dialogo" aria-label="Fechar entrada no grupo">×</button></div>
-    <h2 id="nome-grupo-entrada"></h2>
+    <div class="dialogo-topo"><h2 id="nome-grupo-entrada"></h2><button class="fechar-dialogo" aria-label="Fechar entrada no grupo">×</button></div>
     <form class="formulario-dialogo" id="form-entrar-grupo" method="post">
         <label for="senha-entrar-grupo">Senha do grupo</label><input id="senha-entrar-grupo" name="senha" type="password" autocomplete="off" required>
         <button class="botao principal" type="submit">Entrar no grupo</button>
