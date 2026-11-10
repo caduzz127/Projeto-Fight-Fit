@@ -2,7 +2,7 @@ import { listarTreinos } from './api/treinos/listar.js';
 import { adaptarTreinos } from './dados/adaptar-principal.js';
 import { tratarSessaoExpirada } from './ui/compartilhado/autenticacao-principal.js';
 import { iniciarPagina, plural } from './ui/compartilhado/pagina-base.js';
-import { iniciarExclusaoTreinos, renderizarTreinos } from './ui/treinos/lista-treinos.js';
+import { iniciarAcoesTreinos, renderizarTreinos } from './ui/treinos/lista-treinos.js';
 import { linkTreino } from './ui/compartilhado/rotas.js';
 import { iniciarNovoTreino } from './ui/treinos/novo-treino.js';
 import { iniciarFiltroTreinos } from './ui/treinos/filtrar-treinos.js';
@@ -55,11 +55,18 @@ if (iniciarPagina()) {
     }
   }
 
-  iniciarExclusaoTreinos(lista, ({ nome, proximoFoco }) => {
-    atualizarTotal(total - 1);
-    anuncio.textContent = `Treino ${nome} excluído.`;
-    (proximoFoco || document.querySelector('#adicionar-treino')).focus();
+  iniciarAcoesTreinos(lista, {
+    aoExcluir: ({ nome, proximoFoco }) => {
+      atualizarTotal(total - 1);
+      anuncio.textContent = `Treino ${nome} excluído.`;
+      (proximoFoco || document.querySelector('#adicionar-treino')).focus();
+    },
+    aoRenomear: ({ nome }) => {
+      anuncio.textContent = `Treino renomeado para ${nome}.`;
+      filtrar();
+    },
   });
+
   // Depois de criar, o usuário vai direto para o treino para adicionar os exercícios.
   iniciarNovoTreino(treino => location.assign(linkTreino(treino.id)));
   tentar.addEventListener('click', carregar);

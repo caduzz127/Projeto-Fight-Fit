@@ -107,8 +107,20 @@
         <article class="cartao-treino-pagina">
             <div class="cartao-topo">
                 <h2></h2>
-                <button class="botao-icone perigo" type="button" data-acao="excluir"></button>
+                <div class="cartao-acoes">
+                    <button class="botao-icone" type="button" data-acao="editar"></button>
+                    <button class="botao-icone perigo" type="button" data-acao="excluir"></button>
+                </div>
             </div>
+            <form class="form-renomear" novalidate hidden>
+                <label><span>Nome do treino</span>
+                    <input name="nome" required maxlength="60" autocomplete="off"></label>
+                <div class="acoes-formulario">
+                    <button class="botao principal pequeno" type="submit">Salvar</button>
+                    <button class="botao secundario pequeno" type="button" data-acao="cancelar-edicao">Cancelar</button>
+                </div>
+                <p class="status-cartao" role="status"></p>
+            </form>
             <ul class="lista-exercicios-resumo"></ul>
             <p class="sem-exercicios">Nenhum exercício ainda.</p>
             <div class="cartao-base">

@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { definirSessao } from '../public/assets/js/api/sessao.js';
 import { cadastrarTreino } from '../public/assets/js/api/treinos/cadastrar.js';
 import { deletarTreino } from '../public/assets/js/api/treinos/deletar.js';
+import { atualizarTreino } from '../public/assets/js/api/treinos/atualizar.js';
 import { listarExerciciosTreino } from '../public/assets/js/api/exercicios/listar.js';
 import { cadastrarExercicio } from '../public/assets/js/api/exercicios/cadastrar.js';
 import { atualizarExercicio } from '../public/assets/js/api/exercicios/atualizar.js';
@@ -68,4 +69,12 @@ test('nome do treino vem do primeiro exercício; lista vazia ou sem campo devolv
   assert.equal(obterNomeTreino([{ id: idExercicio, id_treino: idTreino, nome_treino: 'Treino A', nome: 'Supino' }]), 'Treino A');
   assert.equal(obterNomeTreino([]), null);
   assert.equal(obterNomeTreino([{ id: idExercicio, nome: 'Supino' }]), null);
+});
+
+test('treinos: renomear usa PUT com id e nome no corpo', async t => {
+  const chamadas = entrar(t, () => Response.json({ id_treino: idTreino, nome_treino: 'Treino novo' }));
+  assert.deepEqual(await atualizarTreino({ id: idTreino, nome: 'Treino novo' }), { id_treino: idTreino, nome_treino: 'Treino novo' });
+  assert.deepEqual(chamadas.map(({ url, metodo, corpo }) => ({ url, metodo, corpo })), [
+    { url: `${API}/treinos/atualizar`, metodo: 'PUT', corpo: { id: idTreino, nome: 'Treino novo' } },
+  ]);
 });

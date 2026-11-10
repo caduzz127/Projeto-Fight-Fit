@@ -12,7 +12,8 @@ export function iniciarFiltroTreinos(lista) {
     const cartoes = [...lista.children];
     let encontrados = 0;
     cartoes.forEach(cartao => {
-      const corresponde = normalizar(cartao.dataset.busca || '').includes(busca);
+      const texto = `${cartao.querySelector('h2').textContent} ${cartao.dataset.exercicios || ''}`;
+      const corresponde = normalizar(texto).includes(busca);
       cartao.hidden = !corresponde;
       if (corresponde) encontrados++;
     });

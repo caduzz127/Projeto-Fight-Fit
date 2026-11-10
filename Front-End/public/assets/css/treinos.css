@@ -95,3 +95,11 @@
     .filtro-treinos { display: grid; grid-template-columns: 1fr auto; gap: 10px; }
     .filtro-treinos input { grid-column: 1 / -1; grid-row: 2; width: 100%; }
 }
+
+/* Edição do nome do treino no próprio cartão. */
+.cartao-acoes { display: flex; gap: 8px; flex-shrink: 0; }
+.form-renomear { display: grid; gap: 12px; padding: 18px 22px 20px; border-bottom: 1px solid var(--borda); background: #171c13; border-radius: 9px 9px 0 0; }
+.form-renomear label { display: grid; gap: 8px; color: var(--muted); font-size: 12px; }
+.form-renomear input { min-width: 0; width: 100%; padding: 11px 13px; border: 1px solid #465337; border-radius: 5px; color: var(--texto); background: #10150f; font: inherit; font-size: 14px; }
+.form-renomear input:disabled { opacity: .6; }
+.form-renomear .status-cartao { margin: 0; }
