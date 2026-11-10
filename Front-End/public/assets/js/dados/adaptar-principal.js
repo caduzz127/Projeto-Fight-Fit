@@ -41,6 +41,11 @@ export function adaptarExercicio(item) {
     carga: exigirNumero(item.carga), repeticoes: exigirNumero(item.repeticoes), serie: exigirNumero(item.serie),
   };
 }
+// O back-end passa a enviar nome_treino em cada exercício. Lista vazia não traz nome.
+export function obterNomeTreino(lista) {
+  const nome = exigirLista(lista)[0]?.nome_treino;
+  return typeof nome === 'string' && nome.trim() ? nome : null;
+}
 export function adaptarExercicios(lista) {
   return exigirLista(lista).map(adaptarExercicio);
 }

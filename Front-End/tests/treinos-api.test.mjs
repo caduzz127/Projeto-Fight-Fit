@@ -7,7 +7,7 @@ import { listarExerciciosTreino } from '../public/assets/js/api/exercicios/lista
 import { cadastrarExercicio } from '../public/assets/js/api/exercicios/cadastrar.js';
 import { atualizarExercicio } from '../public/assets/js/api/exercicios/atualizar.js';
 import { deletarExercicio } from '../public/assets/js/api/exercicios/deletar.js';
-import { adaptarTreino } from '../public/assets/js/dados/adaptar-principal.js';
+import { adaptarTreino, obterNomeTreino } from '../public/assets/js/dados/adaptar-principal.js';
 import { linkTreino } from '../public/assets/js/ui/rotas.js';
 
 const API = 'http://localhost:8080/fight-fit';
@@ -62,4 +62,10 @@ test('treino criado é adaptado e vira link da tela de detalhe', () => {
   assert.deepEqual(treino, { id: idTreino, nome: 'Treino A' });
   assert.equal(linkTreino(treino.id), `treino.html?id=${idTreino}`);
   assert.throws(() => adaptarTreino({ nome_treino: 'Sem ID' }), /incompletos/);
+});
+
+test('nome do treino vem do primeiro exercício; lista vazia ou sem campo devolve null', () => {
+  assert.equal(obterNomeTreino([{ id: idExercicio, id_treino: idTreino, nome_treino: 'Treino A', nome: 'Supino' }]), 'Treino A');
+  assert.equal(obterNomeTreino([]), null);
+  assert.equal(obterNomeTreino([{ id: idExercicio, nome: 'Supino' }]), null);
 });

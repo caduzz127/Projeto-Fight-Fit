@@ -1,6 +1,6 @@
 import { listarTreinos } from './api/treinos/listar.js';
 import { listarExerciciosTreino } from './api/exercicios/listar.js';
-import { adaptarExercicios, adaptarTreinos } from './dados/adaptar-principal.js';
+import { adaptarExercicios, adaptarTreinos, obterNomeTreino } from './dados/adaptar-principal.js';
 import { tratarSessaoExpirada } from './ui/autenticacao-principal.js';
 import { iniciarPagina, plural } from './ui/pagina-base.js';
 import { iniciarExerciciosTreino } from './ui/exercicios-treino.js';
@@ -38,22 +38,26 @@ if (iniciarPagina()) {
     tentar.hidden = true;
     document.querySelector('main').setAttribute('aria-busy', 'true');
     try {
-      // Não há busca de treino por ID na API: o nome vem da lista do próprio usuário.
-      const [treinos, exercicios] = await Promise.all([
-        listarTreinos({ signal: atual.signal }), listarExerciciosTreino(id, { signal: atual.signal }),
-      ]);
-      if (atual.signal.aborted) return;
-      const treino = adaptarTreinos(treinos).find(item => item.id === id);
-      if (!treino) {
-        mostrarErro(NAO_ENCONTRADO, false);
-        return;
+      const resposta = await listarExerciciosTreino(id, { signal: atual.signal });
+      const exercicios = adaptarExercicios(resposta);
+      let nome = obterNomeTreino(resposta);
+      // Treino sem exercícios não traz o nome; só então buscamos a lista de treinos.
+      if (!nome) {
+        const treino = adaptarTreinos(await listarTreinos({ signal: atual.signal })).find(item => item.id === id);
+        if (atual.signal.aborted) return;
+        if (!treino) {
+          mostrarErro(NAO_ENCONTRADO, false);
+          return;
+        }
+        nome = treino.nome;
       }
-      document.title = `${treino.nome} — Fight Fit`;
-      document.querySelector('#nome-treino').textContent = treino.nome;
-      document.querySelector('#caminho-treino').textContent = treino.nome;
+      if (atual.signal.aborted) return;
+      document.title = `${nome} — Fight Fit`;
+      document.querySelector('#nome-treino').textContent = nome;
+      document.querySelector('#caminho-treino').textContent = nome;
       iniciarExerciciosTreino({
         idTreino: id,
-        exercicios: adaptarExercicios(exercicios),
+        exercicios,
         aoMudar: lista => {
           resumo.textContent = lista.length ? plural(lista.length, 'exercício', 'exercícios') : '';
         },

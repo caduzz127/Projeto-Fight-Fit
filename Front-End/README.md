@@ -194,7 +194,8 @@ Inclusão, edição e exclusão acontecem na própria página, sem modal.
 - `treino.html?id=<uuid>` (`assets/js/treino.js`): mostra os exercícios com carga,
   repetições e séries. O lápis transforma o cartão em formulário; **Adicionar**
   coloca um formulário no fim da lista. Só um cartão fica em edição por vez.
-  Como a API não tem busca de treino por ID, o nome vem de `/treinos/buscar-pelo-usuario`.
+  O nome do treino vem do campo `nome_treino` do primeiro exercício; se o treino ainda
+  não tem exercícios, a tela busca o nome em `/treinos/buscar-pelo-usuario`.
 
 Módulos compartilhados: `ui/pagina-base.js` (sessão, menu e avatar), `ui/rotas.js`
 (links entre telas) e `ui/icones.js`. Chamadas novas em `api/treinos/deletar.js` e
