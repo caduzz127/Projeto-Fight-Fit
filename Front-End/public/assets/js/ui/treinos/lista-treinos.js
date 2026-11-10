@@ -26,7 +26,6 @@ function criarCartao(treino) {
   const cartao = fragmento.querySelector('article');
   const titulo = cartao.querySelector('h2');
   cartao.dataset.id = treino.id;
-  cartao.dataset.exercicios = treino.exercicios.map(exercicio => exercicio.nome).join(' ');
   titulo.id = `treino-${treino.id}`;
   cartao.setAttribute('aria-labelledby', titulo.id);
 

@@ -1,6 +1,6 @@
 const normalizar = texto => texto.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLocaleLowerCase('pt-BR');
 
-// Pesquisa local nos treinos já carregados: nome do treino ou de qualquer exercício.
+// Pesquisa local nos treinos já carregados, pelo nome do treino.
 export function iniciarFiltroTreinos(lista) {
   const area = document.querySelector('#filtro-treinos');
   const campo = document.querySelector('#buscar-treino');
@@ -12,8 +12,7 @@ export function iniciarFiltroTreinos(lista) {
     const cartoes = [...lista.children];
     let encontrados = 0;
     cartoes.forEach(cartao => {
-      const texto = `${cartao.querySelector('h2').textContent} ${cartao.dataset.exercicios || ''}`;
-      const corresponde = normalizar(texto).includes(busca);
+      const corresponde = normalizar(cartao.querySelector('h2').textContent).includes(busca);
       cartao.hidden = !corresponde;
       if (corresponde) encontrados++;
     });

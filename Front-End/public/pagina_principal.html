@@ -40,7 +40,15 @@
         <header class="barra-superior">
             <button class="botao-menu" aria-expanded="false" aria-controls="menu-principal"
                 aria-label="Abrir menu"><span aria-hidden="true">☰</span></button>
-            <div class="caminho">Seu espaço <span aria-hidden="true">/</span> <strong>Visão geral</strong></div>
+            <nav class="caminho" aria-label="Seções">
+                <span class="caminho-raiz">Seu espaço</span>
+                <span class="separador" aria-hidden="true">/</span>
+                <a href="pagina_principal.html" aria-current="page">Visão geral</a>
+                <span class="separador" aria-hidden="true">/</span>
+                <a href="treinos.html">Treinos</a>
+                <span class="separador" aria-hidden="true">/</span>
+                <a href="pagina_principal.html#grupos">Grupos</a>
+            </nav>
             <div class="barra-acoes">
                 <button class="link-botao" id="sair" type="button">Sair</button><span class="avatar perfil"
                     data-avatar-nome="Atleta">AT</span>

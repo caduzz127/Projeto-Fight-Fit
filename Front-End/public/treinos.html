@@ -43,8 +43,15 @@
         <header class="barra-superior">
             <button class="botao-menu" aria-expanded="false" aria-controls="menu-principal"
                 aria-label="Abrir menu"><span aria-hidden="true">☰</span></button>
-            <div class="caminho"><a href="pagina_principal.html">Seu espaço</a> <span aria-hidden="true">/</span>
-                <strong>Treinos</strong></div>
+            <nav class="caminho" aria-label="Seções">
+                <span class="caminho-raiz">Seu espaço</span>
+                <span class="separador" aria-hidden="true">/</span>
+                <a href="pagina_principal.html">Visão geral</a>
+                <span class="separador" aria-hidden="true">/</span>
+                <a href="treinos.html" aria-current="page">Treinos</a>
+                <span class="separador" aria-hidden="true">/</span>
+                <a href="pagina_principal.html#grupos">Grupos</a>
+            </nav>
             <div class="barra-acoes">
                 <button class="link-botao" id="sair" type="button">Sair</button><span class="avatar perfil"
                     data-avatar-nome="Atleta">AT</span>
@@ -78,11 +85,11 @@
 
             <div class="filtro-treinos" id="filtro-treinos" hidden>
                 <label for="buscar-treino">Pesquisar</label>
-                <input id="buscar-treino" type="search" placeholder="Nome do treino ou do exercício"
+                <input id="buscar-treino" type="search" placeholder="Nome do treino"
                     autocomplete="off">
                 <span id="resultado-busca" role="status"></span>
             </div>
-            <p class="busca-vazia" id="busca-vazia" hidden>Nenhum treino com esse nome ou exercício.</p>
+            <p class="busca-vazia" id="busca-vazia" hidden>Nenhum treino com esse nome.</p>
 
             <div class="aviso-pagina" id="estado-carregamento" role="status" data-estado="carregando">
                 <p id="mensagem-carregamento">Carregando seus treinos…</p>

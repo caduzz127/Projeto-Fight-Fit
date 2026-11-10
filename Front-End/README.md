@@ -194,7 +194,7 @@ Inclusão, edição e exclusão acontecem na própria página, sem modal.
   exercícios. **Adicionar** abre um formulário abaixo do título; ao criar, o usuário
   vai direto para o treino novo. A lixeira pede confirmação dentro do cartão
   (Esc cancela). `treinos.html?novo` já abre o formulário (usado pela página principal).
-  O campo **Pesquisar** filtra os cartões pelo nome do treino ou de um exercício.
+  O campo **Pesquisar** filtra os cartões pelo nome do treino.
   O lápis de cada cartão troca o título por um campo para renomear o treino
   (`PUT /treinos/atualizar`); Esc ou Cancelar desfazem.
 - `treino.html?id=<uuid>` (`assets/js/treino.js`): mostra os exercícios com carga,

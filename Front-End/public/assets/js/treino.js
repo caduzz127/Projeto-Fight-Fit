@@ -54,7 +54,6 @@ if (iniciarPagina()) {
       if (atual.signal.aborted) return;
       document.title = `${nome} — Fight Fit`;
       document.querySelector('#nome-treino').textContent = nome;
-      document.querySelector('#caminho-treino').textContent = nome;
       iniciarExerciciosTreino({
         idTreino: id,
         exercicios,
