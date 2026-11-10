@@ -1,6 +1,7 @@
 import { obterEstadoPrincipal } from './estado-principal.js';
 import { criarEtiquetaModalidade, obterModalidade } from './modalidades.js';
 import { preencherAvatares } from './avatar-iniciais.js';
+import { linkTreino } from './rotas.js';
 
 function criarAvatares(nomes) {
   return nomes.slice(0, 3).map((nome, indice) => {
@@ -45,7 +46,7 @@ export function renderizarPrincipal(dados) {
     document.querySelector('#modalidade-destaque').replaceChildren(...(treino.modalidade ? [criarEtiquetaModalidade(treino.modalidade)] : []));
     document.querySelector('#detalhes-destaque').textContent = treino.exercicios.length
       ? plural(treino.exercicios.length, 'exercício', 'exercícios') : 'Sem exercícios';
-    document.querySelector('#abrir-treino-destaque').dataset.treino = treino.id;
+    document.querySelector('#abrir-treino-destaque').href = linkTreino(treino.id);
     const participantes = document.querySelector('#participantes-destaque');
     participantes.hidden = !grupo?.membros?.length;
     participantes.querySelector('.avatares').replaceChildren(...criarAvatares(grupo?.membros || []));
@@ -97,9 +98,9 @@ export function renderizarPrincipal(dados) {
     cartao.querySelector('.origem-treino').textContent = grupo?.nome || (treino.grupoId ? 'Treino em grupo' : 'Treino individual');
     cartao.querySelector('.quantidade-exercicios').textContent = treino.exercicios.length
       ? plural(treino.exercicios.length, 'exercício', 'exercícios') : 'Sem exercícios';
-    const botao = cartao.querySelector('[data-treino]');
-    botao.dataset.treino = treino.id;
-    botao.setAttribute('aria-label', `Ver treino ${treino.nome} — ${obterModalidade(treino.modalidade).nome}`);
+    const link = cartao.querySelector('[data-treino]');
+    link.href = linkTreino(treino.id);
+    link.setAttribute('aria-label', `Ver treino ${treino.nome} — ${obterModalidade(treino.modalidade).nome}`);
     gradeTreinos.append(fragmento);
   });
   preencherAvatares();

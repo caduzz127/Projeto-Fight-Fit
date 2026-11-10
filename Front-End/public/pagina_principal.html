@@ -26,7 +26,7 @@
                 </svg> Visão geral</a>
             <a class="menu-link" href="#grupos"><img class="icone-navegacao" src="assets/images/icons/grupo.svg" alt="">
                 Meus grupos <span class="contador" id="total-grupos">—</span></a>
-            <a class="menu-link" href="#treinos"><img class="icone-navegacao" src="assets/images/icons/forca.svg"
+            <a class="menu-link" href="treinos.html"><img class="icone-navegacao" src="assets/images/icons/forca.svg"
                     alt=""> Meus treinos <span class="contador" id="total-treinos">—</span></a>
         </nav>
         <div class="sidebar-convite">
@@ -92,12 +92,12 @@
                                     <div class="avatares"></div>
                                     <p></p>
                                 </div>
-                                <button class="botao principal" id="abrir-treino-destaque">Ver treino <span
+                                <a class="botao principal" id="abrir-treino-destaque">Ver treino <span
                                         aria-hidden="true"><svg class="icone-seta" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
                                             stroke-linejoin="round" aria-hidden="true">
                                             <path d="M5 19 19 5M5 5h14v14" />
-                                        </svg></span></button>
+                                        </svg></span></a>
                             </div>
                         </article>
                         <article class="convite-primeiro-grupo" id="convite-primeiro-treino" hidden>
@@ -105,12 +105,12 @@
                             <img class="icone-convite" src="assets/images/icons/forca.svg" alt="">
                             <h3 id="titulo-convite-treino"></h3>
                             <p id="descricao-convite-treino"></p>
-                            <button class="botao principal" data-criar-treino>Criar treino <span aria-hidden="true"><svg
+                            <a class="botao principal" href="treinos.html?novo">Criar treino <span aria-hidden="true"><svg
                                         class="icone-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
                                         aria-hidden="true">
                                         <path d="M5 19 19 5M5 5h14v14" />
-                                    </svg></span></button>
+                                    </svg></span></a>
                             <button class="link-botao" data-explorar>Buscar um grupo</button>
                         </article>
                     </div>
@@ -151,8 +151,8 @@
                         <div>
                             <h2 id="titulo-treinos">Meus treinos</h2>
                         </div>
-                        <button class="link-botao" data-criar-treino>Criar treino <span
-                                aria-hidden="true">+</span></button>
+                        <a class="link-botao" href="treinos.html">Ver todos <span
+                                aria-hidden="true">→</span></a>
                     </div>
                     <div class="grade-treinos" hidden></div>
                     <div class="estado-sem-grupos" id="estado-sem-treinos" hidden>
@@ -162,7 +162,7 @@
                             <h3>Nenhum treino ainda</h3>
                             <p>Crie um treino e adicione os exercícios que você faz.</p>
                         </div>
-                        <button class="botao secundario" data-criar-treino>Criar um treino</button>
+                        <a class="botao secundario" href="treinos.html?novo">Criar um treino</a>
                     </div>
                 </section>
             </div>
@@ -189,21 +189,14 @@
             <h3></h3>
             <p class="origem-treino"></p>
             <p class="quantidade-exercicios"></p>
-            <button class="botao pequeno" data-treino>Ver treino <span aria-hidden="true"><svg class="icone-seta"
+            <a class="botao pequeno" data-treino>Ver treino <span aria-hidden="true"><svg class="icone-seta"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
                         stroke-linejoin="round" aria-hidden="true">
                         <path d="M5 19 19 5M5 5h14v14" />
-                    </svg></span></button>
+                    </svg></span></a>
         </article>
     </template>
 
-    <dialog id="dialogo-treino" aria-labelledby="titulo-dialogo-treino">
-        <div class="dialogo-topo">
-            <h2 id="titulo-dialogo-treino"></h2><button class="fechar-dialogo" aria-label="Fechar treino">×</button>
-        </div>
-        <p class="descricao-dialogo" id="status-detalhes-treino" role="status"></p>
-        <div id="exercicios-treino"></div>
-    </dialog>
     <dialog id="dialogo-grupo" aria-labelledby="titulo-dialogo-grupo">
         <div class="dialogo-topo">
             <h2 id="titulo-dialogo-grupo"></h2><button class="fechar-dialogo" aria-label="Fechar grupo">×</button>
@@ -238,18 +231,6 @@
             <button class="botao principal" type="submit">Criar grupo</button>
         </form>
         <p class="descricao-dialogo" id="status-criar-grupo" role="status"></p>
-    </dialog>
-    <dialog id="dialogo-criar-treino" aria-labelledby="titulo-criar-treino">
-        <div class="dialogo-topo">
-            <h2 id="titulo-criar-treino">Novo treino</h2><button class="fechar-dialogo"
-                aria-label="Fechar criação de treino">×</button>
-        </div>
-        <form class="formulario-dialogo" id="form-criar-treino" method="post">
-            <label for="nome-treino">Nome do treino</label><input id="nome-treino" name="nome" required maxlength="60"
-                placeholder="Ex.: Meu treino A">
-            <button class="botao principal" type="submit">Criar treino</button>
-        </form>
-        <p class="descricao-dialogo" id="status-criar-treino" role="status"></p>
     </dialog>
     <dialog id="dialogo-entrar-grupo" aria-labelledby="nome-grupo-entrada">
         <div class="dialogo-topo">

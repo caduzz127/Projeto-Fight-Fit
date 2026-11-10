@@ -26,12 +26,21 @@ export function adaptarTreinos(lista) {
     exercicios: exigirLista(item.exerciciosIndividuaisList).map(exercicio => ({ nome: exigirTexto(exercicio.nome) })),
   }));
 }
+function exigirNumero(valor) {
+  if (typeof valor !== 'number' || !Number.isFinite(valor)) throw new Error('A API retornou dados incompletos. Tente carregar novamente.');
+  return valor;
+}
+export function adaptarTreino(item) {
+  if (!item || typeof item !== 'object') throw new Error('A API retornou um treino inválido.');
+  return { id: exigirTexto(item.id_treino), nome: exigirTexto(item.nome_treino) };
+}
+export function adaptarExercicio(item) {
+  if (!item || typeof item !== 'object') throw new Error('A API retornou um exercício inválido.');
+  return {
+    id: exigirTexto(item.id), idTreino: exigirTexto(item.id_treino), nome: exigirTexto(item.nome),
+    carga: exigirNumero(item.carga), repeticoes: exigirNumero(item.repeticoes), serie: exigirNumero(item.serie),
+  };
+}
 export function adaptarExercicios(lista) {
-  return exigirLista(lista).map(item => {
-    const detalhes = [];
-    if (item.serie !== null && item.serie !== undefined) detalhes.push(`${item.serie} séries`);
-    if (item.repeticoes !== null && item.repeticoes !== undefined) detalhes.push(`${item.repeticoes} repetições`);
-    if (item.carga !== null && item.carga !== undefined) detalhes.push(`${item.carga} kg`);
-    return { nome: exigirTexto(item.nome), orientacao: detalhes.join(' · ') };
-  });
+  return exigirLista(lista).map(adaptarExercicio);
 }

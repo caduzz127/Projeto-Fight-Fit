@@ -231,20 +231,6 @@ select:focus-visible { outline: 2px solid var(--verde); outline-offset: 4px; }
 .cartao-treino>.botao { margin-top: auto; }
 .cartao-grupo h3, .descricao-grupo, #nome-treino-destaque { overflow-wrap: anywhere; }
 .aviso-pagina { padding: 20px; border: 1px solid #465337; color: var(--verde); font-size: 13px; line-height: 1.8; }
-#form-criar-treino { display: grid; gap: 14px; margin-top: 25px; }
-#form-criar-treino label { font-size: 12px; color: var(--muted); }
-#form-criar-treino input, #form-criar-treino select {
-    min-width: 0;
-    width: 100%;
-    padding: 14px;
-    border: 1px solid #465337;
-    border-radius: 5px;
-    color: var(--texto);
-    background: #10150f;
-    font: inherit;
-    font-size: 14px;
-}
-#form-criar-treino>.botao { margin-top: 6px; }
 @media(max-width: 1100px) { .grade-treinos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media(max-width: 650px) {
 
@@ -269,7 +255,7 @@ select:focus-visible { outline: 2px solid var(--verde); outline-offset: 4px; }
 #estado-carregamento { margin-bottom: 25px; }
 #estado-carregamento[data-estado="erro"] { color: #ffc0aa; }
 #estado-carregamento p { line-height: 1.8; }
-#status-detalhes-treino, #status-detalhes-grupo, #status-explorar { line-height: 1.8; }
+#status-detalhes-grupo, #status-explorar { line-height: 1.8; }
 
 /* Título dos diálogos na mesma linha do botão de fechar. */
 .dialogo-topo h2 { margin: 0; overflow-wrap: anywhere; }

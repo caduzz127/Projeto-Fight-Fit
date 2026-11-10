@@ -5,9 +5,7 @@ import { adaptarGrupos, adaptarTreinos } from './dados/adaptar-principal.js';
 import { iniciarAutenticacaoPrincipal, tratarSessaoExpirada } from './ui/autenticacao-principal.js';
 import { iniciarNavegacaoPrincipal } from './ui/navegacao-principal.js';
 import { renderizarPrincipal } from './ui/renderizar-principal.js';
-import { iniciarDetalhesTreino } from './ui/detalhes-treino.js';
 import { iniciarGrupos } from './ui/grupos.js';
-import { iniciarCriacaoTreino } from './ui/criar-treino.js';
 import { iniciarFiltroGrupos } from './ui/filtrar-grupos.js';
 
 if (iniciarAutenticacaoPrincipal()) {
@@ -42,6 +40,8 @@ if (iniciarAutenticacaoPrincipal()) {
       painel.hidden = true;
       conteudo.hidden = false;
       botoesAtalhos.forEach(botao => { botao.disabled = false; });
+      // Links de outras telas (ex.: pagina_principal.html#grupos) só têm destino após carregar.
+      if (location.hash) document.querySelector(location.hash)?.scrollIntoView();
       return true;
     } catch (erro) {
       if (atual.signal.aborted || tratarSessaoExpirada(erro)) return false;
@@ -56,9 +56,7 @@ if (iniciarAutenticacaoPrincipal()) {
   }
 
   iniciarNavegacaoPrincipal();
-  iniciarDetalhesTreino(dados);
   iniciarGrupos(dados, carregar);
-  iniciarCriacaoTreino(carregar);
   iniciarFiltroGrupos();
   tentar.addEventListener('click', carregar);
   window.addEventListener('pagehide', () => controle?.abort(), { once: true });

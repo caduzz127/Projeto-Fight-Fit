@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101210">
+    <title>Treinos — Fight Fit</title>
+    <link rel="icon" href="assets/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="assets/css/principal.css">
+    <link rel="stylesheet" href="assets/css/treinos.css">
+    <script type="module" src="assets/js/treinos.js"></script>
+</head>
+
+<body>
+    <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+    <aside class="sidebar" id="menu-principal" aria-label="Menu principal">
+        <a class="marca" href="pagina_principal.html" aria-label="Fight Fit — início">
+            <img src="assets/images/logo.png" alt=""><span>FIGHT<span>FIT</span></span>
+        </a>
+        <p class="menu-legenda">SEU ESPAÇO</p>
+        <nav aria-label="Navegação principal">
+            <a class="menu-link" href="pagina_principal.html"><svg class="icone-navegacao" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 11 12 4l9 7M5 10v10h14V10" />
+                </svg> Visão geral</a>
+            <a class="menu-link" href="pagina_principal.html#grupos"><img class="icone-navegacao"
+                    src="assets/images/icons/grupo.svg" alt=""> Meus grupos</a>
+            <a class="menu-link ativo" href="treinos.html" aria-current="page"><img class="icone-navegacao"
+                    src="assets/images/icons/forca.svg" alt=""> Meus treinos <span class="contador"
+                    id="total-treinos">—</span></a>
+        </nav>
+        <div class="sidebar-convite">
+            <h2>Procurando<br>um grupo?</h2>
+            <p>Busque pelo nome e entre com a senha que o dono do grupo te passar.</p>
+            <a class="link-botao" href="pagina_principal.html#grupos">Explorar grupos <span
+                    aria-hidden="true">→</span></a>
+        </div>
+    </aside>
+
+    <div class="pagina">
+        <header class="barra-superior">
+            <button class="botao-menu" aria-expanded="false" aria-controls="menu-principal"
+                aria-label="Abrir menu"><span aria-hidden="true">☰</span></button>
+            <div class="caminho"><a href="pagina_principal.html">Seu espaço</a> <span aria-hidden="true">/</span>
+                <strong>Treinos</strong></div>
+            <div class="barra-acoes">
+                <button class="link-botao" id="sair" type="button">Sair</button><span class="avatar perfil"
+                    data-avatar-nome="Atleta">AT</span>
+            </div>
+        </header>
+
+        <main id="conteudo">
+            <noscript>
+                <p class="aviso-pagina">Ative o JavaScript para acessar seus treinos.</p>
+            </noscript>
+            <div class="cabecalho-pagina">
+                <div>
+                    <h1>Treinos</h1>
+                    <p id="resumo-treinos"></p>
+                </div>
+                <button class="botao principal" id="adicionar-treino" type="button" aria-expanded="false"
+                    aria-controls="form-novo-treino">Adicionar <span aria-hidden="true">+</span></button>
+            </div>
+
+            <form class="painel-formulario" id="form-novo-treino" method="post" hidden>
+                <h2>Novo treino</h2>
+                <label for="nome-novo-treino">Nome do treino</label>
+                <input id="nome-novo-treino" name="nome" required maxlength="60" autocomplete="off"
+                    placeholder="Ex.: Treino A — peito e tríceps">
+                <div class="acoes-formulario">
+                    <button class="botao principal" type="submit">Criar treino</button>
+                    <button class="botao secundario" id="cancelar-novo-treino" type="button">Cancelar</button>
+                </div>
+                <p class="status-cartao" id="status-novo-treino" role="status"></p>
+            </form>
+
+            <div class="aviso-pagina" id="estado-carregamento" role="status" data-estado="carregando">
+                <p id="mensagem-carregamento">Carregando seus treinos…</p>
+                <button class="botao secundario" id="tentar-novamente" type="button" hidden>Tentar novamente</button>
+            </div>
+
+            <div class="grade-treinos-pagina" id="lista-treinos" hidden></div>
+
+            <div class="estado-sem-grupos" id="estado-sem-treinos" hidden>
+                <span class="icone-grupo icone-comunidade" aria-hidden="true"><img
+                        src="assets/images/icons/forca.svg" alt=""></span>
+                <div>
+                    <h2>Nenhum treino ainda</h2>
+                    <p>Crie um treino e adicione os exercícios que você faz.</p>
+                </div>
+            </div>
+            <p class="sr-only" id="anuncio" role="status"></p>
+        </main>
+    </div>
+
+    <template id="modelo-cartao-treino">
+        <article class="cartao-treino-pagina">
+            <div class="cartao-topo">
+                <h2></h2>
+                <button class="botao-icone perigo" type="button" data-acao="excluir"></button>
+            </div>
+            <ul class="lista-exercicios-resumo"></ul>
+            <p class="sem-exercicios">Nenhum exercício ainda.</p>
+            <div class="cartao-base">
+                <a class="botao pequeno" data-acao="ver">Ver mais <span aria-hidden="true"><svg class="icone-seta"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M5 19 19 5M5 5h14v14" />
+                        </svg></span></a>
+            </div>
+            <div class="confirmacao" hidden>
+                <p>Excluir este treino?</p>
+                <div class="acoes-formulario">
+                    <button class="botao pequeno perigo" type="button" data-acao="confirmar-exclusao">Excluir</button>
+                    <button class="botao pequeno secundario" type="button"
+                        data-acao="cancelar-exclusao">Cancelar</button>
+                </div>
+                <p class="status-cartao" role="status"></p>
+            </div>
+        </article>
+    </template>
+</body>
+
+</html>

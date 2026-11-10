@@ -97,5 +97,7 @@ test('respostas malformadas geram erro e exercícios preservam valores zero', ()
   assert.throws(() => adaptarGrupos({ grupos: [] }), /lista inválida/);
   assert.throws(() => adaptarTreinos([{ nome_treino: 'Sem ID' }]), /incompletos/);
   assert.throws(() => adaptarTreinos([{ id_treino: id, nome_treino: 'A' }]), /lista inválida/);
-  assert.deepEqual(adaptarExercicios([{ nome: 'Supino', serie: 3, repeticoes: 10, carga: 0 }]), [{ nome: 'Supino', orientacao: '3 séries · 10 repetições · 0 kg' }]);
+  assert.deepEqual(adaptarExercicios([{ id, id_treino: id, nome: 'Supino', serie: 3, repeticoes: 10, carga: 0 }]),
+    [{ id, idTreino: id, nome: 'Supino', serie: 3, repeticoes: 10, carga: 0 }]);
+  assert.throws(() => adaptarExercicios([{ id, id_treino: id, nome: 'Supino', serie: 3, repeticoes: 10 }]), /incompletos/);
 });

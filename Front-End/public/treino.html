@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101210">
+    <title>Treino — Fight Fit</title>
+    <link rel="icon" href="assets/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="assets/css/principal.css">
+    <link rel="stylesheet" href="assets/css/treinos.css">
+    <script type="module" src="assets/js/treino.js"></script>
+</head>
+
+<body>
+    <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+    <aside class="sidebar" id="menu-principal" aria-label="Menu principal">
+        <a class="marca" href="pagina_principal.html" aria-label="Fight Fit — início">
+            <img src="assets/images/logo.png" alt=""><span>FIGHT<span>FIT</span></span>
+        </a>
+        <p class="menu-legenda">SEU ESPAÇO</p>
+        <nav aria-label="Navegação principal">
+            <a class="menu-link" href="pagina_principal.html"><svg class="icone-navegacao" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 11 12 4l9 7M5 10v10h14V10" />
+                </svg> Visão geral</a>
+            <a class="menu-link" href="pagina_principal.html#grupos"><img class="icone-navegacao"
+                    src="assets/images/icons/grupo.svg" alt=""> Meus grupos</a>
+            <a class="menu-link ativo" href="treinos.html"><img class="icone-navegacao"
+                    src="assets/images/icons/forca.svg" alt=""> Meus treinos</a>
+        </nav>
+        <div class="sidebar-convite">
+            <h2>Procurando<br>um grupo?</h2>
+            <p>Busque pelo nome e entre com a senha que o dono do grupo te passar.</p>
+            <a class="link-botao" href="pagina_principal.html#grupos">Explorar grupos <span
+                    aria-hidden="true">→</span></a>
+        </div>
+    </aside>
+
+    <div class="pagina">
+        <header class="barra-superior">
+            <button class="botao-menu" aria-expanded="false" aria-controls="menu-principal"
+                aria-label="Abrir menu"><span aria-hidden="true">☰</span></button>
+            <div class="caminho"><a href="pagina_principal.html">Seu espaço</a> <span aria-hidden="true">/</span>
+                <a href="treinos.html">Treinos</a> <span aria-hidden="true">/</span>
+                <strong id="caminho-treino">Treino</strong></div>
+            <div class="barra-acoes">
+                <button class="link-botao" id="sair" type="button">Sair</button><span class="avatar perfil"
+                    data-avatar-nome="Atleta">AT</span>
+            </div>
+        </header>
+
+        <main id="conteudo">
+            <noscript>
+                <p class="aviso-pagina">Ative o JavaScript para acessar seu treino.</p>
+            </noscript>
+            <a class="voltar" href="treinos.html"><span aria-hidden="true">←</span> Todos os treinos</a>
+
+            <div class="aviso-pagina" id="estado-carregamento" role="status" data-estado="carregando">
+                <p id="mensagem-carregamento">Carregando o treino…</p>
+                <button class="botao secundario" id="tentar-novamente" type="button" hidden>Tentar novamente</button>
+            </div>
+
+            <div id="conteudo-treino" hidden>
+                <div class="cabecalho-pagina">
+                    <div>
+                        <h1 id="nome-treino"></h1>
+                        <p id="resumo-exercicios"></p>
+                    </div>
+                </div>
+
+                <ul class="lista-exercicios" id="lista-exercicios" aria-labelledby="nome-treino"></ul>
+                <div class="estado-sem-grupos" id="estado-sem-exercicios" hidden>
+                    <span class="icone-grupo icone-comunidade" aria-hidden="true"><img
+                            src="assets/images/icons/forca.svg" alt=""></span>
+                    <div>
+                        <h2>Nenhum exercício ainda</h2>
+                        <p>Adicione os exercícios com a carga, as repetições e as séries que você faz.</p>
+                    </div>
+                </div>
+                <div class="rodape-lista">
+                    <button class="botao principal" id="adicionar-exercicio" type="button">Adicionar <span
+                            aria-hidden="true">+</span></button>
+                </div>
+            </div>
+            <p class="sr-only" id="anuncio" role="status"></p>
+        </main>
+    </div>
+
+    <template id="modelo-exercicio">
+        <li class="cartao-exercicio">
+            <div class="exercicio-info">
+                <h2></h2>
+                <dl class="exercicio-medidas">
+                    <div><dt>Carga</dt><dd data-campo="carga"></dd></div>
+                    <div><dt>Repetições</dt><dd data-campo="repeticoes"></dd></div>
+                    <div><dt>Séries</dt><dd data-campo="serie"></dd></div>
+                </dl>
+            </div>
+            <div class="exercicio-acoes">
+                <button class="botao-icone" type="button" data-acao="editar"></button>
+                <button class="botao-icone perigo" type="button" data-acao="excluir"></button>
+            </div>
+            <div class="confirmacao-exercicio" hidden>
+                <p>Excluir este exercício?</p>
+                <div class="acoes-formulario">
+                    <button class="botao pequeno perigo" type="button" data-acao="confirmar-exclusao">Excluir</button>
+                    <button class="botao pequeno secundario" type="button"
+                        data-acao="cancelar-exclusao">Cancelar</button>
+                </div>
+                <p class="status-cartao" role="status"></p>
+            </div>
+        </li>
+    </template>
+
+    <template id="modelo-form-exercicio">
+        <li class="cartao-exercicio editando">
+            <form class="form-exercicio" novalidate>
+                <h2></h2>
+                <div class="campos-exercicio">
+                    <label class="campo campo-nome"><span>Nome do exercício</span>
+                        <input name="nome" required maxlength="255" autocomplete="off" placeholder="Ex.: Supino reto"></label>
+                    <label class="campo"><span>Carga (kg)</span>
+                        <input name="carga" type="number" inputmode="decimal" min="0" max="9999" step="any" required></label>
+                    <label class="campo"><span>Repetições</span>
+                        <input name="repeticoes" type="number" inputmode="numeric" min="1" max="9999" step="1" required></label>
+                    <label class="campo"><span>Séries</span>
+                        <input name="serie" type="number" inputmode="numeric" min="1" max="999" step="1" required></label>
+                </div>
+                <div class="acoes-formulario">
+                    <button class="botao principal pequeno" type="submit"></button>
+                    <button class="botao secundario pequeno" type="button" data-acao="cancelar">Cancelar</button>
+                </div>
+                <p class="status-cartao" role="status"></p>
+            </form>
+        </li>
+    </template>
+</body>
+
+</html>

@@ -181,3 +181,23 @@ não faz parte desta tela. Não há checkboxes que simulem salvar progresso de t
 Os testes Node cobrem o contrato de autenticação, os endpoints protegidos, os
 adaptadores de JSON, sessão, expiração e erros. Os testes usam respostas simuladas;
 a validação de ponta a ponta requer a API real ativa.
+
+## Telas de treinos
+
+As telas de treino substituem os antigos diálogos de detalhe e criação de treino.
+Inclusão, edição e exclusão acontecem na própria página, sem modal.
+
+- `treinos.html` (`assets/js/treinos.js`): lista os treinos em cartões com até três
+  exercícios. **Adicionar** abre um formulário abaixo do título; ao criar, o usuário
+  vai direto para o treino novo. A lixeira pede confirmação dentro do cartão
+  (Esc cancela). `treinos.html?novo` já abre o formulário (usado pela página principal).
+- `treino.html?id=<uuid>` (`assets/js/treino.js`): mostra os exercícios com carga,
+  repetições e séries. O lápis transforma o cartão em formulário; **Adicionar**
+  coloca um formulário no fim da lista. Só um cartão fica em edição por vez.
+  Como a API não tem busca de treino por ID, o nome vem de `/treinos/buscar-pelo-usuario`.
+
+Módulos compartilhados: `ui/pagina-base.js` (sessão, menu e avatar), `ui/rotas.js`
+(links entre telas) e `ui/icones.js`. Chamadas novas em `api/treinos/deletar.js` e
+`api/exercicios/` (`listar`, `cadastrar`, `atualizar`, `deletar`).
+
+Testes: `node --test tests/*.mjs`.

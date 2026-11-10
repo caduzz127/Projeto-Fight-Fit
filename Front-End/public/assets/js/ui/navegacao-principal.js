@@ -20,13 +20,16 @@ export function iniciarNavegacaoPrincipal() {
     if (!menu.contains(evento.target) && !botao.contains(evento.target)) definirMenu(false);
   });
   links.forEach(link => link.addEventListener('click', () => {
+    definirMenu(false);
+    // Links para outras telas seguem a navegação normal do navegador.
+    if (link.pathname !== location.pathname || !link.hash) return;
+    const destino = document.querySelector(link.hash);
+    if (!destino) return;
     links.forEach(item => {
       item.classList.toggle('ativo', item === link);
       if (item === link) item.setAttribute('aria-current', 'location');
       else item.removeAttribute('aria-current');
     });
-    definirMenu(false);
-    const destino = document.querySelector(link.hash);
     destino.tabIndex = -1;
     destino.focus({ preventScroll: true });
   }));
