@@ -1,4 +1,4 @@
-package com.fightfit.fightfitapi.exceptions.grupos;
+package com.fightfit.fightfitapi.exceptions;
 
 public class NotPermission extends RuntimeException {
     public NotPermission(String message) {

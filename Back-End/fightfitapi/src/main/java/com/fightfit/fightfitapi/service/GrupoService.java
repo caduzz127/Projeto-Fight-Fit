@@ -2,9 +2,8 @@ package com.fightfit.fightfitapi.service;
 
 
 import com.fightfit.fightfitapi.dtos.grupos.*;
-import com.fightfit.fightfitapi.exceptions.grupos.GrupoAlreadyExists;
 import com.fightfit.fightfitapi.exceptions.grupos.GrupoNotExists;
-import com.fightfit.fightfitapi.exceptions.grupos.NotPermission;
+import com.fightfit.fightfitapi.exceptions.NotPermission;
 import com.fightfit.fightfitapi.exceptions.usuarios.UsuarioNotExists;
 import com.fightfit.fightfitapi.models.*;
 import com.fightfit.fightfitapi.repositorys.GrupoMembrosRepository;

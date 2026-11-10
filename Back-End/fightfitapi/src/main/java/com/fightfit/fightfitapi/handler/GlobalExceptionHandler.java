@@ -3,7 +3,7 @@ package com.fightfit.fightfitapi.handler;
 import com.fightfit.fightfitapi.exceptions.exerciciosIndividuais.ExerciciosIndividuaisNotExists;
 import com.fightfit.fightfitapi.exceptions.grupos.GrupoAlreadyExists;
 import com.fightfit.fightfitapi.exceptions.grupos.GrupoNotExists;
-import com.fightfit.fightfitapi.exceptions.grupos.NotPermission;
+import com.fightfit.fightfitapi.exceptions.NotPermission;
 import com.fightfit.fightfitapi.exceptions.treinos.TreinoNotExists;
 import com.fightfit.fightfitapi.exceptions.usuarios.UsuarioAlreadyExists;
 import com.fightfit.fightfitapi.exceptions.usuarios.UsuarioNotExists;
@@ -75,10 +75,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NotPermission.class)
     public ResponseEntity<ResponseError> notPermission(NotPermission exception){
         ResponseError response = new ResponseError(
-                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.FORBIDDEN.value(),
                 exception.getMessage()
         );
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
     }
 
     @ExceptionHandler(RuntimeException.class)
@@ -89,5 +89,7 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
+
+
 
 }

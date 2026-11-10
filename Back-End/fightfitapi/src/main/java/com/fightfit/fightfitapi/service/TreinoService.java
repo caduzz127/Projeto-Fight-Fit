@@ -1,6 +1,7 @@
 package com.fightfit.fightfitapi.service;
 
 import com.fightfit.fightfitapi.dtos.treinos.*;
+import com.fightfit.fightfitapi.exceptions.NotPermission;
 import com.fightfit.fightfitapi.exceptions.treinos.TreinoNotExists;
 import com.fightfit.fightfitapi.exceptions.usuarios.UsuarioNotExists;
 import com.fightfit.fightfitapi.models.ExerciciosIndividuais;
@@ -68,10 +69,7 @@ public class TreinoService {
     public void deletarTreino(UUID id, UUID id_usuario){
         Usuarios usuario = usuariosRepository.findById(id_usuario).orElseThrow(()-> new UsuarioNotExists("Não existe um usuário com esse username!"));
         Treino treino = treinoRepository.findById(id).orElseThrow(()-> new UsuarioNotExists("Não existe esse treino!"));
-        if(usuario.getId()!=treino.getUsuario().getId()){
-            throw new RuntimeException("Usuário incorreto, treino não pertence a esse usuário!");
-        }
-
+        verificarUsuario(treino.getId(), id_usuario);
         treinoRepository.deleteById(id);
     }
 
@@ -80,9 +78,7 @@ public class TreinoService {
 
         Usuarios usuario = usuariosRepository.findById(id_usuario).orElseThrow(()-> new UsuarioNotExists("Não existe um usuário!"));
         Treino treino = treinoRepository.findById(update.id()).orElseThrow(()-> new UsuarioNotExists("Não existe esse treino!"));
-        if(usuario.getId()!=treino.getUsuario().getId()){
-            throw new UsuarioNotExists("Usuário incorreto, treino não pertence a esse usuário!");
-        }
+        verificarUsuario(treino.getId(), id_usuario);
         treino = Treino.builder()
                 .id(treino.getId())
                 .usuario(usuario)
@@ -98,7 +94,7 @@ public class TreinoService {
 
     public List<TreinoBuscarResponse> buscarTreinosByUsuario(UUID id){
         Usuarios usuario = usuariosRepository.findById(id).orElseThrow(()-> new UsuarioNotExists("usuario não existente"));
-        List<Treino> treinos = treinoRepository.findByUsuario(id);
+        List<Treino> treinos = treinoRepository.findByUsuario(usuario.getId());
         List<TreinoBuscarResponse> treinosResponse = new ArrayList<>();
         for(Treino tr : treinos){
             List<TreinoExerciciosIndividuaisBuscarResponse> exerciciosResponse = new ArrayList<>();
@@ -119,4 +115,12 @@ public class TreinoService {
         return treinosResponse;
     }
 
+
+    private void verificarUsuario(UUID id_treino, UUID id_usuario){
+        Treino treino = treinoRepository.findById(id_treino).orElseThrow(()-> new TreinoNotExists("Não existe esse treino no sistema!"));
+        Usuarios usuarios = usuariosRepository.findById(id_usuario).orElseThrow(()-> new TreinoNotExists("Não existe esse usuario no sistema!"));
+        if(!treino.getUsuario().getId().equals(usuarios.getId())){
+            throw new NotPermission("treino não pertence ao usuario");
+        }
+    }
 }
