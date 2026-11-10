@@ -4,9 +4,8 @@ import { obterSessao } from './api/sessao.js';
 import { adaptarGrupos, adaptarTreinos } from './dados/adaptar-principal.js';
 import { iniciarAutenticacaoPrincipal, tratarSessaoExpirada } from './ui/autenticacao-principal.js';
 import { iniciarNavegacaoPrincipal } from './ui/navegacao-principal.js';
-import { renderizarPrincipal } from './ui/renderizar-principal.js';
+import { mostrarTodosGrupos, renderizarPrincipal } from './ui/renderizar-principal.js';
 import { iniciarGrupos } from './ui/grupos.js';
-import { iniciarFiltroGrupos } from './ui/filtrar-grupos.js';
 
 if (iniciarAutenticacaoPrincipal()) {
   const dados = { usuario: { nome: obterSessao().username }, grupos: [], treinos: [] };
@@ -57,7 +56,12 @@ if (iniciarAutenticacaoPrincipal()) {
 
   iniciarNavegacaoPrincipal();
   iniciarGrupos(dados, carregar);
-  iniciarFiltroGrupos();
+  const verTodosGrupos = document.querySelector('#ver-todos-grupos');
+  verTodosGrupos.addEventListener('click', () => {
+    const expandir = verTodosGrupos.getAttribute('aria-expanded') !== 'true';
+    mostrarTodosGrupos(expandir);
+    if (expandir) document.querySelector('.grade-grupos [data-excedente]')?.querySelector('[data-grupo]')?.focus();
+  });
   tentar.addEventListener('click', carregar);
   window.addEventListener('pagehide', () => controle?.abort(), { once: true });
   carregar();

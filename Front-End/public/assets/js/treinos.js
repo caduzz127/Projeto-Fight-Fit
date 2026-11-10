@@ -5,6 +5,7 @@ import { iniciarPagina, plural } from './ui/pagina-base.js';
 import { iniciarExclusaoTreinos, renderizarTreinos } from './ui/lista-treinos.js';
 import { linkTreino } from './ui/rotas.js';
 import { iniciarNovoTreino } from './ui/novo-treino.js';
+import { iniciarFiltroTreinos } from './ui/filtrar-treinos.js';
 
 if (iniciarPagina()) {
   const lista = document.querySelector('#lista-treinos');
@@ -16,6 +17,7 @@ if (iniciarPagina()) {
   const anuncio = document.querySelector('#anuncio');
   let total = 0;
   let controle;
+  const filtrar = iniciarFiltroTreinos(lista);
 
   function atualizarTotal(novoTotal) {
     total = novoTotal;
@@ -23,6 +25,7 @@ if (iniciarPagina()) {
     resumo.textContent = total ? `Você tem ${plural(total, 'treino', 'treinos')}.` : '';
     lista.hidden = total === 0;
     vazio.hidden = total > 0;
+    filtrar();
   }
 
   async function carregar() {

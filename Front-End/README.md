@@ -191,11 +191,16 @@ Inclusão, edição e exclusão acontecem na própria página, sem modal.
   exercícios. **Adicionar** abre um formulário abaixo do título; ao criar, o usuário
   vai direto para o treino novo. A lixeira pede confirmação dentro do cartão
   (Esc cancela). `treinos.html?novo` já abre o formulário (usado pela página principal).
+  O campo **Pesquisar** filtra os cartões pelo nome do treino ou de um exercício.
 - `treino.html?id=<uuid>` (`assets/js/treino.js`): mostra os exercícios com carga,
   repetições e séries. O lápis transforma o cartão em formulário; **Adicionar**
   coloca um formulário no fim da lista. Só um cartão fica em edição por vez.
   O nome do treino vem do campo `nome_treino` do primeiro exercício; se o treino ainda
   não tem exercícios, a tela busca o nome em `/treinos/buscar-pelo-usuario`.
+
+Na página principal, as seções Meus grupos e Meus treinos mostram só os dois
+primeiros itens. **Ver todos os treinos** leva a `treinos.html`; **Ver todos os grupos**
+mostra os demais grupos na própria página até existir uma tela de grupos.
 
 Módulos compartilhados: `ui/pagina-base.js` (sessão, menu e avatar), `ui/rotas.js`
 (links entre telas) e `ui/icones.js`. Chamadas novas em `api/treinos/deletar.js` e

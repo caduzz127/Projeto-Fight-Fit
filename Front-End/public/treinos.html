@@ -76,6 +76,14 @@
                 <p class="status-cartao" id="status-novo-treino" role="status"></p>
             </form>
 
+            <div class="filtro-treinos" id="filtro-treinos" hidden>
+                <label for="buscar-treino">Pesquisar</label>
+                <input id="buscar-treino" type="search" placeholder="Nome do treino ou do exercício"
+                    autocomplete="off">
+                <span id="resultado-busca" role="status"></span>
+            </div>
+            <p class="busca-vazia" id="busca-vazia" hidden>Nenhum treino com esse nome ou exercício.</p>
+
             <div class="aviso-pagina" id="estado-carregamento" role="status" data-estado="carregando">
                 <p id="mensagem-carregamento">Carregando seus treinos…</p>
                 <button class="botao secundario" id="tentar-novamente" type="button" hidden>Tentar novamente</button>

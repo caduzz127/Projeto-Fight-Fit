@@ -21,7 +21,7 @@ img { max-width: 100%; }
 .marca { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 23px; letter-spacing: -1px; }
 .marca img { width: 43px; height: 43px; object-fit: contain; }
 .marca>span>span { color: var(--verde); }
-.menu-legenda { color: #737e69; font-size: 9px; letter-spacing: 1.8px; margin: 55px 12px 16px; }
+.menu-legenda { color: #848f78; font-size: 11px; letter-spacing: 1.8px; margin: 55px 12px 16px; }
 nav { display: grid; gap: 8px; }
 .menu-link { display: flex; align-items: center; gap: 12px; padding: 14px 12px; border-radius: 6px; font-size: 12px; color: var(--muted); }
 .menu-link>span:first-child { font-size: 20px; width: 20px; text-align: center; }
@@ -171,42 +171,7 @@ dialog h2 { font-size: 27px; letter-spacing: -.8px; margin-bottom: 12px; }
     main { padding-bottom: 30px; }
 }
 
-.filtro-grupos {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin: 0 0 20px;
-}
-.filtro-grupos label, #resultado-busca {
-    color: var(--muted);
-    font-size: 11px;
-}
-.filtro-grupos input {
-    min-width: 0;
-    width: min(100%, 320px);
-    padding: 12px 14px;
-    border: 1px solid var(--borda);
-    border-radius: 5px;
-    background: #181c15;
-    color: var(--texto);
-    font: inherit;
-    font-size: 12px;
-}
-#resultado-busca { margin-left: auto; white-space: nowrap; }
-.busca-vazia {
-    padding: 30px;
-    border: 1px dashed #465337;
-    border-radius: 8px;
-    color: var(--muted);
-    font-size: 13px;
-    text-align: center;
-}
-@media(max-width: 650px) {
-    .caminho { display: block; }
-    .filtro-grupos { display: grid; grid-template-columns: 1fr auto; gap: 12px; }
-    .filtro-grupos input { grid-column: 1 / -1; grid-row: 2; width: 100%; }
-    #resultado-busca { grid-row: 1; grid-column: 2; }
-}
+@media(max-width: 650px) { .caminho { display: block; } }
 
 /* Conteúdo da mesma página, preenchido conforme as listas do usuário. */
 .destaque h2>span { display: block; }
@@ -223,11 +188,15 @@ select:focus-visible { outline: 2px solid var(--verde); outline-offset: 4px; }
 .etiqueta-modalidade { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; color: #bdcead; }
 .etiqueta-modalidade img { width: 20px; height: 20px; }
 .grupo-base>.seta-botao { margin-left: auto; }
-.grade-treinos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.grade-treinos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.contagem-secao { margin: 8px 0 0; color: var(--muted); font-size: 13px; }
+.contagem-secao:empty { display: none; }
+.ver-mais-secao { display: flex; justify-content: center; margin-top: 20px; }
+.ver-mais-secao>.botao { justify-content: center; gap: 12px; min-width: 220px; }
 .cartao-treino { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; padding: 23px; background: #181c15; border: 1px solid var(--borda); border-radius: 9px; }
 .cartao-treino h3 { font-size: 17px; line-height: 1.4; letter-spacing: -.4px; margin: 20px 0 8px; overflow-wrap: anywhere; }
-.origem-treino { color: #b7c6a8; font-size: 10px; line-height: 1.7; margin: 0 0 8px; }
-.quantidade-exercicios { font-size: 10px; color: var(--muted); margin: 0 0 22px; }
+.origem-treino { color: #b7c6a8; font-size: 13px; line-height: 1.7; margin: 0 0 8px; }
+.quantidade-exercicios { font-size: 13px; color: var(--muted); margin: 0 0 22px; }
 .cartao-treino>.botao { margin-top: auto; }
 .cartao-grupo h3, .descricao-grupo, #nome-treino-destaque { overflow-wrap: anywhere; }
 .aviso-pagina { padding: 20px; border: 1px solid #465337; color: var(--verde); font-size: 13px; line-height: 1.8; }

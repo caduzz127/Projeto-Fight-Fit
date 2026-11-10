@@ -120,21 +120,14 @@
                     <div class="cabecalho-secao">
                         <div>
                             <h2 id="titulo-grupos">Meus grupos</h2>
+                            <p class="contagem-secao" id="contagem-grupos"></p>
                         </div>
-                        <button class="link-botao" data-explorar>Buscar grupos <span aria-hidden="true"><svg
-                                    class="icone-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-                                    aria-hidden="true">
-                                    <path d="M5 19 19 5M5 5h14v14" />
-                                </svg></span></button>
                     </div>
-                    <div class="filtro-grupos" id="filtro-grupos" hidden>
-                        <label for="buscar-grupo">Filtrar</label><input id="buscar-grupo" type="search"
-                            placeholder="Buscar pelo nome ou tag" autocomplete="off"><span id="resultado-busca"
-                            role="status"></span>
+                    <div class="grade-grupos" id="lista-grupos-principal" hidden></div>
+                    <div class="ver-mais-secao" id="rodape-grupos" hidden>
+                        <button class="botao secundario" id="ver-todos-grupos" type="button" aria-expanded="false"
+                            aria-controls="lista-grupos-principal">Ver todos os grupos</button>
                     </div>
-                    <p class="busca-vazia" id="busca-vazia" hidden>Nenhum grupo com esse nome ou tag.</p>
-                    <div class="grade-grupos" hidden></div>
                     <div class="estado-sem-grupos" id="estado-sem-grupos" hidden>
                         <span class="icone-grupo icone-comunidade" aria-hidden="true"><img
                                 src="assets/images/icons/grupo.svg" alt=""></span>
@@ -150,11 +143,14 @@
                     <div class="cabecalho-secao">
                         <div>
                             <h2 id="titulo-treinos">Meus treinos</h2>
+                            <p class="contagem-secao" id="contagem-treinos"></p>
                         </div>
-                        <a class="link-botao" href="treinos.html">Ver todos <span
-                                aria-hidden="true">→</span></a>
                     </div>
                     <div class="grade-treinos" hidden></div>
+                    <div class="ver-mais-secao" id="rodape-treinos" hidden>
+                        <a class="botao secundario" href="treinos.html">Ver todos os treinos <span
+                                aria-hidden="true">→</span></a>
+                    </div>
                     <div class="estado-sem-grupos" id="estado-sem-treinos" hidden>
                         <span class="icone-grupo icone-comunidade" aria-hidden="true"><img
                                 src="assets/images/icons/forca.svg" alt=""></span>

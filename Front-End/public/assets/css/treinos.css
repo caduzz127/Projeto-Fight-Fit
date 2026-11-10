@@ -84,3 +84,14 @@
     .rodape-lista>.botao { width: 100%; justify-content: center; gap: 12px; }
     main { padding-bottom: 30px; }
 }
+
+/* Pesquisa na lista de treinos. */
+.filtro-treinos { display: flex; align-items: center; gap: 16px; margin: 0 0 22px; }
+.filtro-treinos label, #resultado-busca { color: var(--muted); font-size: 12px; }
+.filtro-treinos input { min-width: 0; width: min(100%, 360px); padding: 12px 14px; border: 1px solid var(--borda); border-radius: 5px; background: #181c15; color: var(--texto); font: inherit; font-size: 13px; }
+#resultado-busca { white-space: nowrap; }
+.busca-vazia { margin: 0 0 22px; padding: 30px; border: 1px dashed #465337; border-radius: 8px; color: var(--muted); font-size: 13px; text-align: center; }
+@media(max-width: 650px) {
+    .filtro-treinos { display: grid; grid-template-columns: 1fr auto; gap: 10px; }
+    .filtro-treinos input { grid-column: 1 / -1; grid-row: 2; width: 100%; }
+}

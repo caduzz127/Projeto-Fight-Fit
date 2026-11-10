@@ -12,6 +12,9 @@ function criarAvatares(nomes) {
   });
 }
 
+// A visão geral mostra só os primeiros itens; o restante fica nas telas próprias.
+const LIMITE_VISAO_GERAL = 2;
+
 function plural(total, singular, plural) {
   return `${total} ${total === 1 ? singular : plural}`;
 }
@@ -55,13 +58,16 @@ export function renderizarPrincipal(dados) {
 
   const grade = document.querySelector('.grade-grupos');
   grade.replaceChildren();
-  document.querySelector('#filtro-grupos').hidden = !estado.temGrupos;
+  document.querySelector('#contagem-grupos').textContent = estado.temGrupos ? plural(estado.totalGrupos, 'grupo', 'grupos') : '';
+  document.querySelector('#rodape-grupos').hidden = estado.totalGrupos <= LIMITE_VISAO_GERAL;
   document.querySelector('#estado-sem-grupos').hidden = estado.temGrupos;
   grade.hidden = !estado.temGrupos;
 
-  grupos.forEach(grupo => {
+  grupos.forEach((grupo, indice) => {
     const fragmento = document.querySelector('#modelo-grupo').content.cloneNode(true);
     const cartao = fragmento.querySelector('article');
+    // Ainda não há tela de grupos: os excedentes ficam ocultos até "Ver todos os grupos".
+    if (indice >= LIMITE_VISAO_GERAL) cartao.dataset.excedente = '';
     cartao.querySelector('h3').textContent = grupo.nome;
     cartao.querySelector('.descricao-grupo').textContent = grupo.descricao || '';
     cartao.querySelector('.descricao-grupo').hidden = !grupo.descricao;
@@ -88,7 +94,9 @@ export function renderizarPrincipal(dados) {
   gradeTreinos.replaceChildren();
   gradeTreinos.hidden = !estado.temTreinos;
   document.querySelector('#estado-sem-treinos').hidden = estado.temTreinos;
-  treinos.forEach(treino => {
+  document.querySelector('#contagem-treinos').textContent = estado.temTreinos ? plural(estado.totalTreinos, 'treino', 'treinos') : '';
+  document.querySelector('#rodape-treinos').hidden = !estado.temTreinos;
+  treinos.slice(0, LIMITE_VISAO_GERAL).forEach(treino => {
     const fragmento = document.querySelector('#modelo-treino').content.cloneNode(true);
     const cartao = fragmento.querySelector('article');
     cartao.querySelector('h3').textContent = treino.nome;
@@ -103,6 +111,13 @@ export function renderizarPrincipal(dados) {
     link.setAttribute('aria-label', `Ver treino ${treino.nome} — ${obterModalidade(treino.modalidade).nome}`);
     gradeTreinos.append(fragmento);
   });
+  mostrarTodosGrupos(false);
   preencherAvatares();
-  grade.dispatchEvent(new Event('gruposatualizados'));
+}
+
+export function mostrarTodosGrupos(todos) {
+  document.querySelectorAll('.grade-grupos [data-excedente]').forEach(cartao => { cartao.hidden = !todos; });
+  const botao = document.querySelector('#ver-todos-grupos');
+  botao.setAttribute('aria-expanded', String(todos));
+  botao.textContent = todos ? 'Mostrar menos' : 'Ver todos os grupos';
 }

@@ -10,6 +10,7 @@ function criarCartao(treino) {
   const cartao = fragmento.querySelector('article');
   const titulo = cartao.querySelector('h2');
   cartao.dataset.id = treino.id;
+  cartao.dataset.busca = [treino.nome, ...treino.exercicios.map(exercicio => exercicio.nome)].join(' ');
   titulo.id = `treino-${treino.id}`;
   titulo.textContent = treino.nome;
   cartao.setAttribute('aria-labelledby', titulo.id);
