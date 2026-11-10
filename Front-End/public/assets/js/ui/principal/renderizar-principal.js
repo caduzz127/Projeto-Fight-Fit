@@ -1,7 +1,7 @@
 import { obterEstadoPrincipal } from './estado-principal.js';
 import { criarEtiquetaModalidade, obterModalidade } from './modalidades.js';
-import { preencherAvatares } from './avatar-iniciais.js';
-import { linkTreino } from './rotas.js';
+import { preencherAvatares } from '../compartilhado/avatar-iniciais.js';
+import { linkTreino } from '../compartilhado/rotas.js';
 
 function criarAvatares(nomes) {
   return nomes.slice(0, 3).map((nome, indice) => {

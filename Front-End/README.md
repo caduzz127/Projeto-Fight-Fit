@@ -17,26 +17,30 @@ como arquivos. A fonte remota é opcional, com fontes locais de fallback.
 
 ```text
 public/
-├── index.html
+├── index.html              login e cadastro
+├── pagina_principal.html   visão geral
+├── treinos.html            lista de treinos
+├── treino.html             detalhe do treino (?id=)
 └── assets/
-    ├── css/styles.css
+    ├── css/                styles.css (index), principal.css, treinos.css
     └── js/
-        ├── app.js
-        ├── api/
-        │   ├── config.js
-        │   ├── requisicao.js
-        │   ├── sessao.js
-        │   └── index/
-        │       ├── login.js
-        │       └── cadastro.js
-        └── ui/
-            ├── alternar-abas.js
-            ├── mostrar-senha.js
-            ├── validar-senhas.js
-            ├── formulario.js
-            ├── atualizar-ano.js
-            └── digitar-titulo.js
+        ├── app.js, principal.js, treinos.js, treino.js   entrada de cada página
+        ├── api/            chamadas à API, por recurso
+        │   ├── index/  grupos/  treinos/  exercicios/
+        │   └── config.js, requisicao.js, sessao.js
+        ├── dados/          adaptadores das respostas da API
+        └── ui/             comportamento da tela, por página
+            ├── index/          alternar-abas, mostrar-senha, validar-senhas,
+            │                   formulario, atualizar-ano, digitar-titulo
+            ├── principal/      renderizar-principal, estado-principal, grupos, modalidades
+            ├── treinos/        lista-treinos, novo-treino, filtrar-treinos
+            ├── treino/         exercicios-treino
+            └── compartilhado/  autenticacao-principal, navegacao-principal, pagina-base,
+                                avatar-iniciais, icones, rotas
 ```
+
+Cada página tem uma pasta em `ui/` com o que só ela usa. O que mais de uma página
+usa fica em `ui/compartilhado/`.
 
 O HTML carrega apenas `app.js`, que inicia os módulos:
 
@@ -163,11 +167,10 @@ não faz parte desta tela. Não há checkboxes que simulem salvar progresso de t
 - `api/requisicao.js`: transporte HTTP, JWT, timeout e erros.
 - `api/sessao.js`: sessão por aba, expiração e leitura do ID do usuário.
 - `dados/adaptar-principal.js`: mapeamento e validação dos DTOs reais.
-- `ui/estado-principal.js` e `ui/renderizar-principal.js`: estados e cartões.
-- `ui/grupos.js`: formulários e detalhes dos grupos.
-- `ui/criar-treino.js` e `ui/detalhes-treino.js`: cadastro e leitura de exercícios.
-- `ui/autenticacao-principal.js`: acesso à página, logout e sessão expirada.
-- `ui/avatar-iniciais.js`, `ui/modalidades.js` e `assets/images/icons/`: apresentação.
+- `ui/principal/estado-principal.js` e `ui/principal/renderizar-principal.js`: estados e cartões.
+- `ui/principal/grupos.js`: formulários e detalhes dos grupos.
+- `ui/compartilhado/autenticacao-principal.js`: acesso à página, logout e sessão expirada.
+- `ui/compartilhado/avatar-iniciais.js`, `ui/principal/modalidades.js` e `assets/images/icons/`: apresentação.
 
 ### Conferir
 
@@ -202,8 +205,8 @@ Na página principal, as seções Meus grupos e Meus treinos mostram só os dois
 primeiros itens. **Ver todos os treinos** leva a `treinos.html`; **Ver todos os grupos**
 mostra os demais grupos na própria página até existir uma tela de grupos.
 
-Módulos compartilhados: `ui/pagina-base.js` (sessão, menu e avatar), `ui/rotas.js`
-(links entre telas) e `ui/icones.js`. Chamadas novas em `api/treinos/deletar.js` e
+Módulos compartilhados: `ui/compartilhado/pagina-base.js` (sessão, menu e avatar),
+`ui/compartilhado/rotas.js` (links entre telas) e `ui/compartilhado/icones.js`. Chamadas novas em `api/treinos/deletar.js` e
 `api/exercicios/` (`listar`, `cadastrar`, `atualizar`, `deletar`).
 
 Testes: `node --test tests/*.mjs`.

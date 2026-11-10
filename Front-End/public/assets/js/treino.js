@@ -1,9 +1,9 @@
 import { listarTreinos } from './api/treinos/listar.js';
 import { listarExerciciosTreino } from './api/exercicios/listar.js';
 import { adaptarExercicios, adaptarTreinos, obterNomeTreino } from './dados/adaptar-principal.js';
-import { tratarSessaoExpirada } from './ui/autenticacao-principal.js';
-import { iniciarPagina, plural } from './ui/pagina-base.js';
-import { iniciarExerciciosTreino } from './ui/exercicios-treino.js';
+import { tratarSessaoExpirada } from './ui/compartilhado/autenticacao-principal.js';
+import { iniciarPagina, plural } from './ui/compartilhado/pagina-base.js';
+import { iniciarExerciciosTreino } from './ui/treino/exercicios-treino.js';
 
 const FORMATO_UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const NAO_ENCONTRADO = 'Este treino não existe ou não pertence a você.';

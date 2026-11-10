@@ -1,11 +1,11 @@
 import { listarTreinos } from './api/treinos/listar.js';
 import { adaptarTreinos } from './dados/adaptar-principal.js';
-import { tratarSessaoExpirada } from './ui/autenticacao-principal.js';
-import { iniciarPagina, plural } from './ui/pagina-base.js';
-import { iniciarExclusaoTreinos, renderizarTreinos } from './ui/lista-treinos.js';
-import { linkTreino } from './ui/rotas.js';
-import { iniciarNovoTreino } from './ui/novo-treino.js';
-import { iniciarFiltroTreinos } from './ui/filtrar-treinos.js';
+import { tratarSessaoExpirada } from './ui/compartilhado/autenticacao-principal.js';
+import { iniciarPagina, plural } from './ui/compartilhado/pagina-base.js';
+import { iniciarExclusaoTreinos, renderizarTreinos } from './ui/treinos/lista-treinos.js';
+import { linkTreino } from './ui/compartilhado/rotas.js';
+import { iniciarNovoTreino } from './ui/treinos/novo-treino.js';
+import { iniciarFiltroTreinos } from './ui/treinos/filtrar-treinos.js';
 
 if (iniciarPagina()) {
   const lista = document.querySelector('#lista-treinos');

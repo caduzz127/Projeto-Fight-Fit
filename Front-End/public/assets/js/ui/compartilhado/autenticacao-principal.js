@@ -1,4 +1,4 @@
-import { obterSessao, definirSessao } from '../api/sessao.js';
+import { obterSessao, definirSessao } from '../../api/sessao.js';
 
 export function voltarAoLogin() {
   definirSessao(null);

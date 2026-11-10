@@ -8,7 +8,7 @@ import { cadastrarExercicio } from '../public/assets/js/api/exercicios/cadastrar
 import { atualizarExercicio } from '../public/assets/js/api/exercicios/atualizar.js';
 import { deletarExercicio } from '../public/assets/js/api/exercicios/deletar.js';
 import { adaptarTreino, obterNomeTreino } from '../public/assets/js/dados/adaptar-principal.js';
-import { linkTreino } from '../public/assets/js/ui/rotas.js';
+import { linkTreino } from '../public/assets/js/ui/compartilhado/rotas.js';
 
 const API = 'http://localhost:8080/fight-fit';
 const idTreino = '326efbc6-4844-451f-8245-679af26b8a24';

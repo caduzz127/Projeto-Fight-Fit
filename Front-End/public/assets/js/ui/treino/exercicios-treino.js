@@ -1,10 +1,10 @@
-import { cadastrarExercicio } from '../api/exercicios/cadastrar.js';
-import { atualizarExercicio } from '../api/exercicios/atualizar.js';
-import { deletarExercicio } from '../api/exercicios/deletar.js';
-import { adaptarExercicio } from '../dados/adaptar-principal.js';
-import { tratarSessaoExpirada } from './autenticacao-principal.js';
-import { formatarNumero } from './pagina-base.js';
-import { ICONE_LAPIS, ICONE_LIXEIRA } from './icones.js';
+import { cadastrarExercicio } from '../../api/exercicios/cadastrar.js';
+import { atualizarExercicio } from '../../api/exercicios/atualizar.js';
+import { deletarExercicio } from '../../api/exercicios/deletar.js';
+import { adaptarExercicio } from '../../dados/adaptar-principal.js';
+import { tratarSessaoExpirada } from '../compartilhado/autenticacao-principal.js';
+import { formatarNumero } from '../compartilhado/pagina-base.js';
+import { ICONE_LAPIS, ICONE_LIXEIRA } from '../compartilhado/icones.js';
 
 function mostrarStatus(elemento, texto, erro = false) {
   elemento.textContent = texto;

@@ -1,7 +1,7 @@
-import { deletarTreino } from '../api/treinos/deletar.js';
-import { tratarSessaoExpirada } from './autenticacao-principal.js';
-import { ICONE_LIXEIRA } from './icones.js';
-import { linkTreino } from './rotas.js';
+import { deletarTreino } from '../../api/treinos/deletar.js';
+import { tratarSessaoExpirada } from '../compartilhado/autenticacao-principal.js';
+import { ICONE_LIXEIRA } from '../compartilhado/icones.js';
+import { linkTreino } from '../compartilhado/rotas.js';
 
 const MAXIMO_RESUMO = 3;
 

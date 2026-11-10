@@ -2,10 +2,10 @@ import { listarGrupos } from './api/grupos/listar.js';
 import { listarTreinos } from './api/treinos/listar.js';
 import { obterSessao } from './api/sessao.js';
 import { adaptarGrupos, adaptarTreinos } from './dados/adaptar-principal.js';
-import { iniciarAutenticacaoPrincipal, tratarSessaoExpirada } from './ui/autenticacao-principal.js';
-import { iniciarNavegacaoPrincipal } from './ui/navegacao-principal.js';
-import { mostrarTodosGrupos, renderizarPrincipal } from './ui/renderizar-principal.js';
-import { iniciarGrupos } from './ui/grupos.js';
+import { iniciarAutenticacaoPrincipal, tratarSessaoExpirada } from './ui/compartilhado/autenticacao-principal.js';
+import { iniciarNavegacaoPrincipal } from './ui/compartilhado/navegacao-principal.js';
+import { mostrarTodosGrupos, renderizarPrincipal } from './ui/principal/renderizar-principal.js';
+import { iniciarGrupos } from './ui/principal/grupos.js';
 
 if (iniciarAutenticacaoPrincipal()) {
   const dados = { usuario: { nome: obterSessao().username }, grupos: [], treinos: [] };

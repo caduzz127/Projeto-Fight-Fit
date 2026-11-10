@@ -1,6 +1,6 @@
-import { cadastrarTreino } from '../api/treinos/cadastrar.js';
-import { adaptarTreino } from '../dados/adaptar-principal.js';
-import { tratarSessaoExpirada } from './autenticacao-principal.js';
+import { cadastrarTreino } from '../../api/treinos/cadastrar.js';
+import { adaptarTreino } from '../../dados/adaptar-principal.js';
+import { tratarSessaoExpirada } from '../compartilhado/autenticacao-principal.js';
 
 // Formulário de criação exibido na própria página, abaixo do título.
 export function iniciarNovoTreino(aoCriar) {

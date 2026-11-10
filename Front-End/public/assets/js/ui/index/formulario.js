@@ -1,6 +1,6 @@
-import { login } from '../api/index/login.js';
-import { cadastrar } from '../api/index/cadastro.js';
-import { definirSessao } from '../api/sessao.js';
+import { login } from '../../api/index/login.js';
+import { cadastrar } from '../../api/index/cadastro.js';
+import { definirSessao } from '../../api/sessao.js';
 
 export function iniciarFormulario() {
   const formulario = document.querySelector('#auth-form');

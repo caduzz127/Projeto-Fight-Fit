@@ -1,4 +1,4 @@
-import { obterSessao } from '../api/sessao.js';
+import { obterSessao } from '../../api/sessao.js';
 import { iniciarAutenticacaoPrincipal } from './autenticacao-principal.js';
 import { iniciarNavegacaoPrincipal } from './navegacao-principal.js';
 import { preencherAvatares } from './avatar-iniciais.js';

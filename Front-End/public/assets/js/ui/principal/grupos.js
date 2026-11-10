@@ -1,9 +1,9 @@
-import { detalharGrupo } from '../api/grupos/detalhar.js';
-import { buscarGrupos } from '../api/grupos/buscar.js';
-import { cadastrarGrupo } from '../api/grupos/cadastrar.js';
-import { entrarGrupo } from '../api/grupos/entrar.js';
-import { adaptarGrupo, adaptarGrupos } from '../dados/adaptar-principal.js';
-import { tratarSessaoExpirada } from './autenticacao-principal.js';
+import { detalharGrupo } from '../../api/grupos/detalhar.js';
+import { buscarGrupos } from '../../api/grupos/buscar.js';
+import { cadastrarGrupo } from '../../api/grupos/cadastrar.js';
+import { entrarGrupo } from '../../api/grupos/entrar.js';
+import { adaptarGrupo, adaptarGrupos } from '../../dados/adaptar-principal.js';
+import { tratarSessaoExpirada } from '../compartilhado/autenticacao-principal.js';
 
 export function iniciarGrupos(dados, recarregar) {
   const detalhes = document.querySelector('#dialogo-grupo');
