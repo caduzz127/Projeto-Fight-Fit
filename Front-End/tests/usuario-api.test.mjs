@@ -47,3 +47,8 @@ test('cargo vem do token', t => {
   t.after(() => definirSessao(null));
   assert.equal(obterCargo(), 'SYSTEM_ADMIN');
 });
+
+test('404 sem "senha incorreta" não é mostrado como senha errada', async t => {
+  entrar(t, () => Response.json({ status: 404, mensage: 'usuário não existe' }, { status: 404 }));
+  await assert.rejects(atualizarUsuario({ username: 'novo', senhaAntiga: 'x' }), erro => !/senha/i.test(erro.message) && /Conta não encontrada/.test(erro.message));
+});

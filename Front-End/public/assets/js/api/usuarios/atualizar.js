@@ -5,7 +5,7 @@ import { requisitarJson } from '../requisicao.js';
 export function atualizarUsuario({ username, senhaAntiga, senhaNova = '' }, { signal } = {}) {
   return requisitarJson('/usuarios/atualizar', {
     metodo: 'PUT', signal, dados: { username, senhaAntiga, senhaNova },
-    mensagens: { 400: 'Não foi possível salvar as alterações.', 404: 'Senha atual incorreta.' },
+    mensagens: { 400: 'Não foi possível salvar as alterações.', 404: 'Não foi possível salvar as alterações. Conta não encontrada.' },
     detalhes: [['já existe um usuário', 'Este nome de usuário já está em uso.'], ['senha incorreta', 'Senha atual incorreta.']],
   });
 }
