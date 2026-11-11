@@ -232,3 +232,7 @@ select:focus-visible { outline: 2px solid var(--verde); outline-offset: 4px; }
 svg.icone-navegacao { flex-shrink: 0; }
 .proximo-topo .sobretitulo, .convite-primeiro-grupo>.sobretitulo { font-size: 11px; }
 .proximo-conteudo>.texto-verde { font-size: 11px; }
+
+/* Atalhos para a tela da conta. */
+.link-perfil { display: inline-flex; border-radius: 50%; }
+.link-perfil:hover .perfil { border-color: var(--verde); }

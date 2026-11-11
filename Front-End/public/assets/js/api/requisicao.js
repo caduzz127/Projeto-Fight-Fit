@@ -9,11 +9,14 @@ export class ErroApi extends Error {
   }
 }
 
-export async function requisitarJson(caminho, { metodo = 'GET', dados, mensagens = {}, autenticado = true, signal } = {}) {
+// dados vai como JSON; texto vai puro (para endpoints que leem @RequestBody String).
+// detalhes troca a mensagem quando o texto do erro do back-end contém o trecho indicado.
+export async function requisitarJson(caminho, { metodo = 'GET', dados, texto, mensagens = {}, detalhes = [], autenticado = true, signal } = {}) {
   const limite = AbortSignal.timeout(15000);
   const sinal = signal ? AbortSignal.any([signal, limite]) : limite;
   const headers = { Accept: 'application/json' };
   if (dados !== undefined) headers['Content-Type'] = 'application/json';
+  if (texto !== undefined) headers['Content-Type'] = 'text/plain;charset=UTF-8';
   if (autenticado) {
     const sessao = obterSessao();
     if (!sessao) throw new ErroApi('Sua sessão expirou. Entre novamente.', 401);
@@ -22,7 +25,7 @@ export async function requisitarJson(caminho, { metodo = 'GET', dados, mensagens
   try {
     const resposta = await fetch(`${API_URL}${caminho}`, {
       method: metodo, credentials: 'omit', headers,
-      body: dados === undefined ? undefined : JSON.stringify(dados), signal: sinal,
+      body: texto !== undefined ? texto : dados === undefined ? undefined : JSON.stringify(dados), signal: sinal,
     });
     if (!resposta.ok) {
       const corpo = await resposta.json().catch(() => null);
@@ -39,6 +42,10 @@ export async function requisitarJson(caminho, { metodo = 'GET', dados, mensagens
         if (caminho === '/usuarios/cadastrar' && detalhe.includes('já existe um usuário')) mensagem = 'Este nome de usuário já está em uso.';
         if (caminho === '/grupos/entrar' && detalhe.includes('senha incorreta')) mensagem = 'Senha do grupo incorreta.';
         if (caminho === '/grupos/entrar' && detalhe.includes('já pertence')) mensagem = 'Você já participa deste grupo.';
+      }
+      if (resposta.status < 500) {
+        const encontrado = detalhes.find(([trecho]) => detalhe.includes(trecho));
+        if (encontrado) mensagem = encontrado[1];
       }
       throw new ErroApi(mensagem, resposta.status);
     }

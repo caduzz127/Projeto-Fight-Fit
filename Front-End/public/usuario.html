@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101210">
+    <title>Minha conta — Fight Fit</title>
+    <link rel="icon" href="assets/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="assets/css/principal.css">
+    <link rel="stylesheet" href="assets/css/componentes.css">
+    <link rel="stylesheet" href="assets/css/usuario.css">
+    <script type="module" src="assets/js/usuario.js"></script>
+</head>
+
+<body>
+    <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+    <aside class="sidebar" id="menu-principal" aria-label="Menu principal">
+        <a class="marca" href="pagina_principal.html" aria-label="Fight Fit — início">
+            <img src="assets/images/logo.png" alt=""><span>FIGHT<span>FIT</span></span>
+        </a>
+        <p class="menu-legenda">SEU ESPAÇO</p>
+        <nav aria-label="Navegação principal">
+            <a class="menu-link" href="pagina_principal.html"><svg class="icone-navegacao" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 11 12 4l9 7M5 10v10h14V10" />
+                </svg> Visão geral</a>
+            <a class="menu-link" href="pagina_principal.html#grupos"><img class="icone-navegacao"
+                    src="assets/images/icons/grupo.svg" alt=""> Meus grupos</a>
+            <a class="menu-link" href="treinos.html"><img class="icone-navegacao"
+                    src="assets/images/icons/forca.svg" alt=""> Meus treinos</a>
+        </nav>
+        <div class="sidebar-convite">
+            <h2>Procurando<br>um grupo?</h2>
+            <p>Busque pelo nome e entre com a senha que o dono do grupo te passar.</p>
+            <a class="link-botao" href="pagina_principal.html#grupos">Explorar grupos <span
+                    aria-hidden="true">→</span></a>
+        </div>
+    </aside>
+
+    <div class="pagina">
+        <header class="barra-superior">
+            <button class="botao-menu" aria-expanded="false" aria-controls="menu-principal"
+                aria-label="Abrir menu"><span aria-hidden="true">☰</span></button>
+            <nav class="caminho" aria-label="Seções">
+                <a class="caminho-raiz" href="usuario.html" aria-current="page">Seu espaço</a>
+                <span class="separador" aria-hidden="true">/</span>
+                <a href="pagina_principal.html">Visão geral</a>
+                <span class="separador" aria-hidden="true">/</span>
+                <a href="treinos.html">Treinos</a>
+                <span class="separador" aria-hidden="true">/</span>
+                <a href="pagina_principal.html#grupos">Grupos</a>
+            </nav>
+            <div class="barra-acoes">
+                <button class="link-botao" id="sair" type="button">Sair</button><a class="link-perfil" href="usuario.html" aria-label="Minha conta"><span
+                        class="avatar perfil" data-avatar-nome="Atleta" aria-hidden="true">AT</span></a>
+            </div>
+        </header>
+
+        <main id="conteudo">
+            <noscript>
+                <p class="aviso-pagina">Ative o JavaScript para acessar sua conta.</p>
+            </noscript>
+            <div class="cartao-conta">
+                <div class="perfil-topo">
+                    <span class="avatar avatar-grande" id="avatar-conta" data-avatar-nome="" aria-hidden="true"></span>
+                    <div>
+                        <h1 id="nome-usuario"></h1>
+                        <span class="selo-cargo" id="cargo-usuario"></span>
+                    </div>
+                </div>
+
+                <section aria-labelledby="titulo-resumo">
+                    <h2 class="sr-only" id="titulo-resumo">Resumo da sua atividade</h2>
+                    <dl class="resumo-conta">
+                        <div><dt>Treinos</dt><dd id="resumo-treinos">—</dd></div>
+                        <div><dt>Exercícios</dt><dd id="resumo-exercicios">—</dd></div>
+                        <div><dt>Grupos</dt><dd id="resumo-grupos">—</dd></div>
+                    </dl>
+                    <p class="status-cartao" id="status-resumo" role="status"></p>
+                </section>
+
+                <section class="bloco-conta" aria-labelledby="titulo-informacoes">
+                    <h2 id="titulo-informacoes">Informações</h2>
+                    <div id="visualizar-conta">
+                        <dl class="dados-conta">
+                            <div><dt>Nome de usuário</dt><dd id="dado-username"></dd></div>
+                            <div><dt>Senha</dt><dd><span aria-hidden="true">••••••••</span><span class="sr-only">oculta</span></dd></div>
+                        </dl>
+                        <p class="status-cartao" id="status-visualizar" role="status"></p>
+                        <div class="acoes-conta">
+                            <button class="botao secundario" id="editar-conta" type="button">Editar</button>
+                            <button class="botao perigo" id="excluir-conta" type="button">Excluir conta</button>
+                        </div>
+                    </div>
+
+                    <form class="form-conta" id="form-conta" novalidate hidden>
+                        <label class="campo campo-largo"><span>Nome de usuário</span>
+                            <input name="username" required maxlength="255" autocomplete="username"></label>
+                        <label class="campo"><span>Nova senha <small>(em branco mantém a atual)</small></span>
+                            <input name="senhaNova" type="password" autocomplete="new-password"></label>
+                        <label class="campo"><span>Confirmar nova senha</span>
+                            <input name="confirmacao" type="password" autocomplete="new-password"></label>
+                        <label class="campo campo-largo campo-confirmar"><span>Senha atual <small>(para confirmar que é você)</small></span>
+                            <input name="senhaAtual" type="password" required autocomplete="current-password"></label>
+                        <div class="acoes-formulario campo-largo">
+                            <button class="botao principal" type="submit">Salvar alterações</button>
+                            <button class="botao secundario" id="cancelar-edicao" type="button">Cancelar</button>
+                        </div>
+                        <p class="status-cartao campo-largo" id="status-conta" role="status"></p>
+                    </form>
+
+                    <form class="zona-perigo" id="form-excluir" novalidate hidden>
+                        <h3>Excluir sua conta?</h3>
+                        <p>Sua conta é apagada de vez e isso não pode ser desfeito. Digite sua senha para confirmar.</p>
+                        <label class="campo"><span>Senha</span>
+                            <input name="senha" type="password" required autocomplete="current-password"></label>
+                        <div class="acoes-formulario">
+                            <button class="botao perigo" type="submit">Excluir minha conta</button>
+                            <button class="botao secundario" id="cancelar-exclusao" type="button">Cancelar</button>
+                        </div>
+                        <p class="status-cartao" id="status-excluir" role="status"></p>
+                    </form>
+                </section>
+            </div>
+            <p class="sr-only" id="anuncio" role="status"></p>
+        </main>
+    </div>
+</body>
+
+</html>

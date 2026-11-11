@@ -207,6 +207,22 @@ Na página principal, as seções Meus grupos e Meus treinos mostram só os dois
 primeiros itens. **Ver todos os treinos** leva a `treinos.html`; **Ver todos os grupos**
 mostra os demais grupos na própria página até existir uma tela de grupos.
 
+## Tela da conta
+
+- `usuario.html` (`assets/js/usuario.js`, `ui/usuario/conta.js`): abre por "Seu espaço"
+  no topo ou pelo avatar. Mostra nome, cargo (do token) e um resumo com treinos,
+  exercícios e grupos. **Editar** troca os dados por um formulário: nome de usuário,
+  nova senha com confirmação (em branco mantém a atual) e a senha atual, que o
+  back-end exige. **Excluir conta** pede a senha no próprio cartão; depois de
+  excluir, volta ao login com aviso.
+- `api/usuarios/atualizar.js`: PUT `/usuarios/atualizar` com
+  `{ username, usernameNovo, senhaAntiga, senhaNova }`. O token devolvido substitui o da sessão.
+- `api/usuarios/excluir.js`: DELETE `/usuarios/deletar` com a senha como texto puro
+  (`@RequestBody String`), não JSON.
+
+Estilos comuns às telas (cabeçalho, botões, mensagens, formulários) ficam em
+`assets/css/componentes.css`.
+
 Módulos compartilhados: `ui/compartilhado/pagina-base.js` (sessão, menu e avatar),
 `ui/compartilhado/rotas.js` (links entre telas) e `ui/compartilhado/icones.js`. Chamadas novas em `api/treinos/deletar.js`, `api/treinos/atualizar.js` e
 `api/exercicios/` (`listar`, `cadastrar`, `atualizar`, `deletar`).

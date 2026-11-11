@@ -10,9 +10,14 @@ export function iniciarFormulario() {
   const confirmacao = document.querySelector('#confirm-password');
   let requisicao = null;
   queueMicrotask(() => {
-    if (new URLSearchParams(location.search).get('motivo') === 'sessao') {
+    const motivo = new URLSearchParams(location.search).get('motivo');
+    const avisos = {
+      sessao: 'Sua sessão expirou ou não está disponível. Entre novamente.',
+      'conta-excluida': 'Sua conta foi excluída.',
+    };
+    if (avisos[motivo]) {
       status.dataset.kind = 'info';
-      status.textContent = 'Sua sessão expirou ou não está disponível. Entre novamente.';
+      status.textContent = avisos[motivo];
     }
   });
 
