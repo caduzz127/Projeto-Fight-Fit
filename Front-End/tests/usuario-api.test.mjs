@@ -18,20 +18,22 @@ function entrar(t, resposta) {
   return chamadas;
 }
 
-test('atualizar envia o DTO UsuarioUpdate em JSON', async t => {
+test('atualizar envia username, senhaAntiga e senhaNova (vazia mantém a senha)', async t => {
   const chamadas = entrar(t, () => Response.json({ username: 'SYSTEM_USER', token: 'novo' }));
-  await atualizarUsuario({ username: 'admin', usernameNovo: 'carlos', senhaAntiga: 'a', senhaNova: 'b' });
+  await atualizarUsuario({ username: 'carlos', senhaAntiga: 'a', senhaNova: 'b' });
+  await atualizarUsuario({ username: 'carlos', senhaAntiga: 'a' });
   assert.equal(chamadas[0].url, `${API}/usuarios/atualizar`);
   assert.equal(chamadas[0].metodo, 'PUT');
   assert.equal(chamadas[0].tipo, 'application/json');
-  assert.deepEqual(JSON.parse(chamadas[0].corpo), { username: 'admin', usernameNovo: 'carlos', senhaAntiga: 'a', senhaNova: 'b' });
+  assert.deepEqual(JSON.parse(chamadas[0].corpo), { username: 'carlos', senhaAntiga: 'a', senhaNova: 'b' });
+  assert.deepEqual(JSON.parse(chamadas[1].corpo), { username: 'carlos', senhaAntiga: 'a', senhaNova: '' });
 });
 
 test('atualizar traduz nome em uso e senha incorreta', async t => {
   entrar(t, () => Response.json({ status: 400, mensage: 'já existe um usuário com esse username!' }, { status: 400 }));
-  await assert.rejects(atualizarUsuario({ username: 'a', usernameNovo: 'b', senhaAntiga: 'c', senhaNova: 'c' }), /já está em uso/);
+  await assert.rejects(atualizarUsuario({ username: 'b', senhaAntiga: 'c' }), /já está em uso/);
   globalThis.fetch.mock.mockImplementation(async () => Response.json({ status: 404, mensage: 'Senha Incorreta, Verifique a senha!!' }, { status: 404 }));
-  await assert.rejects(atualizarUsuario({ username: 'a', usernameNovo: 'b', senhaAntiga: 'c', senhaNova: 'c' }), /Senha atual incorreta/);
+  await assert.rejects(atualizarUsuario({ username: 'b', senhaAntiga: 'c' }), /Senha atual incorreta/);
 });
 
 test('excluir manda a senha como texto puro, sem aspas de JSON', async t => {

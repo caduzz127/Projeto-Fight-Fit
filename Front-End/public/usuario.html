@@ -96,19 +96,21 @@
                     </div>
 
                     <form class="form-conta" id="form-conta" novalidate hidden>
-                        <label class="campo campo-largo"><span>Nome de usuário</span>
+                        <label class="campo"><span>Username</span>
                             <input name="username" required maxlength="255" autocomplete="username"></label>
-                        <label class="campo"><span>Nova senha <small>(em branco mantém a atual)</small></span>
-                            <input name="senhaNova" type="password" autocomplete="new-password"></label>
-                        <label class="campo"><span>Confirmar nova senha</span>
-                            <input name="confirmacao" type="password" autocomplete="new-password"></label>
-                        <label class="campo campo-largo campo-confirmar"><span>Senha atual <small>(para confirmar que é você)</small></span>
-                            <input name="senhaAtual" type="password" required autocomplete="current-password"></label>
-                        <div class="acoes-formulario campo-largo">
+                        <label class="campo"><span>Senha</span>
+                            <input name="senhaAtual" type="password" required autocomplete="current-password"
+                                aria-describedby="dica-senha-atual">
+                            <small class="dica-campo" id="dica-senha-atual">Digite sua senha atual para salvar as alterações.</small></label>
+                        <label class="campo"><span>Senha nova</span>
+                            <input name="senhaNova" type="password" autocomplete="new-password"
+                                aria-describedby="dica-senha-nova">
+                            <small class="dica-campo" id="dica-senha-nova">* Se não quiser mudar a senha, deixe o campo em branco.</small></label>
+                        <div class="acoes-formulario">
                             <button class="botao principal" type="submit">Salvar alterações</button>
                             <button class="botao secundario" id="cancelar-edicao" type="button">Cancelar</button>
                         </div>
-                        <p class="status-cartao campo-largo" id="status-conta" role="status"></p>
+                        <p class="status-cartao" id="status-conta" role="status"></p>
                     </form>
 
                     <form class="zona-perigo" id="form-excluir" novalidate hidden>

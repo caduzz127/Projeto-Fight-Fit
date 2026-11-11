@@ -211,12 +211,12 @@ mostra os demais grupos na própria página até existir uma tela de grupos.
 
 - `usuario.html` (`assets/js/usuario.js`, `ui/usuario/conta.js`): abre por "Seu espaço"
   no topo ou pelo avatar. Mostra nome, cargo (do token) e um resumo com treinos,
-  exercícios e grupos. **Editar** troca os dados por um formulário: nome de usuário,
-  nova senha com confirmação (em branco mantém a atual) e a senha atual, que o
-  back-end exige. **Excluir conta** pede a senha no próprio cartão; depois de
+  exercícios e grupos. **Editar** troca os dados por um formulário: username (já
+  preenchido), senha atual (obrigatória) e senha nova (em branco mantém a atual). **Excluir conta** pede a senha no próprio cartão; depois de
   excluir, volta ao login com aviso.
 - `api/usuarios/atualizar.js`: PUT `/usuarios/atualizar` com
-  `{ username, usernameNovo, senhaAntiga, senhaNova }`. O token devolvido substitui o da sessão.
+  `{ username, senhaAntiga, senhaNova }`; a conta vem do token e `senhaNova` vazia
+  mantém a senha. O token devolvido substitui o da sessão.
 - `api/usuarios/excluir.js`: DELETE `/usuarios/deletar` com a senha como texto puro
   (`@RequestBody String`), não JSON.
 

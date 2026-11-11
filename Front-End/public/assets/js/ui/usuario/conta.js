@@ -62,7 +62,6 @@ export function iniciarConta({ aoAtualizar }) {
     const usernameNovo = campos.username.value.trim();
     const senhaNova = campos.senhaNova.value;
     campos.username.setCustomValidity(usernameNovo ? '' : 'Digite o nome de usuário.');
-    campos.confirmacao.setCustomValidity(senhaNova && campos.confirmacao.value !== senhaNova ? 'As senhas não coincidem.' : '');
     campos.senhaAtual.setCustomValidity(campos.senhaAtual.value ? '' : 'Digite sua senha atual.');
     if (!formulario.reportValidity()) return;
     if (usernameNovo === sessao.username && !senhaNova) {
@@ -75,11 +74,8 @@ export function iniciarConta({ aoAtualizar }) {
     controles.forEach(controle => { controle.disabled = true; });
     mostrarStatus(statusConta, 'Salvando…');
     try {
-      // O back-end sempre pede uma senha nova; sem troca, reenviamos a atual.
-      const resposta = await atualizarUsuario({
-        username: sessao.username, usernameNovo,
-        senhaAntiga: campos.senhaAtual.value, senhaNova: senhaNova || campos.senhaAtual.value,
-      });
+      // senhaNova vazia mantém a senha atual; a conta é identificada pelo token.
+      const resposta = await atualizarUsuario({ username: usernameNovo, senhaAntiga: campos.senhaAtual.value, senhaNova });
       const token = typeof resposta?.token === 'string' && resposta.token ? resposta.token : sessao.token;
       definirSessao({ username: usernameNovo, token });
       controles.forEach(controle => { controle.disabled = false; });
