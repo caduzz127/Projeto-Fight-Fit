@@ -49,8 +49,3 @@ export function obterIdUsuario() {
   // O backend valida a assinatura e as permissões. Aqui só lemos o ID para a URL.
   return id;
 }
-
-export function obterCargo() {
-  const atual = obterSessao();
-  return atual ? claimsDoToken(atual.token).roles || null : null;
-}

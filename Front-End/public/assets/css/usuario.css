@@ -1,11 +1,8 @@
 /* Tela da conta do usuário (usuario.html). */
-.cartao-conta { max-width: 780px; padding: 32px; border: 1px solid var(--borda); border-radius: 12px; background: #181c15; }
+.cartao-conta { max-width: 780px; margin-inline: auto; padding: 32px; border: 1px solid var(--borda); border-radius: 12px; background: #181c15; }
 .perfil-topo { display: flex; align-items: center; gap: 22px; }
-.perfil-topo>div { min-width: 0; }
-.perfil-topo h1 { font-size: clamp(24px, 2.4vw, 32px); overflow-wrap: anywhere; }
+.perfil-topo h1 { min-width: 0; font-size: clamp(24px, 2.4vw, 32px); overflow-wrap: anywhere; }
 .avatar-grande { width: 88px; height: 88px; font-size: 28px; background: #272e22; border: 2px solid #465239; color: var(--verde); }
-.selo-cargo { display: inline-block; margin-top: 10px; padding: 5px 11px; border: 1px solid #3f502d; border-radius: 999px; color: var(--verde); font-size: 11px; font-weight: 600; letter-spacing: .6px; }
-.selo-cargo:empty { display: none; }
 
 .resumo-conta { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 28px 0 0; }
 .resumo-conta div { padding: 16px 18px; border: 1px solid var(--borda); border-radius: 9px; background: #141811; }

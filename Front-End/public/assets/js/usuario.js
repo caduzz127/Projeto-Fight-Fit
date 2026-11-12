@@ -1,13 +1,11 @@
 import { listarTreinos } from './api/treinos/listar.js';
 import { listarGrupos } from './api/grupos/listar.js';
-import { obterCargo, obterSessao } from './api/sessao.js';
+import { obterSessao } from './api/sessao.js';
 import { adaptarGrupos, adaptarTreinos } from './dados/adaptar-principal.js';
 import { tratarSessaoExpirada } from './ui/compartilhado/autenticacao-principal.js';
 import { preencherAvatares } from './ui/compartilhado/avatar-iniciais.js';
 import { iniciarPagina } from './ui/compartilhado/pagina-base.js';
 import { iniciarConta } from './ui/usuario/conta.js';
-
-const CARGOS = { SYSTEM_ADMIN: 'Administrador' };
 
 function mostrarIdentidade(nome) {
   document.title = `${nome} — Fight Fit`;
@@ -35,7 +33,6 @@ async function carregarResumo() {
 
 if (iniciarPagina()) {
   mostrarIdentidade(obterSessao().username);
-  document.querySelector('#cargo-usuario').textContent = CARGOS[obterCargo()] || 'Atleta';
   iniciarConta({ aoAtualizar: mostrarIdentidade });
   carregarResumo();
 }

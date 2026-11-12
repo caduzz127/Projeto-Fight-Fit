@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { definirSessao, obterCargo } from '../public/assets/js/api/sessao.js';
+import { definirSessao } from '../public/assets/js/api/sessao.js';
 import { atualizarUsuario } from '../public/assets/js/api/usuarios/atualizar.js';
 import { excluirUsuario } from '../public/assets/js/api/usuarios/excluir.js';
 
@@ -40,12 +40,6 @@ test('excluir manda a senha como texto puro, sem aspas de JSON', async t => {
   const chamadas = entrar(t, () => new Response(null, { status: 204 }));
   await excluirUsuario('minha senha');
   assert.deepEqual(chamadas, [{ url: `${API}/usuarios/deletar`, metodo: 'DELETE', corpo: 'minha senha', tipo: 'text/plain;charset=UTF-8' }]);
-});
-
-test('cargo vem do token', t => {
-  definirSessao({ username: 'admin', token });
-  t.after(() => definirSessao(null));
-  assert.equal(obterCargo(), 'SYSTEM_ADMIN');
 });
 
 test('404 sem "senha incorreta" não é mostrado como senha errada', async t => {

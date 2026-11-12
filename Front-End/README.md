@@ -210,7 +210,7 @@ mostra os demais grupos na própria página até existir uma tela de grupos.
 ## Tela da conta
 
 - `usuario.html` (`assets/js/usuario.js`, `ui/usuario/conta.js`): abre por "Seu espaço"
-  no topo ou pelo avatar. Mostra nome, cargo (do token) e um resumo com treinos,
+  no topo ou pelo avatar. Mostra o nome e um resumo com treinos,
   exercícios e grupos. **Editar** troca os dados por um formulário: username (já
   preenchido), senha atual (obrigatória) e senha nova (em branco mantém a atual). **Excluir conta** pede a senha no próprio cartão; depois de
   excluir, volta ao login com aviso.
