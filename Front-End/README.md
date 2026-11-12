@@ -20,13 +20,15 @@ public/
 ├── index.html              login e cadastro
 ├── pagina_principal.html   visão geral
 ├── treinos.html            lista de treinos
-├── treino.html             detalhe do treino (?id=)
+├── usuario.html            conta do usuário
+├── treino_detalhes.html    detalhe do treino (?id=)
 └── assets/
-    ├── css/                styles.css (index), principal.css, treinos.css
+    ├── css/                styles.css (index), principal.css, componentes.css,
+    │                       treinos.css, usuario.css
     └── js/
-        ├── app.js, principal.js, treinos.js, treino.js   entrada de cada página
+        ├── app.js, principal.js, treinos.js, treino_detalhes.js, usuario.js   entrada de cada página
         ├── api/            chamadas à API, por recurso
-        │   ├── index/  grupos/  treinos/  exercicios/
+        │   ├── index/  grupos/  treinos/  exercicios/  usuarios/
         │   └── config.js, requisicao.js, sessao.js
         ├── dados/          adaptadores das respostas da API
         └── ui/             comportamento da tela, por página
@@ -34,7 +36,8 @@ public/
             │                   formulario, atualizar-ano, digitar-titulo
             ├── principal/      renderizar-principal, estado-principal, grupos, modalidades
             ├── treinos/        lista-treinos, novo-treino, filtrar-treinos
-            ├── treino/         exercicios-treino
+            ├── treino_detalhes/ exercicios-treino
+            ├── usuario/        conta
             └── compartilhado/  autenticacao-principal, navegacao-principal, pagina-base,
                                 avatar-iniciais, icones, rotas
 ```
@@ -188,16 +191,16 @@ a validação de ponta a ponta requer a API real ativa.
 ## Telas de treinos
 
 As telas de treino substituem os antigos diálogos de detalhe e criação de treino.
-Inclusão, edição e exclusão acontecem na própria página, sem modal.
+Edição e exclusão acontecem no próprio cartão; só a criação de treino usa um diálogo.
 
 - `treinos.html` (`assets/js/treinos.js`): lista os treinos em cartões com até três
-  exercícios. **Adicionar** abre um formulário abaixo do título; ao criar, o usuário
-  vai direto para o treino novo. A lixeira pede confirmação dentro do cartão
-  (Esc cancela). `treinos.html?novo` já abre o formulário (usado pela página principal).
+  exercícios. **Adicionar** abre um diálogo centralizado; ao criar, o diálogo fecha e
+  o cartão novo aparece na lista. A lixeira pede confirmação dentro do cartão
+  (Esc cancela). `treinos.html?novo` já abre o diálogo (usado pela página principal).
   O campo **Pesquisar** filtra os cartões pelo nome do treino.
   O lápis de cada cartão troca o título por um campo para renomear o treino
   (`PUT /treinos/atualizar`); Esc ou Cancelar desfazem.
-- `treino.html?id=<uuid>` (`assets/js/treino.js`): mostra os exercícios com carga,
+- `treino_detalhes.html?id=<uuid>` (`assets/js/treino_detalhes.js`): mostra os exercícios com carga,
   repetições e séries. O lápis transforma o cartão em formulário; **Adicionar**
   coloca um formulário no fim da lista. Só um cartão fica em edição por vez.
   O nome do treino vem do campo `nome_treino` do primeiro exercício; se o treino ainda

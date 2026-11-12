@@ -1,4 +1,4 @@
-/* Telas de treinos: lista (treinos.html) e detalhe (treino.html). */
+/* Telas de treinos: lista (treinos.html) e detalhe (treino_detalhes.html). */
 /* Lista de treinos. */
 .grade-treinos-pagina { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
 .cartao-treino-pagina { display: flex; flex-direction: column; min-width: 0; border: 1px solid var(--borda); border-radius: 9px; background: #181c15; }

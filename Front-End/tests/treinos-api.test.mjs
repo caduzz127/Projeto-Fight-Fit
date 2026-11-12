@@ -61,7 +61,7 @@ test('exercícios: 403 de treino de outra pessoa preserva o status para a tela t
 test('treino criado é adaptado e vira link da tela de detalhe', () => {
   const treino = adaptarTreino({ id_treino: idTreino, nome_treino: 'Treino A' });
   assert.deepEqual(treino, { id: idTreino, nome: 'Treino A' });
-  assert.equal(linkTreino(treino.id), `treino.html?id=${idTreino}`);
+  assert.equal(linkTreino(treino.id), `treino_detalhes.html?id=${idTreino}`);
   assert.throws(() => adaptarTreino({ nome_treino: 'Sem ID' }), /incompletos/);
 });
 

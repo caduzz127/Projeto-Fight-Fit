@@ -2,8 +2,7 @@ import { listarTreinos } from './api/treinos/listar.js';
 import { adaptarTreinos } from './dados/adaptar-principal.js';
 import { tratarSessaoExpirada } from './ui/compartilhado/autenticacao-principal.js';
 import { iniciarPagina, plural } from './ui/compartilhado/pagina-base.js';
-import { iniciarAcoesTreinos, renderizarTreinos } from './ui/treinos/lista-treinos.js';
-import { linkTreino } from './ui/compartilhado/rotas.js';
+import { adicionarTreino, iniciarAcoesTreinos, renderizarTreinos } from './ui/treinos/lista-treinos.js';
 import { iniciarNovoTreino } from './ui/treinos/novo-treino.js';
 import { iniciarFiltroTreinos } from './ui/treinos/filtrar-treinos.js';
 
@@ -67,8 +66,18 @@ if (iniciarPagina()) {
     },
   });
 
-  // Depois de criar, o usuário vai direto para o treino para adicionar os exercícios.
-  iniciarNovoTreino(treino => location.assign(linkTreino(treino.id)));
+  // O treino criado entra na lista sem sair da página.
+  iniciarNovoTreino(treino => {
+    if (!painel.hidden) {
+      carregar();
+      return;
+    }
+    const cartao = adicionarTreino(lista, { ...treino, exercicios: [] });
+    atualizarTotal(total + 1);
+    anuncio.textContent = `Treino ${treino.nome} criado.`;
+    cartao.scrollIntoView({ block: 'nearest' });
+    cartao.querySelector('[data-acao="ver"]').focus({ preventScroll: true });
+  });
   tentar.addEventListener('click', carregar);
   window.addEventListener('pagehide', () => controle?.abort(), { once: true });
   carregar();

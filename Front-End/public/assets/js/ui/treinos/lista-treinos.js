@@ -56,6 +56,11 @@ export function renderizarTreinos(lista, treinos) {
   lista.replaceChildren(...treinos.map(criarCartao));
 }
 
+export function adicionarTreino(lista, treino) {
+  lista.append(criarCartao(treino));
+  return lista.lastElementChild;
+}
+
 function mostrarConfirmacao(cartao, visivel) {
   cartao.querySelector('.cartao-base').hidden = visivel;
   cartao.querySelector('.confirmacao').hidden = !visivel;

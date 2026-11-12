@@ -68,21 +68,9 @@
                     <h1>Treinos</h1>
                     <p id="resumo-treinos"></p>
                 </div>
-                <button class="botao principal" id="adicionar-treino" type="button" aria-expanded="false"
-                    aria-controls="form-novo-treino">Adicionar <span aria-hidden="true">+</span></button>
+                <button class="botao principal" id="adicionar-treino" type="button" aria-haspopup="dialog">Adicionar <span aria-hidden="true">+</span></button>
             </div>
 
-            <form class="painel-formulario" id="form-novo-treino" method="post" hidden>
-                <h2>Novo treino</h2>
-                <label for="nome-novo-treino">Nome do treino</label>
-                <input id="nome-novo-treino" name="nome" required maxlength="60" autocomplete="off"
-                    placeholder="Ex.: Treino A — peito e tríceps">
-                <div class="acoes-formulario">
-                    <button class="botao principal" type="submit">Criar treino</button>
-                    <button class="botao secundario" id="cancelar-novo-treino" type="button">Cancelar</button>
-                </div>
-                <p class="status-cartao" id="status-novo-treino" role="status"></p>
-            </form>
 
             <div class="filtro-treinos" id="filtro-treinos" hidden>
                 <label for="buscar-treino">Pesquisar</label>
@@ -110,6 +98,23 @@
             <p class="sr-only" id="anuncio" role="status"></p>
         </main>
     </div>
+
+    <dialog id="dialogo-novo-treino" aria-labelledby="titulo-novo-treino">
+        <div class="dialogo-topo">
+            <h2 id="titulo-novo-treino">Novo treino</h2><button class="fechar-dialogo" type="button"
+                aria-label="Fechar">×</button>
+        </div>
+        <form class="formulario-dialogo" id="form-novo-treino" novalidate>
+            <label for="nome-novo-treino">Nome do treino</label>
+            <input id="nome-novo-treino" name="nome" required maxlength="60" autocomplete="off"
+                placeholder="Ex.: Treino A — peito e tríceps">
+            <div class="acoes-formulario">
+                <button class="botao principal" type="submit">Criar treino</button>
+                <button class="botao secundario" id="cancelar-novo-treino" type="button">Cancelar</button>
+            </div>
+            <p class="status-cartao" id="status-novo-treino" role="status"></p>
+        </form>
+    </dialog>
 
     <template id="modelo-cartao-treino">
         <article class="cartao-treino-pagina">
