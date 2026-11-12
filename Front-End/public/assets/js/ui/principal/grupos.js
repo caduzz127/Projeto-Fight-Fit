@@ -1,50 +1,10 @@
-import { detalharGrupo } from '../../api/grupos/detalhar.js';
 import { buscarGrupos } from '../../api/grupos/buscar.js';
 import { cadastrarGrupo } from '../../api/grupos/cadastrar.js';
 import { entrarGrupo } from '../../api/grupos/entrar.js';
-import { adaptarGrupo, adaptarGrupos } from '../../dados/adaptar-principal.js';
+import { adaptarGrupos } from '../../dados/adaptar-principal.js';
 import { tratarSessaoExpirada } from '../compartilhado/autenticacao-principal.js';
 
 export function iniciarGrupos(dados, recarregar) {
-  const detalhes = document.querySelector('#dialogo-grupo');
-  const statusDetalhes = document.querySelector('#status-detalhes-grupo');
-  const membros = document.querySelector('#lista-integrantes');
-  let detalheControle;
-  detalhes.addEventListener('close', () => detalheControle?.abort());
-  document.addEventListener('click', async evento => {
-    const botao = evento.target.closest('[data-grupo]');
-    if (!botao) return;
-    const grupo = dados.grupos.find(item => item.id === botao.dataset.grupo);
-    if (!grupo) return;
-    detalheControle?.abort();
-    detalheControle = new AbortController();
-    const atual = detalheControle;
-    document.querySelector('#titulo-dialogo-grupo').textContent = grupo.nome;
-    document.querySelector('#tag-dialogo-grupo').textContent = grupo.tag ? `#${grupo.tag}` : '';
-    membros.replaceChildren();
-    statusDetalhes.textContent = 'Carregando integrantes…';
-    detalhes.showModal();
-    try {
-      const resposta = await detalharGrupo(grupo.id, { signal: atual.signal });
-      const completo = adaptarGrupo(resposta);
-      if (atual.signal.aborted) return;
-      document.querySelector('#titulo-dialogo-grupo').textContent = completo.nome;
-      document.querySelector('#tag-dialogo-grupo').textContent = completo.tag ? `#${completo.tag}` : '';
-      statusDetalhes.textContent = completo.membros.length === 1 ? '1 integrante' : `${completo.membros.length} integrantes`;
-      resposta.usuarios.forEach(usuario => {
-        const item = document.createElement('li');
-        const nome = document.createElement('span');
-        nome.textContent = usuario.nome;
-        const cargo = document.createElement('small');
-        cargo.textContent = ['SYSTEM_ROOT_GROUP_ADMIN', 'SYSTEM_GROUP_ADMIN'].includes(usuario.cargo) ? 'Administrador' : 'Integrante';
-        item.append(nome, cargo);
-        membros.append(item);
-      });
-    } catch (erro) {
-      if (!atual.signal.aborted && !tratarSessaoExpirada(erro)) statusDetalhes.textContent = erro.message;
-    }
-  });
-
   const explorar = document.querySelector('#dialogo-explorar');
   const busca = document.querySelector('#form-buscar-grupos');
   const campoBusca = document.querySelector('#nome-busca-grupo');

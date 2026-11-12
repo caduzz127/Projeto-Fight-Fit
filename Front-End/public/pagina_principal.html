@@ -24,7 +24,7 @@
                     stroke-linejoin="round" aria-hidden="true">
                     <path d="M3 11 12 4l9 7M5 10v10h14V10" />
                 </svg> Visão geral</a>
-            <a class="menu-link" href="#grupos"><img class="icone-navegacao" src="assets/images/icons/grupo.svg" alt="">
+            <a class="menu-link" href="grupos.html"><img class="icone-navegacao" src="assets/images/icons/grupo.svg" alt="">
                 Meus grupos <span class="contador" id="total-grupos">—</span></a>
             <a class="menu-link" href="treinos.html"><img class="icone-navegacao" src="assets/images/icons/forca.svg"
                     alt=""> Meus treinos <span class="contador" id="total-treinos">—</span></a>
@@ -47,7 +47,7 @@
                 <span class="separador" aria-hidden="true">/</span>
                 <a href="treinos.html">Treinos</a>
                 <span class="separador" aria-hidden="true">/</span>
-                <a href="pagina_principal.html#grupos">Grupos</a>
+                <a href="grupos.html">Grupos</a>
             </nav>
             <div class="barra-acoes">
                 <button class="link-botao" id="sair" type="button">Sair</button><a class="link-perfil" href="usuario.html" aria-label="Minha conta"><span
@@ -82,7 +82,7 @@
                             <h2><span>TREINE</span><span>COM A SUA</span><em>TURMA.</em></h2>
                             <p id="descricao-destaque">Entre em um grupo com a senha que o dono te passar, ou crie o seu
                                 e chame quem treina com você.</p>
-                            <a class="botao principal" href="#grupos">Ver meus grupos <span aria-hidden="true"><svg
+                            <a class="botao principal" href="grupos.html">Ver meus grupos <span aria-hidden="true"><svg
                                         class="icone-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
                                         aria-hidden="true">
@@ -133,8 +133,8 @@
                     </div>
                     <div class="grade-grupos" id="lista-grupos-principal" hidden></div>
                     <div class="ver-mais-secao" id="rodape-grupos" hidden>
-                        <button class="botao secundario" id="ver-todos-grupos" type="button" aria-expanded="false"
-                            aria-controls="lista-grupos-principal">Ver todos os grupos</button>
+                        <a class="botao secundario" href="grupos.html">Ver todos os grupos <span
+                                aria-hidden="true">→</span></a>
                     </div>
                     <div class="estado-sem-grupos" id="estado-sem-grupos" hidden>
                         <span class="icone-grupo icone-comunidade" aria-hidden="true"><img
@@ -183,7 +183,7 @@
                 <div class="modalidades-grupo"></div><span class="total-integrantes"></span>
             </div>
             <div class="grupo-base">
-                <div class="avatares" aria-hidden="true"></div><button class="seta-botao" data-grupo></button>
+                <div class="avatares" aria-hidden="true"></div><a class="seta-botao" data-grupo></a>
             </div>
         </article>
     </template>
@@ -201,14 +201,6 @@
         </article>
     </template>
 
-    <dialog id="dialogo-grupo" aria-labelledby="titulo-dialogo-grupo">
-        <div class="dialogo-topo">
-            <h2 id="titulo-dialogo-grupo"></h2><button class="fechar-dialogo" aria-label="Fechar grupo">×</button>
-        </div>
-        <p class="tag-grupo" id="tag-dialogo-grupo"></p>
-        <p class="descricao-dialogo" id="status-detalhes-grupo" role="status"></p>
-        <ul class="lista-integrantes" id="lista-integrantes"></ul>
-    </dialog>
     <dialog id="dialogo-explorar" aria-labelledby="titulo-explorar">
         <div class="dialogo-topo">
             <h2 id="titulo-explorar">Buscar grupos</h2><button class="fechar-dialogo"

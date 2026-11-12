@@ -2,16 +2,12 @@
 /* Lista de treinos. */
 .grade-treinos-pagina { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
 .cartao-treino-pagina { display: flex; flex-direction: column; min-width: 0; border: 1px solid var(--borda); border-radius: 9px; background: #181c15; }
-.cartao-topo { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 14px 14px 22px; border-bottom: 1px solid var(--borda); }
-.cartao-topo h2 { margin: 0; font-size: 16px; line-height: 1.4; letter-spacing: -.3px; overflow-wrap: anywhere; }
 .lista-exercicios-resumo { display: grid; gap: 10px; margin: 0; padding: 18px 22px 4px; list-style: none; color: #c7cebd; font-size: 12px; }
 .lista-exercicios-resumo li { display: flex; align-items: baseline; gap: 10px; overflow-wrap: anywhere; }
 .lista-exercicios-resumo li::before { content: ''; width: 5px; height: 5px; flex-shrink: 0; border-radius: 50%; background: var(--verde); transform: translateY(-2px); }
 .lista-exercicios-resumo li.mais { color: var(--muted); }
 .lista-exercicios-resumo li.mais::before { background: transparent; }
 .sem-exercicios { margin: 0; padding: 18px 22px 4px; color: var(--muted); font-size: 12px; }
-.cartao-base { margin-top: auto; padding: 20px 22px 22px; }
-.confirmacao { margin-top: auto; padding: 18px 22px 22px; }
 .confirmacao>p:first-child, .confirmacao-exercicio>p:first-child { margin: 0 0 12px; font-size: 12px; }
 
 /* Detalhe do treino. */
@@ -29,9 +25,7 @@
 .cartao-exercicio.editando { display: block; border-color: #465337; background: #171c13; }
 .form-exercicio h2 { margin-bottom: 18px; }
 .campos-exercicio { display: grid; grid-template-columns: minmax(0, 2fr) repeat(3, minmax(0, 1fr)); gap: 14px; margin-bottom: 18px; }
-.campo { display: grid; gap: 8px; min-width: 0; }
 .rodape-lista { display: flex; justify-content: flex-end; margin-top: 22px; }
-#conteudo-treino>.estado-sem-grupos h2, #estado-sem-treinos h2 { margin: 0 0 10px; font-size: 18px; letter-spacing: -.4px; }
 
 @media(max-width: 1100px) {
     .grade-treinos-pagina { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -47,22 +41,3 @@
     .rodape-lista>.botao { width: 100%; justify-content: center; gap: 12px; }
     main { padding-bottom: 30px; }
 }
-
-/* Pesquisa na lista de treinos. */
-.filtro-treinos { display: flex; align-items: center; gap: 16px; margin: 0 0 22px; }
-.filtro-treinos label, #resultado-busca { color: var(--muted); font-size: 12px; }
-.filtro-treinos input { min-width: 0; width: min(100%, 360px); padding: 12px 14px; border: 1px solid var(--borda); border-radius: 5px; background: #181c15; color: var(--texto); font: inherit; font-size: 13px; }
-#resultado-busca { white-space: nowrap; }
-.busca-vazia { margin: 0 0 22px; padding: 30px; border: 1px dashed #465337; border-radius: 8px; color: var(--muted); font-size: 13px; text-align: center; }
-@media(max-width: 650px) {
-    .filtro-treinos { display: grid; grid-template-columns: 1fr auto; gap: 10px; }
-    .filtro-treinos input { grid-column: 1 / -1; grid-row: 2; width: 100%; }
-}
-
-/* Edição do nome do treino no próprio cartão. */
-.cartao-acoes { display: flex; gap: 8px; flex-shrink: 0; }
-.form-renomear { display: grid; gap: 12px; padding: 18px 22px 20px; border-bottom: 1px solid var(--borda); background: #171c13; border-radius: 9px 9px 0 0; }
-.form-renomear label { display: grid; gap: 8px; color: var(--muted); font-size: 12px; }
-.form-renomear input { min-width: 0; width: 100%; padding: 11px 13px; border: 1px solid #465337; border-radius: 5px; color: var(--texto); background: #10150f; font: inherit; font-size: 14px; }
-.form-renomear input:disabled { opacity: .6; }
-.form-renomear .status-cartao { margin: 0; }

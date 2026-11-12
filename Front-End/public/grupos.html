@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101210">
+    <title>Meus grupos — Fight Fit</title>
+    <link rel="icon" href="assets/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="assets/css/principal.css">
+    <link rel="stylesheet" href="assets/css/componentes.css">
+    <link rel="stylesheet" href="assets/css/grupos.css">
+    <script type="module" src="assets/js/grupos.js"></script>
+</head>
+
+<body>
+    <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+    <aside class="sidebar" id="menu-principal" aria-label="Menu principal">
+        <a class="marca" href="pagina_principal.html" aria-label="Fight Fit — início">
+            <img src="assets/images/logo.png" alt=""><span>FIGHT<span>FIT</span></span>
+        </a>
+        <p class="menu-legenda">SEU ESPAÇO</p>
+        <nav aria-label="Navegação principal">
+            <a class="menu-link" href="pagina_principal.html"><svg class="icone-navegacao" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 11 12 4l9 7M5 10v10h14V10" />
+                </svg> Visão geral</a>
+            <a class="menu-link ativo" href="grupos.html" aria-current="page"><img class="icone-navegacao"
+                    src="assets/images/icons/grupo.svg" alt=""> Meus grupos</a>
+            <a class="menu-link" href="treinos.html"><img class="icone-navegacao"
+                    src="assets/images/icons/forca.svg" alt=""> Meus treinos</a>
+        </nav>
+        <div class="sidebar-convite">
+            <h2>Procurando<br>um grupo?</h2>
+            <p>Busque pelo nome e entre com a senha que o dono do grupo te passar.</p>
+            <a class="link-botao" href="pagina_principal.html?explorar">Explorar grupos <span
+                    aria-hidden="true">→</span></a>
+        </div>
+    </aside>
+
+    <div class="pagina">
+        <header class="barra-superior">
+            <button class="botao-menu" aria-expanded="false" aria-controls="menu-principal"
+                aria-label="Abrir menu"><span aria-hidden="true">☰</span></button>
+            <nav class="caminho" aria-label="Seções">
+                <a class="caminho-raiz" href="usuario.html">Seu espaço</a>
+                <span class="separador" aria-hidden="true">/</span>
+                <a href="pagina_principal.html">Visão geral</a>
+                <span class="separador" aria-hidden="true">/</span>
+                <a href="treinos.html">Treinos</a>
+                <span class="separador" aria-hidden="true">/</span>
+                <a href="grupos.html" aria-current="page">Grupos</a>
+            </nav>
+            <div class="barra-acoes">
+                <button class="link-botao" id="sair" type="button">Sair</button><a class="link-perfil" href="usuario.html" aria-label="Minha conta"><span
+                        class="avatar perfil" data-avatar-nome="Atleta" aria-hidden="true">AT</span></a>
+            </div>
+        </header>
+
+        <main id="conteudo">
+            <noscript>
+                <p class="aviso-pagina">Ative o JavaScript para acessar seus grupos.</p>
+            </noscript>
+            <div class="cabecalho-pagina">
+                <div>
+                    <h1>Meus grupos</h1>
+                    <p id="resumo-grupos"></p>
+                </div>
+            </div>
+
+            <div class="filtro-cartoes" id="filtro-grupos" hidden>
+                <label for="buscar-grupo">Pesquisar</label>
+                <input id="buscar-grupo" type="search" placeholder="Nome do grupo" autocomplete="off">
+                <span id="resultado-busca" role="status"></span>
+            </div>
+            <p class="busca-vazia" id="busca-vazia" hidden>Nenhum grupo com esse nome.</p>
+
+            <div class="aviso-pagina" id="estado-carregamento" role="status" data-estado="carregando">
+                <p id="mensagem-carregamento">Carregando seus grupos…</p>
+                <button class="botao secundario" id="tentar-novamente" type="button" hidden>Tentar novamente</button>
+            </div>
+
+            <div class="grade-grupos-pagina" id="lista-grupos" hidden></div>
+
+            <div class="estado-sem-grupos" id="estado-sem-grupos" hidden>
+                <span class="icone-grupo icone-comunidade" aria-hidden="true"><img
+                        src="assets/images/icons/grupo.svg" alt=""></span>
+                <div>
+                    <h2>Nenhum grupo ainda</h2>
+                    <p>Busque um grupo pelo nome e entre com a senha que o dono te passar.</p>
+                </div>
+                <a class="botao secundario" href="pagina_principal.html?explorar">Explorar grupos</a>
+            </div>
+            <p class="sr-only" id="anuncio" role="status"></p>
+        </main>
+    </div>
+
+    <template id="modelo-cartao-grupo">
+        <article class="cartao-grupo-pagina">
+            <div class="topo-grupo">
+                <div class="titulo-grupo">
+                    <h2></h2>
+                    <span class="tag-cartao"></span>
+                </div>
+                <p class="dono-grupo"></p>
+            </div>
+            <div class="corpo-grupo">
+                <p class="rotulo-cartao">Modalidades do grupo</p>
+                <ul class="lista-modalidades"></ul>
+                <p class="vazio-cartao" hidden></p>
+            </div>
+            <div class="cartao-base">
+                <a class="botao pequeno" data-acao="inspecionar">Inspecionar <span aria-hidden="true"><svg class="icone-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M5 19 19 5M5 5h14v14" />
+                        </svg></span></a>
+            </div>
+        </article>
+    </template>
+</body>
+
+</html>

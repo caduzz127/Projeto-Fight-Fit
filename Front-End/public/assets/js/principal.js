@@ -4,7 +4,7 @@ import { obterSessao } from './api/sessao.js';
 import { adaptarGrupos, adaptarTreinos } from './dados/adaptar-principal.js';
 import { iniciarAutenticacaoPrincipal, tratarSessaoExpirada } from './ui/compartilhado/autenticacao-principal.js';
 import { iniciarNavegacaoPrincipal } from './ui/compartilhado/navegacao-principal.js';
-import { mostrarTodosGrupos, renderizarPrincipal } from './ui/principal/renderizar-principal.js';
+import { renderizarPrincipal } from './ui/principal/renderizar-principal.js';
 import { iniciarGrupos } from './ui/principal/grupos.js';
 
 if (iniciarAutenticacaoPrincipal()) {
@@ -41,6 +41,11 @@ if (iniciarAutenticacaoPrincipal()) {
       botoesAtalhos.forEach(botao => { botao.disabled = false; });
       // Links de outras telas (ex.: pagina_principal.html#grupos) só têm destino após carregar.
       if (location.hash) document.querySelector(location.hash)?.scrollIntoView();
+      // Outras telas chegam com ?explorar para abrir a busca de grupos.
+      if (new URLSearchParams(location.search).has('explorar')) {
+        history.replaceState(null, '', location.pathname + location.hash);
+        document.querySelector('#dialogo-explorar').showModal();
+      }
       return true;
     } catch (erro) {
       if (atual.signal.aborted || tratarSessaoExpirada(erro)) return false;
@@ -56,12 +61,6 @@ if (iniciarAutenticacaoPrincipal()) {
 
   iniciarNavegacaoPrincipal();
   iniciarGrupos(dados, carregar);
-  const verTodosGrupos = document.querySelector('#ver-todos-grupos');
-  verTodosGrupos.addEventListener('click', () => {
-    const expandir = verTodosGrupos.getAttribute('aria-expanded') !== 'true';
-    mostrarTodosGrupos(expandir);
-    if (expandir) document.querySelector('.grade-grupos [data-excedente]')?.querySelector('[data-grupo]')?.focus();
-  });
   tentar.addEventListener('click', carregar);
   window.addEventListener('pagehide', () => controle?.abort(), { once: true });
   carregar();

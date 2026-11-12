@@ -39,3 +39,37 @@
 .formulario-dialogo>.acoes-formulario { margin-top: 6px; }
 .formulario-dialogo .status-cartao { margin: 0; }
 .formulario-dialogo input:disabled { opacity: .6; }
+
+/* Pesquisa local nas listas de cartões. */
+.filtro-cartoes { display: flex; align-items: center; gap: 16px; margin: 0 0 22px; }
+.filtro-cartoes label, #resultado-busca { color: var(--muted); font-size: 12px; }
+.filtro-cartoes input { min-width: 0; width: min(100%, 360px); padding: 12px 14px; border: 1px solid var(--borda); border-radius: 5px; background: #181c15; color: var(--texto); font: inherit; font-size: 13px; }
+#resultado-busca { white-space: nowrap; }
+.busca-vazia { margin: 0 0 22px; padding: 30px; border: 1px dashed #465337; border-radius: 8px; color: var(--muted); font-size: 13px; text-align: center; }
+@media(max-width: 650px) {
+    .filtro-cartoes { display: grid; grid-template-columns: 1fr auto; gap: 10px; }
+    .filtro-cartoes input { grid-column: 1 / -1; grid-row: 2; width: 100%; }
+}
+
+/* Edição do nome no próprio cartão (treinos e exercícios de grupo). */
+.cartao-acoes { display: flex; gap: 8px; flex-shrink: 0; }
+.form-renomear { display: grid; gap: 12px; padding: 18px 22px 20px; border-bottom: 1px solid var(--borda); background: #171c13; border-radius: 9px 9px 0 0; }
+.form-renomear label { display: grid; gap: 8px; color: var(--muted); font-size: 12px; }
+.form-renomear input { min-width: 0; width: 100%; padding: 11px 13px; border: 1px solid #465337; border-radius: 5px; color: var(--texto); background: #10150f; font: inherit; font-size: 14px; }
+.form-renomear input:disabled { opacity: .6; }
+.form-renomear .status-cartao { margin: 0; }
+
+/* Cartões com título, ações e rodapé. */
+.cartao-topo { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 14px 14px 22px; border-bottom: 1px solid var(--borda); }
+.cartao-topo h2 { margin: 0; font-size: 16px; line-height: 1.4; letter-spacing: -.3px; overflow-wrap: anywhere; }
+.cartao-base { margin-top: auto; padding: 20px 22px 22px; }
+.confirmacao { margin-top: auto; padding: 18px 22px 22px; }
+.campo { display: grid; gap: 8px; min-width: 0; }
+.estado-sem-grupos h2 { margin: 0 0 10px; font-size: 18px; letter-spacing: -.4px; }
+
+/* Dica abaixo de um campo e área de ação destrutiva. */
+.dica-campo { color: #8a9580; font-size: 12px; line-height: 1.6; }
+.zona-perigo { display: grid; gap: 14px; padding: 22px; border: 1px solid #6b3426; border-radius: 9px; background: #21140f; }
+.zona-perigo h3 { margin: 0; color: #ffc0aa; font-size: 17px; }
+.zona-perigo p { margin: 0; color: #d9b8ac; font-size: 13px; line-height: 1.7; }
+.zona-perigo .status-cartao { margin: 0; }

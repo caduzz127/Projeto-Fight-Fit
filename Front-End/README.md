@@ -21,16 +21,21 @@ public/
 ├── pagina_principal.html   visão geral
 ├── treinos.html            lista de treinos
 ├── usuario.html            conta do usuário
+├── grupos.html             lista de grupos
+├── grupo_detalhes.html     detalhe do grupo (?id=)
+├── grupo_ranking.html      ranking de um exercício do grupo (?id=)
 ├── treino_detalhes.html    detalhe do treino (?id=)
 └── assets/
     ├── css/                styles.css (index), principal.css, componentes.css,
-    │                       treinos.css, usuario.css
+    │                       treinos.css, usuario.css, grupos.css
     └── js/
-        ├── app.js, principal.js, treinos.js, treino_detalhes.js, usuario.js   entrada de cada página
+        ├── app.js, principal.js, treinos.js, treino_detalhes.js, usuario.js,
+        │   grupos.js, grupo_detalhes.js, grupo_ranking.js   entrada de cada página
         ├── api/            chamadas à API, por recurso
         │   ├── index/  grupos/  treinos/  exercicios/  usuarios/
+        │   ├── exercicios-grupo/  participantes/
         │   └── config.js, requisicao.js, sessao.js
-        ├── dados/          adaptadores das respostas da API
+        ├── dados/          adaptadores das respostas da API e ordenação do ranking
         └── ui/             comportamento da tela, por página
             ├── index/          alternar-abas, mostrar-senha, validar-senhas,
             │                   formulario, atualizar-ano, digitar-titulo
@@ -38,8 +43,9 @@ public/
             ├── treinos/        lista-treinos, novo-treino, filtrar-treinos
             ├── treino_detalhes/ exercicios-treino
             ├── usuario/        conta
+            ├── grupos/  grupo_detalhes/  grupo_ranking/
             └── compartilhado/  autenticacao-principal, navegacao-principal, pagina-base,
-                                avatar-iniciais, icones, rotas
+                                avatar-iniciais, icones, rotas, filtrar-cartoes
 ```
 
 Cada página tem uma pasta em `ui/` com o que só ela usa. O que mais de uma página
@@ -209,6 +215,26 @@ Edição e exclusão acontecem no próprio cartão; só a criação de treino us
 Na página principal, as seções Meus grupos e Meus treinos mostram só os dois
 primeiros itens. **Ver todos os treinos** leva a `treinos.html`; **Ver todos os grupos**
 mostra os demais grupos na própria página até existir uma tela de grupos.
+
+## Telas de grupo
+
+- `grupos.html` (`assets/js/grupos.js`): cartões com nome, tag, dono e as modalidades
+  (exercícios) do grupo, e **Inspecionar**. Pesquisa pelo nome. A lista do usuário não
+  traz o dono nem os exercícios, então cada grupo busca `/grupos/buscar-pelo-id/{id}` e
+  os exercícios em paralelo; se um falhar, só aquele cartão avisa.
+- `grupo_detalhes.html?id=` (`assets/js/grupo_detalhes.js`): nome, tag, administrador e
+  um cartão por exercício com os integrantes (na ordem do ranking) e **Ver ranking**.
+  Administradores renomeiam o exercício pelo lápis. A engrenagem abre as configurações:
+  editar nome e senha (administradores), excluir (dono) e sair (quem não é dono).
+  A tela confere se o seu nome está entre os membros, porque a busca por id não confere.
+- `grupo_ranking.html?id=<exercício>` (`assets/js/grupo_ranking.js`): pódio do 1º ao 3º
+  com medalhas e, do 4º em diante, barras com a carga em relação à do líder.
+  `dados/ranking.js` ordena: a carga define a posição; repetições e depois séries
+  desempatam; empate total divide a posição (1º, 1º, 3º). As animações respeitam a
+  preferência de movimento reduzido.
+- Exercícios de um grupo: não há rota que liste todos, então
+  `api/exercicios-grupo/listar.js` usa `GET /exercicio-grupo/buscar/{id_grupo}/%`
+  (o `%` vira curinga no ILIKE). Trocar quando existir uma rota própria.
 
 ## Tela da conta
 

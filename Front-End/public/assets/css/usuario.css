@@ -20,13 +20,8 @@
 #status-visualizar[data-tipo="sucesso"] { color: var(--verde); }
 
 .form-conta { display: grid; gap: 18px; max-width: 560px; }
-.dica-campo { color: #8a9580; font-size: 12px; line-height: 1.6; }
 .form-conta .status-cartao { margin: 0; }
 
-.zona-perigo { display: grid; gap: 14px; padding: 22px; border: 1px solid #6b3426; border-radius: 9px; background: #21140f; }
-.zona-perigo h3 { margin: 0; color: #ffc0aa; font-size: 17px; }
-.zona-perigo p { margin: 0; color: #d9b8ac; font-size: 13px; line-height: 1.7; }
-.zona-perigo .status-cartao { margin: 0; }
 
 @media(max-width: 650px) {
     .cartao-conta { padding: 22px; }

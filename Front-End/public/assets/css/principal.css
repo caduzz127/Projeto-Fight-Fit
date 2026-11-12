@@ -217,18 +217,14 @@ select:focus-visible { outline: 2px solid var(--verde); outline-offset: 4px; }
     border-radius: 5px; color: var(--texto); background: #10150f; font: inherit; font-size: 14px;
 }
 .formulario-dialogo>.botao { margin-top: 6px; }
-.lista-integrantes { list-style: none; padding: 0; margin: 0; }
-.lista-integrantes li { display: flex; justify-content: space-between; gap: 15px; border-bottom: 1px solid var(--borda); padding: 16px 0; font-size: 13px; }
-.lista-integrantes small { color: var(--muted); font-size: 10px; }
 .detalhe-exercicio { cursor: default; }
 #estado-carregamento { margin-bottom: 25px; }
 #estado-carregamento[data-estado="erro"] { color: #ffc0aa; }
 #estado-carregamento p { line-height: 1.8; }
-#status-detalhes-grupo, #status-explorar { line-height: 1.8; }
+#status-explorar { line-height: 1.8; }
 
 /* Título dos diálogos na mesma linha do botão de fechar. */
 .dialogo-topo h2 { margin: 0; overflow-wrap: anywhere; }
-#tag-dialogo-grupo { margin: -12px 0 12px; }
 svg.icone-navegacao { flex-shrink: 0; }
 .proximo-topo .sobretitulo, .convite-primeiro-grupo>.sobretitulo { font-size: 11px; }
 .proximo-conteudo>.texto-verde { font-size: 11px; }
